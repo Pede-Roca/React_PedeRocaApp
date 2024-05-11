@@ -1,0 +1,32 @@
+.logo {
+    width: 150px;
+    padding: 5px;
+}
+
+.CaixaLogo {
+    background: #f2f2f2;
+    width: 100%;
+    text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+    .DesktopBanner {
+        display: none;
+    }
+    .mobileNavbar {
+        margin-top: 8px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .DesktopBanner {
+        margin: 8px 5% 0px 5%;
+        border-radius: 10px;
+    }
+    .mobileNavbar{
+        display: none;
+    }
+}
+    

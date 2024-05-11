@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Index from './Components/Index/Index'
+import FooterDesktop from './Components/FooterDesktop/FooterDesktop'
+import Products from './Components/Products/Products'
+import { getDocs, collection } from 'firebase/firestore'
+import { db } from './firebase/config'
 
 function App() {
   const [count, setCount] = useState(0)
 
+   {/* Conexão com banco de dados noSQL Firestore */}
+  const [produtos, setProdutos] = useState([])
+  const produtosCollectionRef = collection(db, 'tb_produtos')
+
+  useEffect(() => {
+    const getProdutos = async () => {
+      const data = await getDocs(produtosCollectionRef)
+      setProdutos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+    getProdutos()
+  }, [])
+
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Index />
+      <FooterDesktop />
+      <Products list={produtos} />
     </>
   )
 }
