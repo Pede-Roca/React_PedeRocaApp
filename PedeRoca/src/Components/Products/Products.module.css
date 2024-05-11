@@ -1,0 +1,257 @@
+.Btn_Menu {
+    border-radius: 10px;
+    margin: 5px;
+    background-color: #7C8C03;
+    color: #f2f2f2;
+    padding: 5px;
+}
+
+#filtroPesquisa1 {
+    margin: 10px auto 5px auto;
+    border: none;
+    border-radius: 5px;
+    background: #f2f2f2;
+    width: 90%;
+    box-shadow: 0px 0px 5px 5px;
+  }
+  
+  #TamanhoFormPesquisa{
+      width: 90%;
+  }
+  
+  #filtroPesquisa {
+      border-radius: 10px 0px 0px 10px;
+      border: 1px solid #7C8C03;
+      min-width: 300px;
+  }
+  
+  #corPesquisa {
+      color: #f2f2f2;
+      font-weight: bold;
+  }
+  
+  
+  .bgFiltro {
+    background: #7C8C03;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 0px 5px 5px 0px;
+  }
+  
+  .bgFiltro:hover {
+    background: rgba(124, 140, 3, 0.5);
+  }
+  
+
+.geralCard {
+    background: #F2F2F2;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.geralCard:hover {
+    box-shadow: 0px 0px 3px 3px #7C8C03;
+  }
+
+.CartaoProduto{
+    margin: 0 auto;
+    width: 80%;
+}
+
+.lastProductSpace {
+  height: 500px;
+}
+
+@media (max-width: 767px) {
+    .geralCard {
+      width: 100%;
+    }
+    .imagemVenda {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .tamanhoImgVenda {
+      width: 40vw;
+      border-radius: 10px;
+      border: 1px solid #7C8C03;
+    }
+    .posicaoFavorito {
+      position: absolute;
+      right: 0;
+      margin-right: 20px;
+    }
+    #tamanhoFavorito {
+      font-size: 1.4rem;
+      color: #A83C01;
+    }
+    .posicaoFavorito button {
+      border: none;
+      border-radius: 50%;
+    }
+    .posicaoPreco {
+      position: absolute;
+      background: #A83C01;
+      color: #F2F2F2;
+      font-size: 1.2rem;
+      left: 0;
+      margin-left: 15px;
+      padding: 2px 5px;
+      border-radius: 5px;
+    }
+  
+    #nomeProduto {
+      padding: 5px 0px;
+    }
+    #nomeProduto h5, #nomeProduto .h5 {
+      text-align: center;
+      background: #7C8C03;
+      color: white;
+      padding: 5px 0px;
+      text-transform: uppercase;
+      border-radius: 5px;
+    }
+    #nomeProduto p {
+      text-align: justify;
+      padding: 0px 5px;
+    }
+  
+   #quantidadeProduto {
+      border-radius: 5px 0px 0px 5px;
+      border: 1px solid #7C8C03;
+      text-align: center;
+      width:50%;
+   }
+  
+   #btn_addcarrinho{
+      border-radius: 0px 5px  5px 0px;
+      padding: 5px;
+      display: inline;
+      background: #7C8C03;
+      color: #f2f2f2;
+      width:49%
+   }
+  
+    .valorTotalProduto {
+      border: 1px solid #7C8C03;
+      border-radius: 0px 5px 0px 0px;
+      text-align: center;
+    }
+    .valorTotalProduto::before {
+      content: "Total: R$ ";
+    }
+    .btn-group {
+      display: flex;
+      width: 100%;
+    }
+    .btnComprar,
+    .btnCarrinho {
+      flex-grow: 1;
+    }
+    .btnComprar {
+      background: #7C8C03;
+      border: 1px solid black;
+      border-radius: 0px 0px 0px 5px;
+      color: #f2f2f2;
+    }
+    .btnCarrinho {
+      background: #7C8C03;
+      border: 1px solid black;
+      border-radius: 0px 0px 5px 0px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .geralCard {
+      width: 18rem;
+    }
+
+    .tamanhoImgVenda {
+      max-width: 265px;
+      border-radius: 10px;
+      border: 1px solid #7C8C03;
+    }
+    .posicaoFavorito {
+      position: absolute;
+      margin-left: 230px;
+      margin-top: 2px;
+      color: #A83C01;
+    }
+    .posicaoFavorito button {
+      border: none;
+      border-radius: 50%;
+      background: white;
+    }
+    .tamanhoFavorito {
+      font-size: 1.5rem;
+      color: #A83C01;
+    }
+    .posicaoPreco {
+      position: absolute;
+      background: #A83C01;
+      color: #F2F2F2;
+      margin-right: 223px;
+      padding: 5px 15px;
+      border-radius: 10px 0px 10px 0px;
+    }
+    #nomeProduto {
+      padding: 5px 0px;
+    }
+    #nomeProduto h5, #nomeProduto .h5 {
+      text-align: center;
+      background: #7C8C03;
+      color: white;
+      padding: 5px 0px;
+      text-transform: uppercase;
+      border-radius: 5px;
+    }
+    #nomeProduto p {
+      text-align: justify;
+      padding: 0px 5px;
+      height: 110px;
+    }
+    #quantidadeProduto {
+      width: 50%;
+      border-radius: 5px 0px 0px 5px;
+      border: 1px solid #7C8C03;
+      text-align: center;
+    }
+  
+  #btn_addcarrinho{
+      width: 50%;
+      color: #f2f2f2;
+      background: #7C8C03;
+      border-radius: 0px 5px 5px 0px;
+  }
+  
+      .valorTotalProduto {
+          border: 1px solid #7C8C03;
+          border-radius: 0px 5px 0px 0px;
+          width: 50%;
+          text-align: center;
+      }
+    .valorTotalProduto::before {
+      content: "Total: R$ ";
+    }
+    .btnComprar {
+      background: #7C8C03;
+      border: 1px solid black;
+      border-right: none;
+      border-radius: 0px 0px 0px 5px;
+      width: 133.5px;
+      color: #f2f2f2;
+    }
+    .btnCarrinho {
+      background: #7C8C03;
+      border: 1px solid black;
+      border-radius: 0px 0px 5px 0px;
+      width: 133.5px;
+    }
+    .tamanhoCarrinho {
+      color: #f2f2f2;
+    }
+    .tamanhoCarrinho::after {
+      content: " Carrinho";
+    }
+}
+

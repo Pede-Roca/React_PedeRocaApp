@@ -1,0 +1,4 @@
+.BgOffCanvas {
+    background: linear-gradient(320deg, rgba(217, 217, 217, 0.40) 0%, rgba(217, 217, 217, 0.50) 100%);
+    backdrop-filter: blur(20px);
+}
