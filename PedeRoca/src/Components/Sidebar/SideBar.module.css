@@ -1,4 +1,72 @@
+
 .BgOffCanvas {
     background: linear-gradient(320deg, rgba(217, 217, 217, 0.40) 0%, rgba(217, 217, 217, 0.50) 100%);
     backdrop-filter: blur(20px);
+}
+
+.bg-glass{
+    background: linear-gradient(320deg, rgba(217, 217, 217, 0.40) 0%, rgba(217, 217, 217, 0.50) 100%);
+    backdrop-filter: blur(20px);
+}
+
+.titulo {
+    font-size: 1.5rem;
+    color: #7C8C03;
+    font-weight: bold;
+}
+
+#Button{
+    background-color: #7C8C03;
+    color: white;
+    border: none;
+    box-shadow: 0px 0px 0px 0px 3px 4px black;
+}
+
+#ImgNavBTN{
+    color: #f2f2f2;
+}
+
+.NavSideBar {
+    position: absolute;
+    top: 50px;
+    left: -45px;
+    width: 50px;
+}
+
+.btnNavCart, .btnNavUser, .btnNavInfo {
+        color: #7C8C03;
+        background-color: white;
+        border: none;
+        margin: 5px;
+        border-radius: 10px 0px 0px 10px;
+        font-size: 2rem;
+}
+
+.btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover {
+    color: #f2f2f2;
+    border: none;
+    background-color: #7C8C03;
+}
+
+.btnNavCart:active, .btnNavUser:active, .btnNavInfo:active {
+    color: #f2f2f2;
+    border: none;
+    background-color: #7C8C03;
+}
+
+.btnNavCart {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+@media (max-width: 767px) { 
+    #Button { 
+        display: none; 
+    } 
+    
+}
+
+@media (min-width: 768px) { 
+
 }

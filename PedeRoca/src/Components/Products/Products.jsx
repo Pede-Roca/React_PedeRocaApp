@@ -2,6 +2,7 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from './Products.module.css'
+import SideBar from '../Sidebar/SideBar'
 
 const Products = (props) => {
   return (
@@ -13,6 +14,7 @@ const Products = (props) => {
                     <i className='bi bi-search' id={styles.corPesquisa}></i>
                 </button>
             </form>
+            <SideBar />
         </span>
         <section className='px-2 py-2 d-flex flex-wrap gap-3 justify-content-center align-content-center' id='CartaoProduto'>
             {

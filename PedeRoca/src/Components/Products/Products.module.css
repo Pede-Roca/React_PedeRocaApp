@@ -16,7 +16,8 @@
   }
   
   #TamanhoFormPesquisa{
-      width: 90%;
+      width: 85%;
+      margin-right: 1%;
   }
   
   #filtroPesquisa {
