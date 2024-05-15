@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Index from './Components/Index/Index'
+import Home from './pages/Home/Home'
 import FooterDesktop from './Components/FooterDesktop/FooterDesktop'
 import Products from './Components/Products/Products'
 import { getDocs, collection } from 'firebase/firestore'
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-      <Index />
+      <Home />
       <FooterDesktop />
       <Products list={produtos} />
     </>

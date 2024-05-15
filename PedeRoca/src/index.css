@@ -23,7 +23,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Merienda", Times, serif;
 }
 
-p, span, a, li, label, input, textarea, select, button{
+p, span, a, li, label, input, textarea, select, button, i{
     font-family: "Ubuntu", Tahoma, Verdana, sans-serif;
 }
 
