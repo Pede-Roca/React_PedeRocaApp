@@ -1,5 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import '../src/App.css'
 import Home from './pages/Home/Home'
 import FooterDesktop from './Components/FooterDesktop/FooterDesktop'
 import Products from './Components/Products/Products'
@@ -30,6 +31,11 @@ function App() {
     onAuthStateChanged(auth, user => {
       setUser(user)})
   }, [auth])
+
+  if(loadingUser) {
+    return <div className='loadingAnimation'></div>
+  }
+
   return (
     <>
     <AuthProvider value={{ user }}>
