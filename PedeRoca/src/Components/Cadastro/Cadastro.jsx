@@ -1,11 +1,10 @@
 import React from 'react'
-import styles from './Cadastro.module.css'
 
 const Cadastro = () => {
   return (
-    <>
-        <h1>cadastro</h1>
-    </>
+    <div>
+      <h1>Cadastrar usuário</h1>
+    </div>
   )
 }
 
