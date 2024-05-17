@@ -1,0 +1,23 @@
+.imgLogoLogin {
+    width: 250px;
+    margin: 10px auto;
+    padding: 30px;
+    display: block;
+}
+
+.titleInfo {
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: #7C8C03;
+    display: flex;
+    font-size: 20px;
+}
+
+.Info {
+    margin: 10px;
+    font-size: 20;
+}
