@@ -5,13 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState, useEffect } from 'react'
 import { userAuthentication } from '../../hooks/userAuthentication'
 import { useAuthValue } from '../../context/AuthContext'
+import Cadastro from '../Cadastro/Cadastro'
+import Usuario from '../Usuario/Usuario'
 
 const Login = () => {
   const [pageRender, setPageRender] = useState(0) //provisório até arrumar o "const { user } = useAuthValue()"
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
-  //const { user } = useAuthValue()
+  const { user } = useAuthValue()
   const { login, error: authError, loading } = userAuthentication()
   
 
@@ -22,9 +24,6 @@ const Login = () => {
       password
     }
     const res = await login(usuario)
-
-    console.table(res)
-    setPageRender(1)
   }
 
   useEffect(() => {
@@ -34,10 +33,10 @@ const Login = () => {
   }, [authError])
   return (
     <>
-    {pageRender == 1 && 
-     <h1>Usuário Logado</h1>
+    {user &&
+     <Usuario />
     }
-    {pageRender == 0 && 
+    {!user && 
         <div>
         <main>
           <img src={logo} alt="Logo Pede Roça" className={styles.imgLogoLogin} />
@@ -51,16 +50,16 @@ const Login = () => {
             <input type="password" name='password' required value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' id='floatingInput' placeholder='name@exemple.com' />
             <label type='password' htmlFor='floatingInput'>Senha</label>
           </div>
-          <div className='form-group d-flex justify-content-between'>
-            <button className={styles.btnHelp}>Recuperar Senha</button>
-            <button className={styles.btnHelp}>Cadastro</button>
-          </div>
           <div className='form-group'>
             {!loading && <button className='btn' id={styles.btnLogin}>Logar</button>}
             {loading && <button className='btn' id={styles.btnLogin} disabled>Logando...</button>}
             {error && <div className='mt-3 alert alert-danger'>{error}</div>}
           </div>
         </form>
+        <div className='d-flex justify-content-between'>
+            <button className={styles.btnHelp}>Recuperar Senha</button>
+            <button onClick={() => setPageRender(1)} className={styles.btnHelp}>Cadastro</button>
+          </div>
       </div>
     }
     </>
