@@ -15,7 +15,11 @@
     font-size: 1.4rem;
     border-radius: 10px;
     margin-top: 20px;
-    width: 100%
+    width: 100%;
+  }
+
+  #btnLogin:hover{
+    background: #6A7A03;
   }
 
   .btnHelp{
@@ -23,4 +27,5 @@
     color: rgb(0, 132, 255);
     text-decoration: underline;
     border: none;
+    margin-top: 10px;
   }

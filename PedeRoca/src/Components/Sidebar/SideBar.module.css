@@ -4,11 +4,6 @@
     backdrop-filter: blur(20px);
 }
 
-.bg-glass{
-    background: linear-gradient(320deg, rgba(217, 217, 217, 0.40) 0%, rgba(217, 217, 217, 0.50) 100%);
-    backdrop-filter: blur(20px);
-}
-
 .titulo {
     font-size: 1.5rem;
     color: #7C8C03;
@@ -20,11 +15,27 @@
     color: white;
     border: none;
     box-shadow: 0px 0px 0px 0px 3px 4px black;
+    box-shadow: 0xp 0xp 2px 2px;
+    padding: 8px 18px;
+}
+
+#Button:hover{
+    background-color: #f2f2f2;
+    color: #7C8C03;
+    border: 1px solid #7C8C03;
+    font-weight: bold;
+    padding: 7px 18px;
+
 }
 
 #ImgNavBTN{
     color: #f2f2f2;
 }
+
+#ImgNavBTN:hover{
+    font-weight: bold;
+}
+
 
 .NavSideBar {
     position: absolute;
@@ -33,40 +44,98 @@
     width: 50px;
 }
 
-.btnNavCart, .btnNavUser, .btnNavInfo {
+@media screen and (max-width: 767px) {
+    .NavSideBar {
+        display: none;
+    }
+    .hideMobile {
+        display: none;
+    }
+
+    #Button{
+        position: fixed;
+        bottom: 0;
+        background-color: #7C8C03;
+        color: #f2f2f2;
+        width: 100%;
+        border-radius: 10px 10px 0px 0px;
+        font-size: 1.5rem;
+    }
+
+    .hideNavMobile{
+        background-color: white;
+        display: block;
+        text-align: center;
+        column-count: 3;
+        column-gap: 20px;
+        column-rule: 1px solid #7C8C03;
+        background-color: #7C8C03;
+        border-radius: 10px 10px 0px 0px;
+        margin: 0px;
+    }
+
+    .btnNavCart, .btnNavUser, .btnNavInfo {
+        color: #7C8C03;
+        background-color: white;
+        border: none;
+        margin-top: 10px;
+        min-width: 50px;
+        border-radius: 10px;
+        font-size: 2rem;
+        box-shadow: 0px 0px 1px 2px 3px black;
+    }
+
+    .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover {
+        border: none;
+        background-color: #96a80e;
+    }
+
+    .footer{
+        text-align: center;
+        padding: 2px;
+    }
+
+    .separador{
+        display: inline-block;
+    }
+
+    .nomeNav{
+        color: white;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .hideNavMobile{
+        display: none;
+    }
+
+    .separador{
+        display: none;
+    }
+    .btnNavCart, .btnNavUser, .btnNavInfo {
         color: #7C8C03;
         background-color: white;
         border: none;
         margin: 5px;
         border-radius: 10px 0px 0px 10px;
         font-size: 2rem;
-}
+    }
 
-.btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover {
+    .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover {
     color: #f2f2f2;
     border: none;
     background-color: #7C8C03;
-}
+    }
 
-.btnNavCart:active, .btnNavUser:active, .btnNavInfo:active {
+    .btnNavCart:active, .btnNavUser:active, .btnNavInfo:active {
     color: #f2f2f2;
     border: none;
     background-color: #7C8C03;
-}
+    }
 
-.btnNavCart {
+    .btnNavCart {
     position: relative;
     top: 0;
     left: 0;
-}
-
-@media (max-width: 767px) { 
-    #Button { 
-        display: none; 
-    } 
-    
-}
-
-@media (min-width: 768px) { 
-
+    }
 }
