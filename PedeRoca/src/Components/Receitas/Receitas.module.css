@@ -1,0 +1,44 @@
+.textoIntro {
+    text-indent: 10px;
+    text-align: justify;
+    margin: 2px 5px;
+}
+
+.respostaGPT {
+    min-height: 200px;
+    min-width: 100%;
+    border: 1px solid #7C8C03;
+    visibility: visible;
+    margin: 0px 2px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.labelPrompt {
+    width: 100%;
+    color: #7C8C03;
+    font-weight: bold;
+}
+
+.ImpPrompt{
+    min-width: 70%;
+    border: 1px solid #7C8C03;
+    border-radius: 5px 0px 0px 5px;
+    margin-bottom: 10px;
+}
+
+.btnPrompt{
+    background-color: #7C8C03;
+    color: #f2f2f2;
+    border-radius: 0px 5px 5px 0px;
+    border: 1px solid #7C8C03;
+    width: 30%;
+}
+
+.btnClean{
+    background-color: #7C8C03;
+    color: #f2f2f2;
+    border-radius: 0px 0px 10px 10px;
+    border: 1px solid #7C8C03;
+    width: 100%;
+    margin: 0px 2px;
+}

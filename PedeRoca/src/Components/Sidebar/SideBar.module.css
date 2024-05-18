@@ -5,9 +5,19 @@
 }
 
 .titulo {
-    font-size: 1.5rem;
-    color: #7C8C03;
+    color: #f2f2f2;
     font-weight: bold;
+    text-align: start;
+    display: block;
+    width: 100%;
+    margin: 2px auto;
+    text-align: center;
+}
+
+.bgTitulo{
+    background-color: #7C8C03;
+    width: 100%;
+    border-radius: 2px;
 }
 
 #Button{
@@ -66,7 +76,7 @@
         background-color: white;
         display: block;
         text-align: center;
-        column-count: 3;
+        column-count: 4;
         column-gap: 20px;
         column-rule: 1px solid #7C8C03;
         background-color: #7C8C03;
@@ -74,7 +84,7 @@
         margin: 0px;
     }
 
-    .btnNavCart, .btnNavUser, .btnNavInfo {
+    .btnNavCart, .btnNavUser, .btnNavInfo, .btnReceitas {
         color: #7C8C03;
         background-color: white;
         border: none;
@@ -85,7 +95,7 @@
         box-shadow: 0px 0px 1px 2px 3px black;
     }
 
-    .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover {
+    .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover, .btnReceitas:hover {
         border: none;
         background-color: #96a80e;
     }
@@ -112,7 +122,7 @@
     .separador{
         display: none;
     }
-    .btnNavCart, .btnNavUser, .btnNavInfo {
+    .btnNavCart, .btnNavUser, .btnNavInfo, .btnReceitas {
         color: #7C8C03;
         background-color: white;
         border: none;
@@ -121,13 +131,13 @@
         font-size: 2rem;
     }
 
-    .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover {
+    .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover, .btnReceitas:hover {
     color: #f2f2f2;
     border: none;
     background-color: #7C8C03;
     }
 
-    .btnNavCart:active, .btnNavUser:active, .btnNavInfo:active {
+    .btnNavCart:active, .btnNavUser:active, .btnNavInfo:active, .btnReceitas:active {
     color: #f2f2f2;
     border: none;
     background-color: #7C8C03;
