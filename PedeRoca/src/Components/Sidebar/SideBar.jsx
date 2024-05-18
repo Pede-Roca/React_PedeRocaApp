@@ -5,13 +5,15 @@ import './SideBar.module.css'
 import Login from '../Login/Login'
 import Carrinho from '../Carrinho/Carrinho'
 import Info from '../Info/Info'
+import Receitas from '../Receitas/Receitas'
 
-const SideBar = () => {
+const SideBar = (props) => {
   const [show, setShow] = useState(false)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const [menuNav, setMenuNav] = useState(1)
+  const [isActive, setIsActive] = useState(false)
 
   return (
     <>
@@ -21,16 +23,24 @@ const SideBar = () => {
 
       <Offcanvas show={show} onHide={handleClose} placement="end" className='hideMobile'>
         <Offcanvas.Header closeButton>
+          <div className={styles.bgTitulo}>
+            {menuNav == 0 && <h4 className={styles.titulo}>Carrinho</h4>}
+            {menuNav == 1 && <h4 className={styles.titulo}>Login</h4>}
+            {menuNav == 2 && <h4 className={styles.titulo}>Infomações</h4>}
+            {menuNav == 3 && <h4 className={styles.titulo}>Receitas</h4>}
+          </div>
           <div className={styles.NavSideBar}>
             <button type="button" className={styles.btnNavCart} onClick={() => setMenuNav(0)}><i className="bi bi-cart4"></i></button>
             <button type="button" className={styles.btnNavUser} onClick={() => setMenuNav(1)}><i className="bi bi-person"></i></button>
             <button type="button" className={styles.btnNavInfo} onClick={() => setMenuNav(2)}><i className="bi bi-info-lg"></i></button>
+            <button type="button" className={styles.btnReceitas} onClick={() => setMenuNav(3)}><i className="bi bi-chat-left-text"></i></button>
           </div>
         </Offcanvas.Header>
         <Offcanvas.Body>
           {menuNav == 1 && <Login />}
           {menuNav == 0 && <Carrinho />}
           {menuNav == 2 && <Info />}
+          {menuNav == 3 && <Receitas />}
         </Offcanvas.Body>
           <div className={styles.footer}>
             <div className={styles.footerContent}>
@@ -47,6 +57,10 @@ const SideBar = () => {
                   <button type="button" className={styles.btnNavInfo} onClick={() => setMenuNav(2)}><i className="bi bi-info-lg"></i></button>
                   <p className={styles.nomeNav}>Info</p>
                 </div> 
+                <div>
+                  <button type="button" className={styles.btnReceitas} onClick={() => setMenuNav(3)}><i className="bi bi-chat-left-text"></i></button>
+                  <p className={styles.nomeNav}>Receitas</p>
+                </div>
             </div>
           </div>
         </div>
