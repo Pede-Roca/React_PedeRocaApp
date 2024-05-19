@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Offcanvas, OffcanvasHeader } from 'react-bootstrap'
+import { useAuthValue } from '../../context/AuthContext'
 import styles from './SideBar.module.css'
 import './SideBar.module.css'
 import Login from '../Login/Login'
@@ -9,12 +10,10 @@ import Receitas from '../Receitas/Receitas'
 
 const SideBar = (props) => {
   const [show, setShow] = useState(false)
-
+  const { user } = useAuthValue()
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
   const [menuNav, setMenuNav] = useState(1)
-  const [isActive, setIsActive] = useState(false)
-
   return (
     <>
       <button type="button" className="btn btn-primary" id={styles.Button} onClick={handleShow}>
@@ -30,7 +29,7 @@ const SideBar = (props) => {
             {menuNav == 3 && <h4 className={styles.titulo}>Receitas</h4>}
           </div>
           <div className={styles.NavSideBar}>
-            <button type="button" className={styles.btnNavCart} onClick={() => setMenuNav(0)}><i className="bi bi-cart4"></i></button>
+            <button type="button" className={styles.btnNavCart} onClick={() => setMenuNav(0)} disabled={!user}><i className="bi bi-cart4"></i></button>
             <button type="button" className={styles.btnNavUser} onClick={() => setMenuNav(1)}><i className="bi bi-person"></i></button>
             <button type="button" className={styles.btnNavInfo} onClick={() => setMenuNav(2)}><i className="bi bi-info-lg"></i></button>
             <button type="button" className={styles.btnReceitas} onClick={() => setMenuNav(3)}><i className="bi bi-chat-left-text"></i></button>

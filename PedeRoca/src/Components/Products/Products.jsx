@@ -1,15 +1,23 @@
 import React from 'react'
+import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import styles from './Products.module.css'
 import SideBar from '../Sidebar/SideBar'
 
 const Products = (props) => {
+    const [busca , setBusca] = useState('')
+
+    const lowerBusca = busca.toLowerCase()
+
+    const ProdutosFiltrados =  props.list.filter((produto) => 
+        produto.nome.includes(lowerBusca) || produto.tipo_produto.includes(lowerBusca)
+    )
   return (
     <>
         <span className='navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline' id={styles.filtroPesquisa1}>
             <form className='d-flex' id={styles.TamanhoFormPesquisa}>
-                <input type="text" className='form-control flex-grow-1' placeholder='O que você procura? Busque por Produto/Categoria' aria-label='Search' id={styles.filtroPesquisa} />
+                <input type="text" onChange={(event) => setBusca(event.target.value)} value={busca} className='form-control flex-grow-1' placeholder='O que você procura? Busque por Produto/Categoria' aria-label='Search' id={styles.filtroPesquisa} />
                 <button className={styles.bgFiltro} type='submit'>
                     <i className='bi bi-search' id={styles.corPesquisa}></i>
                 </button>
@@ -18,7 +26,7 @@ const Products = (props) => {
         </span>
         <section className='px-2 py-2 d-flex flex-wrap gap-3 justify-content-center align-content-center' id='CartaoProduto'>
             {
-                props.list.map((produtos, i) => (
+                ProdutosFiltrados.map((produtos, i) => (
                     produtos.ativo && 
                     <div key={i} className={styles.geralCard}>
                         <div className={styles.posicaoPreco}>

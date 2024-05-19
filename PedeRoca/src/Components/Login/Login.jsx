@@ -15,8 +15,13 @@ const Login = () => {
   const [error, setError] = useState('')
   const { user } = useAuthValue()
   const { login, error: authError, loading } = userAuthentication()
-  
+  const [showOff, setShowOff] = useState(false)
 
+  const cadastar = () => {
+    setShowOff(true)
+    setPageRender(1)
+  }
+  
   const handlerSubmit = async (e) => {
     e.preventDefault()
     const usuario ={
@@ -33,10 +38,10 @@ const Login = () => {
   }, [authError])
   return (
     <>
-    {user &&
+    {user && !showOff &&
      <Usuario />
     }
-    {!user && 
+    {!user && !showOff &&
         <div>
         <main>
           <img src={logo} alt="Logo Pede Roça" className={styles.imgLogoLogin} />
@@ -58,10 +63,11 @@ const Login = () => {
         </form>
         <div className='d-flex justify-content-between'>
             <button className={styles.btnHelp}>Recuperar Senha</button>
-            <button onClick={() => setPageRender(1)} className={styles.btnHelp}>Cadastro</button>
+            <button onClick={cadastar} className={styles.btnHelp}>Cadastro</button>
           </div>
       </div>
     }
+    {!user && pageRender === 1 && <Cadastro />}
     </>
   )
 }
