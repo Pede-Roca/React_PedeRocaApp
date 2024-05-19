@@ -11,7 +11,6 @@ import { db } from './firebase/config'
 import { useEffect, useState } from 'react'
 import { AuthProvider } from './context/AuthContext'
 
-
 function App() {
   const [user, setUser] = useState(undefined)
   const { auth } = userAuthentication()
