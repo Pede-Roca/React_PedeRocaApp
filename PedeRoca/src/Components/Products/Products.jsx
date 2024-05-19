@@ -22,7 +22,7 @@ const Products = (props) => {
                     produtos.ativo && 
                     <div key={i} className={styles.geralCard}>
                         <div className={styles.posicaoPreco}>
-                            <span id='precoProduto'>R$ {produtos.preco_unitario}</span>
+                            <span id='precoProduto'>R$ {produtos.preco_unitario.toFixed(2).replace('.',',')}</span>
                         </div>
                         <div className={styles.posicaoFavorito}>
                             <button id={styles.boxFavoritoF1}>
