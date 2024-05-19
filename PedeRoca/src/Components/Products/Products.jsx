@@ -11,8 +11,9 @@ const Products = (props) => {
     const lowerBusca = busca.toLowerCase()
 
     const ProdutosFiltrados =  props.list.filter((produto) => 
-        produto.nome.includes(lowerBusca) || produto.tipo_produto.includes(lowerBusca)
+        produto.nome.toLowerCase().includes(lowerBusca) || produto.tipo_produto.toLowerCase().includes(lowerBusca)
     )
+    
   return (
     <>
         <span className='navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline' id={styles.filtroPesquisa1}>
