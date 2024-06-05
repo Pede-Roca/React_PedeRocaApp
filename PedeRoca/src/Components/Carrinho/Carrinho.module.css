@@ -1,0 +1,187 @@
+.containerEtapa{
+    width: 100%;
+    height: 68px;
+    display: flex;
+  }
+  
+  .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #A83C01;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-weight: bold;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .circle.active {
+    background-color: #A83C01;
+    color: white;
+  }
+
+  .etapa{
+    text-align: center;
+    padding: 0px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 24%;
+  }
+
+  .linhaProgresso{
+    width: 90%;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #7C8C03;
+    position: absolute;
+    margin-top: 17px;
+  }
+
+  .lixeira{
+    background: none;
+    border: none;
+    color: #A83C01;
+  }
+
+  #lixeira{
+    font-size: 1.8rem;
+  }
+
+  #minus, #add{
+    background: none;
+    border: none;
+    color: #f2f2f2;
+    font-size: 1.6rem;
+    border-radius: 50%;
+  }
+
+  #minus{
+    background: #A83C01;
+    border: #A83C01 1px solid;
+  }
+
+  #add{
+    background: #7C8C03;
+    border: #7C8C03 1px solid;
+  }
+
+  .precoProduto{
+    color: #f2f2f2;
+    background: #A83C01;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .containerCarrinho{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #7C8C03;
+    border-radius: 10px;
+    padding: 0px 5px;
+    margin: 5px 0px;
+  }
+
+  .tituloCarrinho{
+    color: #f2f2f2;
+    background: #7C8C03;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px 0px;
+    margin: 5px 0px;
+  }
+
+  .btnNext, .btnBack {
+    background: white;
+    font-size: 1.6rem;
+    padding: 5px 10px;
+    margin: 15px 20px;
+    border-radius: 50%;
+    border: none;;
+  }
+
+  .btnNext{
+    color: #7C8C03;
+    border: #7C8C03 1px solid;
+  }
+
+  .btnBack{
+    color: #A83C01;
+    border: #A83C01 1px solid;
+  }
+
+  .containerBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .containerDadosEndereco{
+    border: 1px solid #7C8C03;
+    border-radius: 5px;
+    display: flex;
+    margin: 5px 0px;
+    height: 35px;
+  }
+
+  .endLabel{
+    color: #f2f2f2;
+    background: #7C8C03;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-weight: bold;
+    width: 25%;
+    display: block;
+    text-align: center;
+    height: fit-content;
+  }
+
+  .endCampo{
+    padding: 5px;
+    display: block;
+    width: 70%;
+  }
+
+  #btnAlterar{
+    background: none;
+    border: none;
+    color: #A83C01;
+    text-align: end;
+    margin-left: 70%;
+    font-size: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .containerTipoEntrega{
+    border: 1px solid #7C8C03;
+    border-radius: 5px;
+    margin: 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    height: 35px;
+  }
+
+
+  .checkboxLabel{
+    width: 70%;
+    display: block;
+  }
+
+  .precoCkb{
+    width: 30%;
+    display: block;
+    text-align: end;
+  }
+
+  .obsCheckBox{
+    width: 100%;
+  }
+
