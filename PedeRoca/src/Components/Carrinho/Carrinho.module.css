@@ -52,6 +52,7 @@
 
   #lixeira{
     font-size: 1.8rem;
+    width: 10%;
   }
 
   #minus, #add{
@@ -60,6 +61,8 @@
     color: #f2f2f2;
     font-size: 1.6rem;
     border-radius: 50%;
+    margin: 0px 10px;
+    width: 10%;
   }
 
   #minus{
@@ -72,16 +75,50 @@
     border: #7C8C03 1px solid;
   }
 
+  .nomeProduto{
+    width: 35%;
+    margin: 0px 10px;
+  }
+
   .precoProduto{
     color: #f2f2f2;
     background: #A83C01;
     border-radius: 5px;
     padding: 5px;
+    width: 25%;
+    text-align: center;
+  }
+
+  .qtdProduto{
+    width: 10%;
+    text-align: center;
+  }
+
+  .totalCarrinho{
+    margin: 20px auto;
+    width: 80%;
+  }
+
+  .total{
+    color: white;
+    background: #A83C01;
+    border: 1px solid #A83C01;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0px 10px;
+  }
+
+  .precoTotal{
+    padding: 5px;
+    border-radius: 0px 5px 5px 0px;
+    text-align: center;
+    font-weight: bold;
   }
 
   .containerCarrinho{
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
     border: 1px solid #7C8C03;
     border-radius: 10px;
