@@ -41,7 +41,9 @@ const SideBar = (props) => {
           <div className={styles.NavSideBar}>
             <button
               type="button"
-              className={styles.btnNavCart}
+              className={`${
+                menuNav === 0 ? styles.btnNavCardActive : styles.btnNavCart
+              }`}
               onClick={() => setMenuNav(0)}
               disabled={!user}
             >
@@ -49,21 +51,27 @@ const SideBar = (props) => {
             </button>
             <button
               type="button"
-              className={styles.btnNavUser}
+              className={`${
+                menuNav === 1 ? styles.btnNavUserActive : styles.btnNavUser
+              }`}
               onClick={() => setMenuNav(1)}
             >
               <i className="bi bi-person"></i>
             </button>
             <button
               type="button"
-              className={styles.btnNavInfo}
+              className={`${
+                menuNav === 2 ? styles.btnNavInfoActive : styles.btnNavInfo
+              }`}
               onClick={() => setMenuNav(2)}
             >
               <i className="bi bi-info-lg"></i>
             </button>
             <button
               type="button"
-              className={styles.btnReceitas}
+              className={`${
+                menuNav === 3 ? styles.btnReceitasActive : styles.btnReceitas
+              }`}
               onClick={() => setMenuNav(3)}
             >
               <i className="bi bi-chat-left-text"></i>
@@ -82,7 +90,9 @@ const SideBar = (props) => {
               <div>
                 <button
                   type="button"
-                  className={styles.btnNavCart}
+                  className={`${
+                    menuNav === 0 ? styles.btnNavCardActive : styles.btnNavCart
+                  }`}
                   onClick={() => setMenuNav(0)}
                   disabled={!user}
                 >
@@ -93,7 +103,9 @@ const SideBar = (props) => {
               <div>
                 <button
                   type="button"
-                  className={styles.btnNavUser}
+                  className={`${
+                    menuNav === 1 ? styles.btnNavUserActive : styles.btnNavUser
+                  }`}
                   onClick={() => setMenuNav(1)}
                 >
                   <i className="bi bi-person"></i>
@@ -103,7 +115,9 @@ const SideBar = (props) => {
               <div>
                 <button
                   type="button"
-                  className={styles.btnNavInfo}
+                  className={`${
+                    menuNav === 2 ? styles.btnNavInfoActive : styles.btnNavInfo
+                  }`}
                   onClick={() => setMenuNav(2)}
                 >
                   <i className="bi bi-info-lg"></i>
@@ -113,7 +127,11 @@ const SideBar = (props) => {
               <div>
                 <button
                   type="button"
-                  className={styles.btnReceitas}
+                  className={`${
+                    menuNav === 3
+                      ? styles.btnReceitasActive
+                      : styles.btnReceitas
+                  }`}
                   onClick={() => setMenuNav(3)}
                 >
                   <i className="bi bi-chat-left-text"></i>
