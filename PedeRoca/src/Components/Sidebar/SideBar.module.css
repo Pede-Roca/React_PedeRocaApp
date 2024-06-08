@@ -78,15 +78,16 @@
         text-align: center;
         column-count: 4;
         column-gap: 20px;
-        column-rule: 1px solid #7C8C03;
-        background-color: #7C8C03;
+        background-color: white;
         border-radius: 10px 10px 0px 0px;
         margin: 0px;
+        border-top: 1px solid #7C8C03;
+        box-shadow: 0px -5px 18px 0px rgba(0,0,0,0.56);
     }
 
     .btnNavCart, .btnNavUser, .btnNavInfo, .btnReceitas {
-        color: #7C8C03;
-        background-color: white;
+        color: white;
+        background-color: #7C8C03;
         border: none;
         margin-top: 10px;
         min-width: 50px;
@@ -100,6 +101,17 @@
         background-color: #96a80e;
     }
 
+    .btnNavCardActive, .btnNavUserActive, .btnNavInfoActive, .btnReceitasActive{
+        color: #7C8C03;
+        background-color: white;
+        border: 1px solid #7C8C03;
+        margin-top: 10px;
+        min-width: 50px;
+        border-radius: 10px;
+        font-size: 2rem;
+        box-shadow: 0px 0px 1px 2px 3px black;
+    }
+
     .footer{
         text-align: center;
         padding: 2px;
@@ -110,7 +122,7 @@
     }
 
     .nomeNav{
-        color: white;
+        color: #7C8C03;
     }
 }
 
@@ -132,15 +144,18 @@
     }
 
     .btnNavCart:hover, .btnNavUser:hover, .btnNavInfo:hover, .btnReceitas:hover {
-    color: #f2f2f2;
-    border: none;
-    background-color: #7C8C03;
+        color: #f2f2f2;
+        border: none;
+        background-color: #7C8C03;
     }
 
-    .btnNavCart:active, .btnNavUser:active, .btnNavInfo:active, .btnReceitas:active {
-    color: #f2f2f2;
-    border: none;
-    background-color: #7C8C03;
+    .btnNavCardActive, .btnNavUserActive, .btnNavInfoActive, .btnReceitasActive {
+        color: white;
+        background-color: #7C8C03;
+        border: none;
+        margin: 5px;
+        border-radius: 10px 0px 0px 10px;
+        font-size: 2rem;
     }
 
     .btnNavCart {
