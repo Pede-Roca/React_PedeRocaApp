@@ -1009,7 +1009,7 @@ const trackCustomEvent = () => {
 <button onClick={trackCustomEvent}>Track Custom Event</button>
 ```
 
-#### Tarefa 38: Implementar Funcionalidade de Comentários (34 pontos)
+#### Tarefa 38: Implementar Funcionalidade de Comentários relacionado ao processo de venda. (34 pontos)
 **Descrição**: Adicionar funcionalidade de comentários em posts utilizando Firestore para armazenar e sincronizar os comentários.
 
 **Exemplo de Código**:
