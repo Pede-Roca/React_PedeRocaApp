@@ -3,8 +3,12 @@
 
 ## Tarefas de Melhoria para o Projeto 'Pede-Roca/React_PedeRocaApp'
 
-#### Tarefa 1: Melhorar o Estilo dos Botões (3 pontos)
-**Descrição**: Atualizar o estilo dos botões da aplicação para utilizar o Bootstrap, proporcionando um visual mais consistente e moderno.
+### Tarefas de Melhoria e Novas Funcionalidades para o Projeto 'Pede-Roca/React_PedeRocaApp'
+
+#### Departamento de Produtos e Implementações
+
+#### Tarefa 1: Atualizar o Estilo dos Formulários (3 pontos)
+**Descrição**: Atualizar o estilo dos formulários para utilizar componentes do Bootstrap, proporcionando uma interface de usuário mais consistente e profissional.
 
 **Exemplo de Código**:
 ```jsx
@@ -14,110 +18,121 @@ npm install bootstrap
 // Importar Bootstrap no arquivo principal de estilos (ex: index.js)
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Atualizar um botão existente para utilizar as classes Bootstrap
-<button className="btn btn-primary">Clique Aqui</button>
+// Atualizar um formulário existente para utilizar classes Bootstrap
+<form>
+  <div className="mb-3">
+    <label htmlFor="email" className="form-label">Email address</label>
+    <input type="email" className="form-control" id="email" placeholder="name@example.com" />
+  </div>
+  <button type="submit" className="btn btn-primary">Submit</button>
+</form>
 ```
 
-#### Tarefa 2: Adicionar Feedback Visual em Formulários (3 pontos)
-**Descrição**: Implementar feedback visual para campos de formulário inválidos, melhorando a experiência do usuário ao preencher formulários.
+#### Tarefa 2: Adicionar Ícones de Feedback nos Formulários (3 pontos)
+**Descrição**: Implementar ícones de feedback para campos de formulário válidos ou inválidos, melhorando a experiência do usuário.
 
 **Exemplo de Código**:
 ```jsx
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
-const MyForm = () => {
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    setValidated(true);
-  };
-
-  return (
-    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Email</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" required />
-        <Form.Control.Feedback type="invalid">
-          Please provide a valid email.
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Button type="submit">Submit</Button>
-    </Form>
-  );
-};
-
-export default MyForm;
+const MyForm = () => (
+  <Form>
+    <Form.Group controlId="formBasicEmail">
+      <Form.Label>Email address</Form.Label>
+      <Form.Control type="email" placeholder="Enter email" isInvalid={false} />
+      <Form.Control.Feedback type="invalid">
+        Please provide a valid email.
+      </Form.Control.Feedback>
+    </Form.Group>
+  </Form>
+);
 ```
 
-#### Tarefa 3: Centralizar o Conteúdo da Página Principal (3 pontos)
-**Descrição**: Ajustar o layout da página principal para centralizar seu conteúdo horizontalmente e verticalmente.
+#### Tarefa 3: Melhorar a Navegação com BreadCrumbs (3 pontos)
+**Descrição**: Adicionar navegação com breadcrumbs para melhorar a experiência do usuário em termos de navegação e contexto.
 
 **Exemplo de Código**:
 ```jsx
-// Usar classes de Bootstrap para centralizar o conteúdo
-<div className="d-flex justify-content-center align-items-center vh-100">
-  <h1>Bem-vindo à Pede Roca</h1>
-</div>
+import { Breadcrumb } from 'react-bootstrap';
+
+const BreadcrumbComponent = () => (
+  <Breadcrumb>
+    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+    <Breadcrumb.Item href="/section">Section</Breadcrumb.Item>
+    <Breadcrumb.Item active>Current Page</Breadcrumb.Item>
+  </Breadcrumb>
+);
 ```
 
-#### Tarefa 4: Implementar Autenticação com Google (8 pontos)
-**Descrição**: Adicionar a opção de login com a conta do Google usando Firebase Authentication.
+#### Tarefa 4: Implementar Login com Redes Sociais (8 pontos)
+**Descrição**: Adicionar opções de login com Google e Facebook utilizando Firebase Authentication.
 
 **Exemplo de Código**:
 ```jsx
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from "firebase/auth";
 
 const auth = getAuth();
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 const signInWithGoogle = () => {
-  signInWithPopup(auth, provider)
+  signInWithPopup(auth, googleProvider)
     .then((result) => {
-      // Sucesso no login
       const user = result.user;
       console.log(user);
     })
     .catch((error) => {
-      // Tratamento de erros
       console.error(error);
     });
 };
 
-// Botão de login com Google
+const signInWithFacebook = () => {
+  signInWithPopup(auth, facebookProvider)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+// Botões de login com Google e Facebook
 <button onClick={signInWithGoogle}>Login com Google</button>
+<button onClick={signInWithFacebook}>Login com Facebook</button>
 ```
 
-#### Tarefa 5: Refatorar a Estrutura de Pastas do Projeto (13 pontos)
-**Descrição**: Organizar os componentes e serviços em uma estrutura de pastas mais clara e intuitiva, facilitando a manutenção do código.
+#### Tarefa 5: Refatorar Componentes com Styled-Components (13 pontos)
+**Descrição**: Refatorar componentes para usar a biblioteca Styled-Components, melhorando a modularidade e manutenção do CSS.
 
 **Exemplo de Código**:
-```bash
-src/
-|-- components/
-|   |-- Button/
-|   |   |-- Button.js
-|   |   |-- Button.css
-|   |-- Form/
-|       |-- Form.js
-|       |-- Form.css
-|-- pages/
-|   |-- HomePage/
-|       |-- HomePage.js
-|       |-- HomePage.css
-|-- services/
-|   |-- firebase.js
-|-- App.js
-|-- index.js
+```jsx
+// Instalar styled-components
+npm install styled-components
+
+// Usar styled-components
+import styled from 'styled-components';
+
+const Button = styled.button`
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+`;
+
+const MyComponent = () => (
+  <Button>Click Me</Button>
+);
 ```
 
-#### Tarefa 6: Implementar Controle de Acesso com Claims de Usuário (21 pontos)
-**Descrição**: Utilizar custom claims do Firebase Authentication para controlar o acesso a diferentes partes da aplicação com base no tipo de usuário (ex: admin, usuário regular).
+#### Tarefa 6: Implementar Sistema de Claims de Usuário (21 pontos)
+**Descrição**: Adicionar sistema de claims de usuário para diferenciar níveis de acesso dentro da aplicação utilizando Firebase Authentication.
 
 **Exemplo de Código**:
 ```jsx
@@ -139,73 +154,100 @@ const checkAdmin = async () => {
 };
 ```
 
-#### Tarefa 7: Adicionar Testes Unitários com Jest (21 pontos)
-**Descrição**: Escrever testes unitários para componentes críticos da aplicação usando Jest, aumentando a cobertura de testes e garantindo a qualidade do código.
+#### Tarefa 7: Configurar Firebase Hosting e Deploy com GitHub Actions (21 pontos)
+**Descrição**: Configurar Firebase Hosting para hospedar a aplicação e usar GitHub Actions para automação de deploy contínuo.
+
+**Exemplo de Código**:
+```yaml
+# .github/workflows/firebase-hosting-pull-request.yml
+name: Firebase Hosting Pull Request
+
+'on':
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
+      - run: npm install -g firebase-tools
+      - run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
+```
+
+#### Tarefa 8: Implementar Funcionalidade de Upload de Arquivos (34 pontos)
+**Descrição**: Adicionar suporte para upload de arquivos, utilizando Firebase Storage para armazenar os arquivos enviados pelos usuários.
 
 **Exemplo de Código**:
 ```jsx
-// Exemplo de teste unitário com Jest
-import { render, screen } from '@testing-library/react';
-import MyComponent from './MyComponent';
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-test('renders learn react link', () => {
-  render(<MyComponent />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+const storage = getStorage();
+
+const uploadFile = (file) => {
+  const storageRef = ref(storage, 'uploads/' + file.name);
+  const uploadTask = uploadBytesResumable(storageRef, file);
+
+  uploadTask.on('state_changed', 
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    }, 
+    (error) => {
+      console.error(error);
+    }, 
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log('File available at', downloadURL);
+      });
+    }
+  );
+};
+
+// Exemplo de uso
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  uploadFile(file);
+};
+```
+
+#### Tarefa 9: Implementar Sistema de Notificações com Firebase Cloud Messaging (34 pontos)
+**Descrição**: Adicionar suporte a notificações push para melhorar a comunicação com os usuários, utilizando Firebase Cloud Messaging.
+
+**Exemplo de Código**:
+```jsx
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+
+const messaging = getMessaging();
+
+getToken(messaging, { vapidKey: 'YOUR_VAPID_KEY' }).then((currentToken) => {
+  if (currentToken) {
+    console.log('Token:', currentToken);
+  } else {
+    console.warn('No registration token available');
+  }
+}).catch((err) => {
+  console.error('An error occurred while retrieving token', err);
+});
+
+onMessage(messaging, (payload) => {
+  console.log('Message received. ', payload);
+  // Mostrar notificação ao usuário
 });
 ```
 
-#### Tarefa 8: Melhorar a Performance da Aplicação com Lazy Loading (34 pontos)
-**Descrição**: Implementar o carregamento preguiçoso (lazy loading) para componentes e rotas, reduzindo o tempo de carregamento inicial da aplicação.
-
-**Exemplo de Código**:
-```jsx
-import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-const HomePage = lazy(() => import('./pages/HomePage'));
-const AboutPage = lazy(() => import('./pages/AboutPage'));
-
-const App = () => (
-  <Router>
-    <Suspense fallback={<div>Loading...</div>}>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/about" component={AboutPage} />
-      </Switch>
-    </Suspense>
-  </Router>
-);
-
-export default App;
-```
-
-#### Tarefa 9: Integrar Análise de Dados com Firebase Analytics (34 pontos)
-**Descrição**: Configurar e integrar Firebase Analytics para monitorar o comportamento do usuário e métricas de uso da aplicação.
-
-**Exemplo de Código**:
-```jsx
-import { getAnalytics, logEvent } from "firebase/analytics";
-
-const analytics = getAnalytics();
-
-const logPageView = (page) => {
-  logEvent(analytics, 'page_view', { page_path: page });
-};
-
-// Chamar a função ao navegar para uma nova página
-logPageView('/home');
-```
-
-#### Tarefa 10: Implementar Dashboard de Administração (55 pontos)
-**Descrição**: Desenvolver uma visão de dashboard para administradores, permitindo a visualização e gestão de usuários e dados da aplicação.
+#### Tarefa 10: Desenvolver Painel de Administração com Visualização de Dados (55 pontos)
+**Descrição**: Criar um painel de administração que permita visualizar dados importantes e realizar ações administrativas, utilizando Firestore para gerenciamento de dados.
 
 **Exemplo de Código**:
 ```jsx
 import React, { useEffect, useState } from 'react';
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-const Dashboard = () => {
+const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const db = getFirestore();
 
@@ -231,808 +273,86 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AdminDashboard;
 ```
 
-#### Tarefa 11: Melhorar a Responsividade dos Componentes (3 pontos)
-**Descrição**: Ajustar os componentes para serem totalmente responsivos em dispositivos móveis e tablets.
+#### Tarefa 11: Melhorar a Legibilidade dos Textos (3 pontos)
+**Descrição**: Ajustar a tipografia dos textos para melhorar a legibilidade utilizando classes do Bootstrap.
 
 **Exemplo de Código**:
 ```jsx
-// Usar classes de Bootstrap para responsividade
 <div className="container">
-  <div className="row">
-    <div className="col-md-6 col-sm-12">
-      <h2>Responsivo</h2>
-    </div>
-  </div>
+  <h1 className="display-4">Título Principal</h1>
+  <p className="lead">Este é um texto exemplo para melhorar a legibilidade.</p>
 </div>
 ```
 
-#### Tarefa 12: Adicionar Placeholder em Campos de Formulário (3 pontos)
-**Descrição**: Inserir placeholders descritivos nos campos de formulário para melhorar a usabilidade.
+#### Tarefa 12: Adicionar Feedback Visual em Botões de Ação (3 pontos)
+**Descrição**: Implementar feedback visual nos botões de ação, como mudanças de cor ao clicar, utilizando classes do Bootstrap.
 
 **Exemplo de Código**:
 ```jsx
-<Form.Group controlId="formBasicPassword">
-  <Form.Label>Password</Form.Label>
-  <Form.Control type="password" placeholder="Enter your password" required />
-</Form.Group>
-```
-
-#### Tarefa 13: Customizar o Tema da Aplicação (3 pontos)
-**Descrição**: Aplicar um tema customizado utilizando variáveis CSS ou uma biblioteca de temas.
-
-**Exemplo de Código**:
-```css
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-}
-
-body {
-  background-color: var(--primary-color);
-  color: white;
-}
-```
-
-#### Tarefa 14: Implementar Logout Automático (8 pontos)
-**Descrição**: Adicionar funcionalidade de logout automático após um período de inatividade.
-
-**Exemplo de Código**:
-```jsx
-import { useEffect } from 'react';
-import { getAuth, signOut } from "firebase/auth";
-
-const useAutoLogout = () => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const auth = getAuth();
-      signOut(auth);
-    }, 1800000); // 30 minutos
-
-    return () => clearTimeout(timer);
-  }, []);
-};
-
-export default useAutoLogout;
-```
-
-#### Tarefa 15: Adicionar Validação de Formulário com Formik (13 pontos)
-**Descrição**: Utilizar a biblioteca Formik para adicionar validação aos formulários da aplicação.
-
-**Exemplo de Código**:
-```jsx
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-
-const SignupForm = () => (
-  <Formik
-    initialValues={{ email: '', password: '' }}
-    validationSchema={Yup.object({
-      email: Yup.string().email('Invalid email address').required('Required'),
-      password: Yup.string().min(6, 'Must be 6 characters or more').required('Required')
-    })}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        console.log(values);
-        setSubmitting(false);
-      }, 400);
-    }}
-  >
-    {({ isSubmitting }) => (
-      <Form>
-        <Field type="email" name="email" />
-        <ErrorMessage name="email" component="div" />
-        <Field type="password" name="password" />
-        <ErrorMessage name="password" component="div" />
-        <button type="submit" disabled={isSubmitting}>
-          Submit
-        </button>
-      </Form>
-    )}
-  </Formik>
-);
-```
-
-#### Tarefa 16: Implementar Notificações Push (21 pontos)
-**Descrição**: Adicionar suporte a notificações push usando Firebase Cloud Messaging.
-
-**Exemplo de Código**:
-```jsx
-import { getMessaging, getToken } from "firebase/messaging";
-
-const messaging = getMessaging();
-
-getToken(messaging, { vapidKey: 'YOUR_VAPID_KEY' }).then((currentToken) => {
-  if (currentToken) {
-    console.log('Token:', currentToken);
-  } else {
-    console.warn('No registration token available');
-  }
-}).catch((err) => {
-  console.error('An error occurred while retrieving token', err);
-});
-```
-
-#### Tarefa 17: Implementar Recuperação de Senha (21 pontos)
-**Descrição**: Adicionar funcionalidade para recuperação de senha via email utilizando Firebase Authentication.
-
-**Exemplo de Código**:
-```jsx
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-
-const auth = getAuth();
-
-const handlePasswordReset = (email) => {
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      console.log('Password reset email sent');
-    })
-    .catch((error) => {
-      console.error('Error sending password reset email', error);
-    });
-};
-
-// Exemplo de uso
-handlePasswordReset('user@example.com');
-```
-
-#### Tarefa 18: Adicionar Modo Escuro/Claro (34 pontos)
-**Descrição**: Implementar a funcionalidade de alternância entre modo escuro e claro na aplicação.
-
-**Exemplo de Código**:
-```jsx
-import { useState } from 'react';
-
-const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  return (
-    <div className={darkMode ? 'dark-mode' : 'light-mode'}>
-      <button onClick={toggleDarkMode}>
-        {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-      </button>
-    </div>
-  );
-};
-
-export default App;
-```
-
-#### Tarefa 19: Adicionar Logs de Auditoria com Firebase Functions (34 pontos)
-**Descrição**: Implementar logs de auditoria para registrar ações importantes dos usuários utilizando Firebase Functions.
-
-**Exemplo de Código**:
-```javascript
-// Firebase Function para registrar logs
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-admin.initializeApp();
-
-exports.logUserAction = functions.firestore
-  .document('users/{userId}/actions/{actionId}')
-  .onCreate((snap, context) => {
-    const newValue = snap.data();
-    console.log(`User ${context.params.userId} performed action: `, newValue);
-  });
-```
-
-#### Tarefa 20: Implementar Relatórios de Atividades de Usuário (55 pontos)
-**Descrição**: Desenvolver uma visão de relatórios que mostra as atividades dos usuários, integrando com Firebase Firestore para coleta de dados.
-
-**Exemplo de Código**:
-```jsx
-import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
-const ActivityReport = () => {
-  const [activities, setActivities] = useState([]);
-  const db = getFirestore();
-
-  useEffect(() => {
-    const fetchActivities = async () => {
-      const activitiesCollection = collection(db, 'activities');
-      const activitiesSnapshot = await getDocs(activitiesCollection);
-      const activitiesList = activitiesSnapshot.docs.map(doc => doc.data());
-      setActivities(activitiesList);
-    };
-    fetchActivities();
-  }, [db]);
-
-  return (
-    <div>
-      <h1>Activity Report</h1>
-      <ul>
-        {activities.map(activity => (
-          <li key={activity.id}>{activity.user} - {activity.action}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default ActivityReport;
-```
-
-### Novas Tarefas de Melhoria para o Projeto 'Pede-Roca/React_PedeRocaApp'
-
-#### Tarefa 11: Melhorar a Responsividade dos Componentes (3 pontos)
-**Descrição**: Ajustar os componentes para serem totalmente responsivos em dispositivos móveis e tablets.
-
-**Exemplo de Código**:
-```jsx
-// Usar classes de Bootstrap para responsividade
-<div className="container">
-  <div className="row">
-    <div className="col-md-6 col-sm-12">
-      <h2>Responsivo</h2>
-    </div>
-  </div>
-</div>
-```
-
-#### Tarefa 12: Adicionar Placeholder em Campos de Formulário (3 pontos)
-**Descrição**: Inserir placeholders descritivos nos campos de formulário para melhorar a usabilidade.
-
-**Exemplo de Código**:
-```jsx
-<Form.Group controlId="formBasicPassword">
-  <Form.Label>Password</Form.Label>
-  <Form.Control type="password" placeholder="Enter your password" required />
-</Form.Group>
-```
-
-#### Tarefa 13: Customizar o Tema da Aplicação (3 pontos)
-**Descrição**: Aplicar um tema customizado utilizando variáveis CSS ou uma biblioteca de temas.
-
-**Exemplo de Código**:
-```css
-:root {
-  --primary-color: #3498db;
-  --secondary-color: #2ecc71;
-}
-
-body {
-  background-color: var(--primary-color);
-  color: white;
-}
-```
-
-#### Tarefa 14: Implementar Logout Automático (8 pontos)
-**Descrição**: Adicionar funcionalidade de logout automático após um período de inatividade.
-
-**Exemplo de Código**:
-```jsx
-import { useEffect } from 'react';
-import { getAuth, signOut } from "firebase/auth";
-
-const useAutoLogout = () => {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const auth = getAuth();
-      signOut(auth);
-    }, 1800000); // 30 minutos
-
-    return () => clearTimeout(timer);
-  }, []);
-};
-
-export default useAutoLogout;
-```
-
-#### Tarefa 15: Adicionar Validação de Formulário com Formik (13 pontos)
-**Descrição**: Utilizar a biblioteca Formik para adicionar validação aos formulários da aplicação.
-
-**Exemplo de Código**:
-```jsx
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-
-const SignupForm = () => (
-  <Formik
-    initialValues={{ email: '', password: '' }}
-    validationSchema={Yup.object({
-      email: Yup.string().email('Invalid email address').required('Required'),
-      password: Yup.string().min(6, 'Must be 6 characters or more').required('Required')
-    })}
-    onSubmit={(values, { setSubmitting }) => {
-      setTimeout(() => {
-        console.log(values);
-        setSubmitting(false);
-      }, 400);
-    }}
-  >
-    {({ isSubmitting }) => (
-      <Form>
-        <Field type="email" name="email" />
-        <ErrorMessage name="email" component="div" />
-        <Field type="password" name="password" />
-        <ErrorMessage name="password" component="div" />
-        <button type="submit" disabled={isSubmitting}>
-          Submit
-        </button>
-      </Form>
-    )}
-  </Formik>
-);
-```
-
-#### Tarefa 16: Implementar Notificações Push (21 pontos)
-**Descrição**: Adicionar suporte a notificações push usando Firebase Cloud Messaging.
-
-**Exemplo de Código**:
-```jsx
-import { getMessaging, getToken } from "firebase/messaging";
-
-const messaging = getMessaging();
-
-getToken(messaging, { vapidKey: 'YOUR_VAPID_KEY' }).then((currentToken) => {
-  if (currentToken) {
-    console.log('Token:', currentToken);
-  } else {
-    console.warn('No registration token available');
-  }
-}).catch((err) => {
-  console.error('An error occurred while retrieving token', err);
-});
-```
-
-#### Tarefa 17: Implementar Recuperação de Senha (21 pontos)
-**Descrição**: Adicionar funcionalidade para recuperação de senha via email utilizando Firebase Authentication.
-
-**Exemplo de Código**:
-```jsx
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-
-const auth = getAuth();
-
-const handlePasswordReset = (email) => {
-  sendPasswordResetEmail(auth, email)
-    .then(() => {
-      console.log('Password reset email sent');
-    })
-    .catch((error) => {
-      console.error('Error sending password reset email', error);
-    });
-};
-
-// Exemplo de uso
-handlePasswordReset('user@example.com');
-```
-
-#### Tarefa 18: Adicionar Modo Escuro/Claro (34 pontos)
-**Descrição**: Implementar a funcionalidade de alternância entre modo escuro e claro na aplicação.
-
-**Exemplo de Código**:
-```jsx
-import { useState } from 'react';
-
-const App = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  return (
-    <div className={darkMode ? 'dark-mode' : 'light-mode'}>
-      <button onClick={toggleDarkMode}>
-        {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-      </button>
-    </div>
-  );
-};
-
-export default App;
-```
-
-#### Tarefa 19: Adicionar Logs de Auditoria com Firebase Functions (34 pontos)
-**Descrição**: Implementar logs de auditoria para registrar ações importantes dos usuários utilizando Firebase Functions.
-
-**Exemplo de Código**:
-```javascript
-// Firebase Function para registrar logs
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
-admin.initializeApp();
-
-exports.logUserAction = functions.firestore
-  .document('users/{userId}/actions/{actionId}')
-  .onCreate((snap, context) => {
-    const newValue = snap.data();
-    console.log(`User ${context.params.userId} performed action: `, newValue);
-  });
-```
-
-#### Tarefa 20: Implementar Relatórios de Atividades de Usuário (55 pontos)
-**Descrição**: Desenvolver uma visão de relatórios que mostra as atividades dos usuários, integrando com Firebase Firestore para coleta de dados.
-
-**Exemplo de Código**:
-```jsx
-import React, { useEffect, useState } from 'react';
-import { getFirestore, collection, getDocs } from "firebase/firestore";
-
-const ActivityReport = () => {
-  const [activities, setActivities] = useState([]);
-  const db = getFirestore();
-
-  useEffect(() => {
-    const fetchActivities = async () => {
-      const activitiesCollection = collection(db, 'activities');
-      const activitiesSnapshot = await getDocs(activitiesCollection);
-      const activitiesList = activitiesSnapshot.docs.map(doc => doc.data());
-      setActivities(activitiesList);
-    };
-    fetchActivities();
-  }, [db]);
-
-  return (
-    <div>
-      <h1>Activity Report</h1>
-      <ul>
-        {activities.map(activity => (
-          <li key={activity.id}>{activity.user} - {activity.action}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
-export default ActivityReport;
-```
-
-#### Tarefa 21: Melhorar Acessibilidade dos Componentes (3 pontos)
-**Descrição**: Adicionar atributos ARIA para melhorar a acessibilidade dos componentes da aplicação.
-
-**Exemplo de Código**:
-```jsx
-<button aria-label="Close" className="btn btn-secondary">
-  Fechar
+<button className="btn btn-primary" onMouseDown={(e) => e.target.classList.add('btn-dark')} onMouseUp={(e) => e.target.classList.remove('btn-dark')}>
+  Clique Aqui
 </button>
 ```
 
-#### Tarefa 22: Adicionar Tooltip em Botões (3 pontos)
-**Descrição**: Implementar tooltips nos botões para fornecer informações adicionais ao usuário.
+#### Tarefa 13: Melhorar a Responsividade dos Componentes de Navegação (3 pontos)
+**Descrição**: Ajustar os componentes de navegação para serem totalmente responsivos em dispositivos móveis e tablets.
 
 **Exemplo de Código**:
 ```jsx
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-
-const renderTooltip = (props) => (
-  <Tooltip id="button-tooltip" {...props}>
-    Informação adicional
-  </Tooltip>
-);
-
-const MyButton = () => (
-  <OverlayTrigger placement="top" overlay={renderTooltip}>
-    <button className="btn btn-info">Hover me</button>
-  </OverlayTrigger>
-);
+<nav className="navbar navbar-expand-lg navbar-light bg-light">
+  <a className="navbar-brand" href="#">Navbar</a>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+  <div className="collapse navbar-collapse" id="navbarNav">
+    <ul className="navbar-nav">
+      <li className="nav-item active">
+        <a className="nav-link" href="#">Home</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="#">Features</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" href="#">Pricing</a>
+      </li>
+    </ul>
+  </div>
+</nav>
 ```
 
-#### Tarefa 23: Ajustar Margens e Padding para Consistência Visual (3 pontos)
-**Descrição**: Revisar e ajustar margens e padding dos componentes para garantir consistência visual em toda a aplicação.
-
-**Exemplo de Código**:
-```css
-.my-component {
-  margin: 1rem;
-  padding: 1rem;
-}
-```
-
-#### Tarefa 24: Implementar Cache de Dados com Service Workers (8 pontos)
-**Descrição**: Utilizar Service Workers para cache de dados e melhorar a performance e a experiência offline da aplicação.
-
-**Exemplo de Código**:
-```javascript
-// Registering a service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then(registration => {
-      console.log('ServiceWorker registered: ', registration);
-    })
-    .catch(registrationError => {
-      console.log('ServiceWorker registration failed: ', registrationError);
-    });
-}
-```
-
-#### Tarefa 25: Refatorar Componentes para Hooks (13 pontos)
-**Descrição**: Refatorar componentes de classe para usar React Hooks, modernizando o código.
+#### Tarefa 14: Implementar Proteção de Rotas com Auth Guard (8 pontos)
+**Descrição**: Proteger rotas específicas da aplicação, permitindo o acesso apenas a usuários autenticados.
 
 **Exemplo de Código**:
 ```jsx
-// Antes (componente de classe)
-class MyComponent extends React.Component {
-  state = { count: 0 };
+import { Navigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 
-  increment = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+const ProtectedRoute = ({ children }) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-  render() {
-    return <button onClick={this.increment}>{this.state.count}</button>;
-  }
-}
-
-// Depois (componente funcional com hooks)
-const MyComponent = () => {
-  const [count, setCount] = useState(0);
-
-  return <button onClick={() => setCount(count + 1)}>{count}</button>;
-};
-```
-
-#### Tarefa 26: Implementar Upload de Arquivos com Firebase Storage (21 pontos)
-**Descrição**: Adicionar funcionalidade para upload de arquivos utilizando Firebase Storage.
-
-**Exemplo de Código**:
-```jsx
-import { getStorage, ref, uploadBytes } from "firebase/storage";
-
-const storage = getStorage();
-
-const uploadFile = (file) => {
-  const storageRef = ref(storage, 'uploads/' + file.name);
-  uploadBytes(storageRef, file).then((snapshot) => {
-    console.log('Uploaded a blob or file!', snapshot);
-  });
+  return user ? children : <Navigate to="/login" />;
 };
 
 // Exemplo de uso
-const handleFileChange = (e) => {
-  const file = e.target.files[0];
-  uploadFile(file);
-};
+<Route path="/protected" element={<ProtectedRoute><ProtectedComponent /></ProtectedRoute>} />
 ```
 
-#### Tarefa 27: Adicionar Paginação em Listas de Dados (21 pontos)
-**Descrição**: Implementar paginação em listas de dados para melhorar a usabilidade e a performance.
-
-**Exemplo de Código**:
-```jsx
-import { useState } from 'react';
-
-const PaginatedList = ({ items }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
-
-  return (
-    <div>
-      <ul>
-        {currentItems.map(item => (
-          <li key={item.id}>{item.name}</li>
-        ))}
-      </ul>
-      <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-      <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
-    </div>
-  );
-};
-```
-
-#### Tarefa 28: Integrar Firebase Authentication com Redes Sociais (34 pontos)
-**Descrição**: Implementar autenticação com redes sociais como Facebook e Twitter utilizando Firebase Authentication.
-
-**Exemplo de Código**:
-```jsx
-import { getAuth, signInWithPopup, FacebookAuthProvider, TwitterAuthProvider } from "firebase/auth";
-
-const auth = getAuth();
-const facebookProvider = new FacebookAuthProvider();
-const twitterProvider = new TwitterAuthProvider();
-
-const signInWithFacebook = () => {
-  signInWithPopup(auth, facebookProvider)
-    .then((result) => {
-      const user = result.user;
-      console.log(user);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-const signInWithTwitter = () => {
-  signInWithPopup(auth, twitterProvider)
-    .then((result) => {
-      const user = result.user;
-      console.log(user);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-// Botões de login com redes sociais
-<button onClick={signInWithFacebook}>Login com Facebook</button>
-<button onClick={signInWithTwitter}>Login com Twitter</button>
-```
-
-#### Tarefa 29: Melhorar a Segurança com Regras do Firestore (34 pontos)
-**Descrição**: Definir e implementar regras de segurança no Firestore para proteger os dados sensíveis.
-
-**Exemplo de Código**:
-```json
-// Firestore security rules example
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-  }
-}
-```
-
-#### Tarefa 30: Implementar Sistema de Notificações em Tempo Real (55 pontos)
-**Descrição**: Adicionar suporte para notificações em tempo real usando Firebase Cloud Messaging e Firestore.
-
-**Exemplo de Código**:
-```jsx
-import { getMessaging, onMessage } from "firebase/messaging";
-import { getFirestore, collection, onSnapshot } from "firebase/firestore";
-
-const messaging = getMessaging();
-const db = getFirestore();
-
-// Configurar notificações em tempo real
-onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
-  // Mostrar notificação ao usuário
-});
-
-// Exemplo de Firestore snapshot listener
-const setupRealtimeUpdates = () => {
-  const q = collection(db, 'notifications');
-  onSnapshot(q, (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      if (change.type === "added") {
-        console.log("New notification: ", change.doc.data());
-      }
-    });
-  });
-};
-
-setupRealtimeUpdates();
-```
-
-#### Tarefa 31: Adicionar Ícones Personalizados aos Botões (3 pontos)
-**Descrição**: Integrar uma biblioteca de ícones como Font Awesome e adicionar ícones personalizados aos botões.
-
-**Exemplo de Código**:
-```jsx
-// Instalar Font Awesome
-npm install @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons
-
-// Importar e usar ícones
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-
-const IconButton = () => (
-  <button className="btn btn-primary">
-    <FontAwesomeIcon icon={faCoffee} /> Café
-  </button>
-);
-```
-
-#### Tarefa 32: Adicionar Animações de Carregamento (3 pontos)
-**Descrição**: Implementar animações de carregamento utilizando uma biblioteca como `react-spinners`.
-
-**Exemplo de Código**:
-```jsx
-// Instalar react-spinners
-npm install react-spinners
-
-// Importar e usar um spinner
-import { ClipLoader } from 'react-spinners';
-
-const LoadingComponent = () => (
-  <div className="loading-container">
-    <ClipLoader size={50} color={"#123abc"} loading={true} />
-  </div>
-);
-```
-
-#### Tarefa 33: Implementar Mensagens de Erro Customizadas (3 pontos)
-**Descrição**: Adicionar mensagens de erro customizadas para validação de formulários.
-
-**Exemplo de Código**:
-```jsx
-<Form.Group controlId="formBasicEmail">
-  <Form.Label>Email address</Form.Label>
-  <Form.Control type="email" placeholder="Enter email" required />
-  <Form.Control.Feedback type="invalid">
-    Por favor, insira um endereço de email válido.
-  </Form.Control.Feedback>
-</Form.Group>
-```
-
-#### Tarefa 34: Implementar Localização com i18next (8 pontos)
-**Descrição**: Adicionar suporte para múltiplos idiomas utilizando a biblioteca `i18next`.
-
-**Exemplo de Código**:
-```jsx
-// Instalar i18next
-npm install i18next react-i18next
-
-// Configurar i18next
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: {
-        translation: {
-          "Welcome": "Welcome to Pede Roca"
-        }
-      },
-      pt: {
-        translation: {
-          "Welcome": "Bem-vindo à Pede Roca"
-        }
-      }
-    },
-    lng: "en",
-    fallbackLng: "en",
-    interpolation: {
-      escapeValue: false
-    }
-  });
-
-// Usar a tradução no componente
-import { useTranslation } from 'react-i18next';
-
-const MyComponent = () => {
-  const { t } = useTranslation();
-
-  return <h1>{t('Welcome')}</h1>;
-};
-```
-
-#### Tarefa 35: Implementar Lazy Loading de Imagens (13 pontos)
-**Descrição**: Adicionar lazy loading para imagens utilizando a biblioteca `react-lazyload`.
-
-**Exemplo de Código**:
-```jsx
-// Instalar react-lazyload
-npm install react-lazyload
-
-// Usar LazyLoad
-import LazyLoad from 'react-lazyload';
-
-const ImageComponent = () => (
-  <div>
-    <LazyLoad height={200} offset={100}>
-      <img src="path/to/image.jpg" alt="Descrição" />
-    </LazyLoad>
-  </div>
-);
-```
-
-#### Tarefa 36: Implementar Autenticação com Apple ID (21 pontos)
-**Descrição**: Adicionar suporte para login com Apple ID utilizando Firebase Authentication.
+#### Tarefa 15: Adicionar Autenticação com LinkedIn (13 pontos)
+**Descrição**: Adicionar suporte para login com LinkedIn utilizando Firebase Authentication.
 
 **Exemplo de Código**:
 ```jsx
 import { getAuth, signInWithPopup, OAuthProvider } from "firebase/auth";
 
 const auth = getAuth();
-const provider = new OAuthProvider('apple.com');
+const provider = new OAuthProvider('linkedin.com');
 
-const signInWithApple = () => {
+const signInWithLinkedIn = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
@@ -1043,134 +363,786 @@ const signInWithApple = () => {
     });
 };
 
-// Botão de login com Apple ID
-<button onClick={signInWithApple}>Login com Apple</button>
+// Botão de login com LinkedIn
+<button onClick={signInWithLinkedIn}>Login com LinkedIn</button>
 ```
 
-#### Tarefa 37: Adicionar Dark Mode com CSS Variables (21 pontos)
-**Descrição**: Implementar dark mode utilizando variáveis CSS para alternar entre temas claro e escuro.
+#### Tarefa 16: Implementar Monitoramento de Eventos com Google Analytics (21 pontos)
+**Descrição**: Adicionar Google Analytics para monitorar eventos e interações dos usuários na aplicação.
 
 **Exemplo de Código**:
-```css
-:root {
-  --background-color: #ffffff;
-  --text-color: #000000;
-}
-
-[data-theme="dark"] {
-  --background-color: #000000;
-  --text-color: #ffffff;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-```
-
 ```jsx
-// Alternar entre temas
-const toggleTheme = () => {
-  const currentTheme = document.documentElement.getAttribute("data-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", newTheme);
+import ReactGA from 'react-ga';
+
+// Inicializar Google Analytics
+ReactGA.initialize('UA-000000-01');
+
+// Rastrear página
+ReactGA.pageview(window.location.pathname + window.location.search);
+
+// Rastrear evento
+const handleButtonClick = () => {
+  ReactGA.event({
+    category: 'User',
+    action: 'Clicked Button'
+  });
 };
 
-<button onClick={toggleTheme}>Toggle Dark Mode</button>
+// Exemplo de uso
+<button onClick={handleButtonClick}>Clique Aqui</button>
 ```
 
-#### Tarefa 38: Adicionar Monitoramento de Performance com Firebase (34 pontos)
-**Descrição**: Integrar Firebase Performance Monitoring para rastrear e melhorar o desempenho da aplicação.
+#### Tarefa 17: Implementar Integração com Stripe para Pagamentos (21 pontos)
+**Descrição**: Adicionar suporte para pagamentos utilizando a API da Stripe.
 
 **Exemplo de Código**:
 ```jsx
-import { getPerformance } from "firebase/performance";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-// Inicializar o monitoramento de performance
-const performance = getPerformance();
+const stripePromise = loadStripe('your-publishable-key-here');
 
-// Rastrear um evento de desempenho personalizado
-const trace = performance.trace('custom_trace');
-trace.start();
-// Código a ser monitorado
-trace.stop();
-```
+const CheckoutForm = () => {
+  const stripe = useStripe();
+  const elements = useElements();
 
-#### Tarefa 39: Implementar Funcionalidade de Pesquisa (34 pontos)
-**Descrição**: Adicionar uma funcionalidade de pesquisa para filtrar dados na aplicação.
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-**Exemplo de Código**:
-```jsx
-import { useState } from 'react';
+    if (!stripe || !elements) {
+      return;
+    }
 
-const SearchComponent = ({ items }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+    const result = await stripe.createToken(elements.getElement(CardElement));
 
-  const filteredItems = items.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    if (result.error) {
+      console.log(result.error.message);
+    } else {
+      console.log(result.token);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <CardElement />
+      <button type="submit" disabled={!stripe}>Pagar</button>
+    </form>
   );
+};
+
+// Exemplo de uso
+const App = () => (
+  <Elements stripe={stripePromise}>
+    <CheckoutForm />
+  </Elements>
+);
+
+export default App;
+```
+
+#### Tarefa 18: Adicionar Relatórios Personalizados com Firebase Analytics (34 pontos)
+**Descrição**: Implementar relatórios personalizados utilizando Firebase Analytics para rastrear comportamentos específicos dos usuários.
+
+**Exemplo de Código**:
+```jsx
+import { getAnalytics, logEvent } from "firebase/analytics";
+
+const analytics = getAnalytics();
+
+const trackCustomEvent = () => {
+  logEvent(analytics, 'select_content', {
+    content_type: 'image',
+    content_id: 'P09QJ4HTP6'
+  });
+};
+
+// Exemplo de uso
+<button onClick={trackCustomEvent}>Track Event</button>
+```
+
+#### Tarefa 19: Desenvolver Funcionalidade de Chat em Tempo Real (34 pontos)
+**Descrição**: Adicionar uma funcionalidade de chat em tempo real utilizando Firebase Firestore para armazenar e sincronizar as mensagens.
+
+**Exemplo de Código**:
+```jsx
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+
+const Chat = () => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState('');
+  const db = getFirestore();
+
+  useEffect(() => {
+    const q = query(collection(db, 'messages'), orderBy('timestamp'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const messages = [];
+      querySnapshot.forEach((doc) => {
+        messages.push(doc.data());
+      });
+      setMessages(messages);
+    });
+    return () => unsubscribe();
+  }, [db]);
+
+  const handleSendMessage = async () => {
+    await addDoc(collection(db, 'messages'), {
+      text: newMessage,
+      timestamp: new Date()
+    });
+    setNewMessage('');
+  };
 
   return (
     <div>
+      <div>
+        {messages.map((message, index) => (
+          <p key={index}>{message.text}</p>
+        ))}
+      </div>
       <input
         type="text"
-        placeholder="Search"
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
+        value={newMessage}
+        onChange={(e) => setNewMessage(e.target.value)}
       />
+      <button onClick={handleSendMessage}>Send</button>
+    </div>
+  );
+};
+
+export default Chat;
+```
+
+#### Tarefa 20: Implementar Testes de Integração com Cypress (55 pontos)
+**Descrição**: Adicionar testes de integração utilizando Cypress para garantir que todas as funcionalidades da aplicação estejam funcionando corretamente.
+
+**Exemplo de Código**:
+```javascript
+// Instalar Cypress
+npm install cypress --save-dev
+
+// Criar um arquivo de teste com Cypress
+describe('Login Flow', () => {
+  it('should allow a user to log in', () => {
+    cy.visit('/login');
+    cy.get('input[name=email]').type('user@example.com');
+    cy.get('input[name=password]').type('password');
+    cy.get('button[type=submit]').click();
+    cy.url().should('include', '/dashboard');
+  });
+});
+
+// Executar os testes
+npx cypress open
+```
+
+#### Tarefa 21: Adicionar Placeholder Animado nos Campos de Entrada (3 pontos)
+**Descrição**: Implementar placeholders animados nos campos de entrada para melhorar a experiência do usuário.
+
+**Exemplo de Código**:
+```jsx
+// Adicionar animação de placeholder
+<input type="text" className="form-control" placeholder="Digite seu nome" required />
+<style>
+  .form-control::placeholder {
+    animation: fadein 1s infinite alternate;
+  }
+  @keyframes fadein {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+  }
+</style>
+```
+
+#### Tarefa 22: Implementar Tooltip Customizado em Campos de Entrada (3 pontos)
+**Descrição**: Adicionar tooltips customizados em campos de entrada para fornecer dicas adicionais ao usuário.
+
+**Exemplo de Código**:
+```jsx
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+
+const renderTooltip = (props) => (
+  <Tooltip id="input-tooltip" {...props}>
+    Digite seu email no formato correto.
+  </Tooltip>
+);
+
+const InputWithTooltip = () => (
+  <OverlayTrigger placement="right" overlay={renderTooltip}>
+    <input type="email" className="form-control" placeholder="Email" />
+  </OverlayTrigger>
+);
+```
+
+#### Tarefa 23: Melhorar a Exibição de Erros no Formulário (3 pontos)
+**Descrição**: Melhorar a exibição de mensagens de erro nos formulários, utilizando componentes do Bootstrap.
+
+**Exemplo de Código**:
+```jsx
+<Form.Group controlId="formBasicPassword">
+  <Form.Label>Password</Form.Label>
+  <Form.Control type="password" placeholder="Password" isInvalid={true} />
+  <Form.Control.Feedback type="invalid">
+    A senha deve ter pelo menos 8 caracteres.
+  </Form.Control.Feedback>
+</Form.Group>
+```
+
+#### Tarefa 24: Implementar Redefinição de Senha (8 pontos)
+**Descrição**: Adicionar funcionalidade de redefinição de senha para usuários, utilizando Firebase Authentication.
+
+**Exemplo de Código**:
+```jsx
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
+const auth = getAuth();
+
+const handlePasswordReset = (email) => {
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      console.log('Email de redefinição de senha enviado.');
+    })
+    .catch((error) => {
+      console.error('Erro ao enviar email de redefinição de senha:', error);
+    });
+};
+
+// Exemplo de uso
+<button onClick={() => handlePasswordReset('user@example.com')}>Redefinir Senha</button>
+```
+
+#### Tarefa 25: Adicionar Suporte para Login com GitHub (13 pontos)
+**Descrição**: Implementar autenticação com GitHub utilizando Firebase Authentication.
+
+**Exemplo de Código**:
+```jsx
+import { getAuth, signInWithPopup, GithubAuthProvider } from "firebase/auth";
+
+const auth = getAuth();
+const provider = new GithubAuthProvider();
+
+const signInWithGithub = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+// Botão de login com GitHub
+<button onClick={signInWithGithub}>Login com GitHub</button>
+```
+
+#### Tarefa 26: Implementar Logs de Auditoria com Firestore (21 pontos)
+**Descrição**: Adicionar logs de auditoria para rastrear ações importantes dos usuários utilizando Firestore.
+
+**Exemplo de Código**:
+```jsx
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+const db = getFirestore();
+
+const logUserAction = async (action) => {
+  try {
+    await addDoc(collection(db, 'userActions'), {
+      action: action,
+      timestamp: new Date()
+    });
+  } catch (e) {
+    console.error("Erro ao adicionar log de ação: ", e);
+  }
+};
+
+// Exemplo de uso
+logUserAction('User logged in');
+```
+
+#### Tarefa 27: Configurar CI/CD com GitHub Actions para Testes Automatizados (21 pontos)
+**Descrição**: Configurar GitHub Actions para rodar testes automatizados em cada push para a branch principal.
+
+**Exemplo de Código**:
+```yaml
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - run: npm install
+    - run: npm test
+```
+
+#### Tarefa 28: Implementar Feedback Visual em Tempo Real com Firestore (34 pontos)
+**Descrição**: Adicionar feedback visual em tempo real para atualizações de dados, utilizando Firestore e React.
+
+**Exemplo de Código**:
+```jsx
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+
+const RealTimeUpdates = () => {
+  const [data, setData] = useState([]);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'collectionName'), (snapshot) => {
+      const updatedData = snapshot.docs.map(doc => doc.data());
+      setData(updatedData);
+    });
+    return () => unsubscribe();
+  }, [db]);
+
+  return (
+    <div>
+      <h1>Dados em Tempo Real</h1>
       <ul>
-        {filteredItems.map(item => (
-          <li key={item.id}>{item.name}</li>
+        {data.map((item, index) => (
+          <li key={index}>{item.fieldName}</li>
         ))}
       </ul>
     </div>
   );
 };
+
+export default RealTimeUpdates;
 ```
 
-#### Tarefa 40: Criar Painel de Controle de Configurações (55 pontos)
-**Descrição**: Desenvolver um painel de controle para que os administradores possam gerenciar configurações da aplicação.
+#### Tarefa 29: Adicionar Funcionalidade de Carrossel de Imagens (34 pontos)
+**Descrição**: Implementar um carrossel de imagens para exibição de banners ou galerias.
+
+**Exemplo de Código**:
+```jsx
+import { Carousel } from 'react-bootstrap';
+
+const ImageCarousel = () => (
+  <Carousel>
+    <Carousel.Item>
+      <img className="d-block w-100" src="image1.jpg" alt="First slide" />
+      <Carousel.Caption>
+        <h3>First slide label</h3>
+        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+    <Carousel.Item>
+      <img className="d-block w-100" src="image2.jpg" alt="Second slide" />
+      <Carousel.Caption>
+        <h3>Second slide label</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+    <Carousel.Item>
+      <img className="d-block w-100" src="image3.jpg" alt="Third slide" />
+      <Carousel.Caption>
+        <h3>Third slide label</h3>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </Carousel.Caption>
+    </Carousel.Item>
+  </Carousel>
+);
+
+export default ImageCarousel;
+```
+
+#### Tarefa 30: Desenvolver Relatórios de Uso com Gráficos (55 pontos)
+**Descrição**: Criar relatórios de uso com gráficos interativos, utilizando bibliotecas como Chart.js e dados do Firestore.
 
 **Exemplo de Código**:
 ```jsx
 import React, { useState, useEffect } from 'react';
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { Chart } from 'react-chartjs-2';
 
-const SettingsPanel = () => {
-  const [settings, setSettings] = useState({});
+const UsageReports = () => {
+  const [chartData, setChartData] = useState({});
   const db = getFirestore();
 
   useEffect(() => {
-    const fetchSettings = async () => {
-      const docRef = doc(db, 'config', 'settings');
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        setSettings(docSnap.data());
-      }
-    };
-    fetchSettings();
-  }, [db]);
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'usageData'));
+      const data = querySnapshot.docs.map(doc => doc.data());
+      
+      const labels = data.map(d => d.date);
+      const values = data.map(d => d.value);
 
-  const handleSave = async () => {
-    const docRef = doc(db, 'config', 'settings');
-    await setDoc(docRef, settings);
-  };
+      setChartData({
+        labels: labels,
+        datasets: [
+          {
+            label: 'Usage Data',
+            data: values,
+            backgroundColor: 'rgba(75,192,192,0.6)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderWidth: 1,
+          }
+        ]
+      });
+    };
+
+    fetchData();
+  }, [db]);
 
   return (
     <div>
-      <h1>Settings Panel</h1>
-      <label>
-        Setting 1:
-        <input
-          type="text"
-          value={settings.setting1 || ''}
-          onChange={(e) => setSettings({ ...settings, setting1: e.target.value })}
-        />
-      </label>
-      <button onClick={handleSave}>Save</button>
+      <h2>Relatórios de Uso</h2>
+      <Chart
+        type='bar'
+        data={chartData}
+        options={{
+          responsive: true,
+          scales: {
+            x: { beginAtZero: true },
+            y: { beginAtZero: true }
+          }
+        }}
+      />
     </div>
   );
 };
 
-export default SettingsPanel;
+export default UsageReports;
+```
+
+#### Tarefa 31: Melhorar a Experiência do Usuário com Animações de Transição (3 pontos)
+**Descrição**: Adicionar animações de transição suaves entre as páginas utilizando a biblioteca `react-transition-group`.
+
+**Exemplo de Código**:
+```jsx
+// Instalar react-transition-group
+npm install react-transition-group
+
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import './transitions.css';
+
+const PageTransition = ({ children }) => (
+  <TransitionGroup>
+    <CSSTransition
+      timeout={300}
+      classNames="fade"
+    >
+      {children}
+    </CSSTransition>
+  </TransitionGroup>
+);
+
+export default PageTransition;
+
+/* transitions.css */
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+```
+
+#### Tarefa 32: Adicionar Scroll Infinito para Listas (3 pontos)
+**Descrição**: Implementar scroll infinito para listas longas utilizando a biblioteca `react-infinite-scroll-component`.
+
+**Exemplo de Código**:
+```jsx
+// Instalar react-infinite-scroll-component
+npm install react-infinite-scroll-component
+
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+const InfiniteList = ({ items, fetchMoreData }) => (
+  <InfiniteScroll
+    dataLength={items.length}
+    next={fetchMoreData}
+    hasMore={true}
+    loader={<h4>Loading...</h4>}
+  >
+    {items.map((item, index) => (
+      <div key={index}>{item}</div>
+    ))}
+  </InfiniteScroll>
+);
+
+export default InfiniteList;
+```
+
+#### Tarefa 33: Melhorar o Layout com Grid Responsivo (3 pontos)
+**Descrição**: Melhorar o layout da aplicação utilizando o sistema de grid responsivo do Bootstrap.
+
+**Exemplo de Código**:
+```jsx
+<div className="container">
+  <div className="row">
+    <div className="col-md-4">Coluna 1</div>
+    <div className="col-md-4">Coluna 2</div>
+    <div className="col-md-4">Coluna 3</div>
+  </div>
+</div>
+```
+
+#### Tarefa 34: Implementar Suporte a Notificações por Email (8 pontos)
+**Descrição**: Adicionar funcionalidade para enviar notificações por email aos usuários utilizando Firebase Functions e um serviço de email como SendGrid.
+
+**Exemplo de Código**:
+```javascript
+// Firebase Function para enviar email
+const functions = require('firebase-functions');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(functions.config().sendgrid.key);
+
+exports.sendEmailNotification = functions.firestore.document('notifications/{id}')
+  .onCreate((snap, context) => {
+    const data = snap.data();
+    const msg = {
+      to: data.email,
+      from: 'noreply@example.com',
+      subject: data.subject,
+      text: data.message,
+    };
+    return sgMail.send(msg);
+  });
+```
+
+#### Tarefa 35: Adicionar Autenticação Multifator (13 pontos)
+**Descrição**: Implementar autenticação multifator (MFA) para aumentar a segurança da aplicação utilizando Firebase Authentication.
+
+**Exemplo de Código**:
+```jsx
+import { getAuth, multiFactor, PhoneMultiFactorGenerator } from "firebase/auth";
+
+const auth = getAuth();
+
+const enableMFA = async () => {
+  const user = auth.currentUser;
+  const session = await multiFactor(user).getSession();
+  const phoneInfoOptions = {
+    phoneNumber: '+1234567890',
+    session,
+  };
+  const phoneAuthProvider = new PhoneMultiFactorGenerator();
+  const verificationId = await phoneAuthProvider.verify(phoneInfoOptions);
+  const verificationCode = window.prompt('Please enter the verification code that was sent to your mobile device.');
+  const credential = PhoneMultiFactorGenerator.credential(verificationId, verificationCode);
+  await multiFactor(user).enroll(credential, 'My personal phone number');
+  console.log('MFA enabled');
+};
+
+// Exemplo de uso
+<button onClick={enableMFA}>Enable MFA</button>
+```
+
+#### Tarefa 36: Implementar Upload de Imagens com Pré-visualização (21 pontos)
+**Descrição**: Adicionar funcionalidade de upload de imagens com pré-visualização utilizando Firebase Storage.
+
+**Exemplo de Código**:
+```jsx
+import { useState } from 'react';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+const ImageUpload = () => {
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState("");
+  const storage = getStorage();
+
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    const storageRef = ref(storage, `images/${image.name}`);
+    uploadBytes(storageRef, image).then(() => {
+      getDownloadURL(storageRef).then((url) => {
+        setUrl(url);
+      });
+    });
+  };
+
+  return (
+    <div>
+      <input type="file" onChange={handleImageChange} />
+      <button onClick={handleUpload}>Upload</button>
+      {url && <img src={url} alt="Uploaded image" />}
+    </div>
+  );
+};
+
+export default ImageUpload;
+```
+
+#### Tarefa 37: Implementar Analytics Personalizados com Firebase (21 pontos)
+**Descrição**: Adicionar eventos de analytics personalizados utilizando Firebase Analytics para rastrear interações específicas do usuário.
+
+**Exemplo de Código**:
+```jsx
+import { getAnalytics, logEvent } from "firebase/analytics";
+
+const analytics = getAnalytics();
+
+const trackCustomEvent = () => {
+  logEvent(analytics, 'custom_event', {
+    item_id: 'item123',
+    item_name: 'Item Name',
+    content_type: 'image'
+  });
+};
+
+// Exemplo de uso
+<button onClick={trackCustomEvent}>Track Custom Event</button>
+```
+
+#### Tarefa 38: Implementar Funcionalidade de Comentários (34 pontos)
+**Descrição**: Adicionar funcionalidade de comentários em posts utilizando Firestore para armazenar e sincronizar os comentários.
+
+**Exemplo de Código**:
+```jsx
+import React, { useState, useEffect } from 'react';
+import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from 'firebase/firestore';
+
+const Comments = ({ postId }) => {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const db = getFirestore();
+
+  useEffect(() => {
+    const q = query(collection(db, `posts/${postId}/comments`), orderBy('timestamp'));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const comments = [];
+      querySnapshot.forEach((doc) => {
+        comments.push(doc.data());
+      });
+      setComments(comments);
+    });
+    return () => unsubscribe();
+  }, [db, postId]);
+
+  const handleSendComment = async () => {
+    await addDoc(collection(db, `posts/${postId}/comments`), {
+      text: newComment,
+      timestamp: new Date()
+    });
+    setNewComment('');
+  };
+
+  return (
+    <div>
+      <div>
+        {comments.map((comment, index) => (
+          <p key={index}>{comment.text}</p>
+        ))}
+      </div>
+      <input
+        type="text"
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+      />
+      <button onClick={handleSendComment}>Enviar</button>
+    </div>
+  );
+};
+
+export default Comments;
+```
+
+#### Tarefa 39: Adicionar Funcionalidade de Pesquisa Avançada (34 pontos)
+**Descrição**: Implementar uma funcionalidade de pesquisa avançada para permitir que os usuários filtrem e encontrem conteúdo facilmente.
+
+**Exemplo de Código**:
+```jsx
+import { useState } from 'react';
+
+const AdvancedSearch = ({ items }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredItems, setFilteredItems] = useState([]);
+
+  const handleSearch = () => {
+    const results = items.filter(item => 
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredItems(results);
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Pesquisar..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <button onClick={handleSearch}>Pesquisar</button>
+      <ul>
+        {filteredItems.map((item, index) => (
+          <li key={index}>{item.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default AdvancedSearch;
+```
+
+#### Tarefa 40: Desenvolver Painel de Controle para Administradores (55 pontos)
+**Descrição**: Criar um painel de controle completo para administradores, permitindo a gestão de usuários e conteúdo da aplicação, integrando com Firestore.
+
+**Exemplo de Código**:
+```jsx
+import React, { useState, useEffect
+
+ } from 'react';
+import { getFirestore, collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
+
+const AdminPanel = () => {
+  const [users, setUsers] = useState([]);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const querySnapshot = await getDocs(collection(db, 'users'));
+      const usersData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setUsers(usersData);
+    };
+    fetchUsers();
+  }, [db]);
+
+  const handleDeleteUser = async (userId) => {
+    await deleteDoc(doc(db, 'users', userId));
+    setUsers(users.filter(user => user.id !== userId));
+  };
+
+  return (
+    <div>
+      <h1>Admin Panel</h1>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>
+            {user.name} - {user.email}
+            <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default AdminPanel;
 ```
