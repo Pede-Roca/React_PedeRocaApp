@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useState, useEffect } from 'react'
 import { userAuthentication } from '../../hooks/userAuthentication'
 import { useAuthValue } from '../../context/AuthContext'
+import GoogleLogin from '../GoogleLogin/GoogleLogin'
+import FacebookLogin from '../FacebookLogin/FacebookLogin'
 import Cadastro from '../Cadastro/Cadastro'
 import Usuario from '../Usuario/Usuario'
 
@@ -21,10 +23,10 @@ const Login = () => {
     setShowOff(true)
     setPageRender(1)
   }
-  
+
   const handlerSubmit = async (e) => {
     e.preventDefault()
-    const usuario ={
+    const usuario = {
       email,
       password
     }
@@ -38,36 +40,43 @@ const Login = () => {
   }, [authError])
   return (
     <>
-    {user && !showOff &&
-     <Usuario />
-    }
-    {!user && !showOff &&
+      {user && !showOff &&
+        <Usuario />
+      }
+      {!user && !showOff &&
         <div>
-        <main>
-          <img src={logo} alt="Logo Pede Roça" className={styles.imgLogoLogin} />
-        </main>
-        <form onSubmit={handlerSubmit}>
-          <div className='form-group form-floating mb-3'>
-            <input type="email" name='email' required value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' id='floatingInput' placeholder='name@exemple.com' />
-            <label type='email' htmlFor='floatingInput'>Usuário</label>
-          </div>
-          <div className='form-group form-floating mb-3'>
-            <input type="password" name='password' required value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' id='floatingInput' placeholder='name@exemple.com' />
-            <label type='password' htmlFor='floatingInput'>Senha</label>
-          </div>
-          <div className='form-group'>
-            {!loading && <button className='btn' id={styles.btnLogin}>Logar</button>}
-            {loading && <button className='btn' id={styles.btnLogin} disabled>Logando...</button>}
-            {error && <div className='mt-3 alert alert-danger'>{error}</div>}
-          </div>
-        </form>
-        <div className='d-flex justify-content-between'>
+          <main>
+            <img src={logo} alt="Logo Pede Roça" className={styles.imgLogoLogin} />
+          </main>
+          <form onSubmit={handlerSubmit}>
+            <div className='form-group form-floating mb-3'>
+              <input type="email" name='email' required value={email} onChange={(e) => setEmail(e.target.value)} className='form-control' id='floatingInput' placeholder='name@exemple.com' />
+              <label type='email' htmlFor='floatingInput'>Usuário</label>
+            </div>
+            <div className='form-group form-floating mb-3'>
+              <input type="password" name='password' required value={password} onChange={(e) => setPassword(e.target.value)} className='form-control' id='floatingInput' placeholder='name@exemple.com' />
+              <label type='password' htmlFor='floatingInput'>Senha</label>
+            </div>
+            <div className='form-group'>
+              {!loading && <button className='btn' id={styles.btnLogin}>Logar</button>}
+              {loading && <button className='btn' id={styles.btnLogin} disabled>Logando...</button>}
+              {error && <div className='mt-3 alert alert-danger'>{error}</div>}
+            </div>
+            <div >
+              <p className={styles.titleRedeSocial}>Login com Redes Sociais</p>
+              <div className={styles.containerRedeSocial}>
+                <GoogleLogin />
+                <FacebookLogin />
+              </div>
+            </div>
+          </form>
+          <div className='d-flex justify-content-between'>
             <button className={styles.btnHelp}>Recuperar Senha</button>
             <button onClick={cadastar} className={styles.btnHelp}>Cadastro</button>
           </div>
-      </div>
-    }
-    {!user && pageRender === 1 && <Cadastro />}
+        </div>
+      }
+      {!user && pageRender === 1 && <Cadastro />}
     </>
   )
 }
