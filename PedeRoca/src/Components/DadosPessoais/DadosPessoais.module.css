@@ -1,0 +1,62 @@
+.inputs_dados_pessoais {
+    width: 100%;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: solid 1px #B4AFAF;
+}
+
+.btn_entrega {
+    border: none;
+    border-radius: 10px;
+    background: #7C8C03;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 20px;
+    display: inline;
+    width: 50%;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.btn_entrega:hover {
+    background: #6f7b18;
+}
+
+.div_dados_usuario {
+    display: block;
+    padding: 5px;
+}
+
+.div_voltar {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn_voltar{
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    border: #A83C01 1px solid;
+    background-color: white;
+}
+
+#icone_voltar {
+    font-size: 1.6rem;
+    color: #A83C01;
+}
+
+.titleDados {
+    border-radius: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    background-color: #7C8C03;
+    display: flex;
+    font-size: 20px;
+}

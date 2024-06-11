@@ -13,7 +13,7 @@ import { AuthProvider } from './context/AuthContext'
 
 function App() {
   const [user, setUser] = useState(undefined)
-  const { auth } = userAuthentication()
+  const { auth, logout } = userAuthentication()
 
   const loadingUser =  user === undefined
 
@@ -26,10 +26,12 @@ function App() {
       const data = await getDocs(produtosCollectionRef)
       setProdutos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     }
+
     getProdutos()
     onAuthStateChanged(auth, user => {
       setUser(user)})
   }, [auth])
+  
 
   if(loadingUser) {
     return <div className='loadingAnimation'></div>
@@ -37,7 +39,7 @@ function App() {
 
   return (
     <>
-    <AuthProvider value={{ user }}>
+    <AuthProvider value={{ user, logout }}>
       <Home />
       <FooterDesktop />
       <Products list={produtos} />

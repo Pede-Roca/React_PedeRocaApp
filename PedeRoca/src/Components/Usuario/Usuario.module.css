@@ -1,0 +1,43 @@
+.foto_usuario {
+    width: 197px;
+    height: 197px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.div_area_do_usuario {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.nome_usuario {
+    color: #000;
+    text-align: center;
+    font-family: Ubuntu;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.btn_usuario {
+    border: none;
+    border-radius: 10px;
+    background: #7C8C03;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 15px;
+}
+
+.btn_sair {
+    border: none;
+    border-radius: 10px;
+    background: #A83C01;
+    color: #FFFFFF;
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 15px;
+}
