@@ -95,20 +95,19 @@ const Login = () => {
               )}
               {error && <div className="mt-3 alert alert-danger">{error}</div>}
             </div>
-            <div>
-              <p className={styles.titleRedeSocial}>Login com Redes Sociais</p>
-              <div className={styles.containerRedeSocial}>
-                <GoogleLogin />
-                <FacebookLogin />
-                <GitHubLogin />
-              </div>
-            </div>
           </form>
           <div className="d-flex justify-content-between">
             <button className={styles.btnHelp}>Recuperar Senha</button>
             <button onClick={cadastar} className={styles.btnHelp}>
               Cadastro
             </button>
+          </div>
+          <div className={styles.loginSocial}>
+            <div className={styles.containerRedeSocial}>
+              <GoogleLogin />
+              <FacebookLogin />
+              <GitHubLogin />
+            </div>
           </div>
         </div>
       )}
