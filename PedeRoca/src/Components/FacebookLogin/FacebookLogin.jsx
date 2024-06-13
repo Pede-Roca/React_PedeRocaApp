@@ -28,7 +28,7 @@ const FacebookLogin = () => {
 
   return (
     <button className={styles.btnRedeSocial} onClick={handleLogin}>
-      <i class="bi bi-facebook"></i>
+      <i className="bi bi-facebook"></i>
     </button>
   );
 };

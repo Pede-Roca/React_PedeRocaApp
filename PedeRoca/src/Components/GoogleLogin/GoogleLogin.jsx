@@ -27,7 +27,7 @@ const GoogleLogin = () => {
   });
   return (
     <button className={styles.btnRedeSocial} onClick={handleLogin}>
-      <i class="bi bi-google"></i>
+      <i className="bi bi-google"></i>
     </button>
   );
 };

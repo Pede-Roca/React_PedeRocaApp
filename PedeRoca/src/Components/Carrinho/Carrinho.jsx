@@ -49,8 +49,8 @@ const Carrinho = () => {
       {step === 1 && (
         <div>
           <h5 className={styles.tituloCarrinho}>Itens do Carrinho</h5>
-          {produtos.map((produto) => (
-            <div className={styles.containerCarrinho}>
+          {produtos.map((produto, i) => (
+            <div key={i} className={styles.containerCarrinho}>
               <button className={styles.lixeira}>
                 <i className="bi bi-trash" id={styles.lixeira}></i>
               </button>
@@ -113,7 +113,7 @@ const Carrinho = () => {
                 value="Economica"
                 onClick={handleOptionChange}
               />{" "}
-              Econîmica (1 a 3 dias)
+              Econômico (1 a 3 dias)
             </label>
             <p className={styles.precoCkb}>R$ 4,00</p>
           </div>
