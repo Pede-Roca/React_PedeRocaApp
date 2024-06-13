@@ -26,7 +26,7 @@ const Products = (props) => {
             onChange={(event) => setSearchTerm(event.target.value)}
             value={searchTerm}
             className="form-control flex-grow-1"
-            placeholder="O que vocÃª procura? Busque por Produto/Categoria"
+            placeholder="O que você procura? Busque por Produto/Categoria"
             aria-label="Search"
             id={styles.filtroPesquisa}
           />

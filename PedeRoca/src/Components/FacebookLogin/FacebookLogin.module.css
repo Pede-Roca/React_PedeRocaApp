@@ -1,0 +1,15 @@
+.btnRedeSocial{
+    align-items: center;
+    background: #7C8C03;
+    color: white;
+    font-size: 2rem;
+    padding: 5px 10px;
+    margin: 15px 20px;
+    border-radius: 10%;
+    border: none;
+    width: 4rem;
+  }
+
+  .btnRedeSocial:hover{
+    background: #6A7A03;
+}

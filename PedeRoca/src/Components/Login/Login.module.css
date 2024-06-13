@@ -29,3 +29,32 @@
     border: none;
     margin-top: 10px;
   }
+
+  .btnRedeSocial{
+    align-items: center;
+    background: white;
+    font-size: 1.6rem;
+    padding: 5px 10px;
+    margin: 15px 20px;
+    border-radius: 50%;
+    border: none;
+  }
+
+  .containerRedeSocial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .titleRedeSocial{
+    font-weight: bold;
+    font-family: "Merienda", times, serif;
+    text-align: center;
+    font-size: large;
+    border-top: 1px solid #7C8C03;
+  }
+
+  .loginSocial{
+    margin-top: 10px;
+    border-radius: 10px;
+  }

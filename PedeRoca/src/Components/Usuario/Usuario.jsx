@@ -40,7 +40,8 @@ const Usuario = () => {
         return <SuporteUsuario user={usuarios.length > 0 ? usuarios[0] : null} onBack={() => setCurrentSection('profile')} />;
       default:
         return (
-          <div className={styles.div_area_do_usuario}>
+          <div>
+            <h1>Usuário Logado</h1>
             <img className={styles.foto_usuario} src={usuarios.length > 0 ? usuarios[0].foto : ''} alt="Foto_Usuario" />
             <div className={styles.nome_usuario}>{usuarios.length > 0 ? usuarios[0].nome : ''}</div>
             <button className={styles.btn_usuario} onClick={() => setCurrentSection('Endereço Entrega')}>
