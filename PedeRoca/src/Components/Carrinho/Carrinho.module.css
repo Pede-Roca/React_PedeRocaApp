@@ -53,26 +53,27 @@
   #lixeira{
     font-size: 1.8rem;
     width: 10%;
+    border-right: 1px solid #7C8C03;
+    margin-right: 5px;
+    padding-right: 5px;
   }
 
   #minus, #add{
-    background: none;
-    border: none;
     color: #f2f2f2;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+  }
+
+  .btn_changeQuantityPlus{
     border-radius: 50%;
-    margin: 0px 10px;
-    width: 10%;
+    background-color: #7C8C03;
+    border: none;
   }
 
-  #minus{
-    background: #A83C01;
-    border: #A83C01 1px solid;
-  }
-
-  #add{
-    background: #7C8C03;
-    border: #7C8C03 1px solid;
+  .btn_changeQuantityMinus{
+    border-radius: 50%;
+    background-color: #A83C01;
+    border: none;
+    margin-left: 10px;
   }
 
   .nomeProduto{
