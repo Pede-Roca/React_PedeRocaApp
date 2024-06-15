@@ -7,10 +7,11 @@ import { userAuthentication } from "../../hooks/userAuthentication";
 import { useAuthValue } from "../../context/AuthContext";
 import GoogleLogin from "../GoogleLogin/GoogleLogin";
 import FacebookLogin from "../FacebookLogin/FacebookLogin";
-import LinkedInLogin from "../LinkedInLogin/LinkedInLogin"
+import LinkedInLogin from "../LinkedInLogin/LinkedInLogin";
 import Cadastro from "../Cadastro/Cadastro";
 import Usuario from "../Usuario/Usuario";
 import GitHubLogin from "../GitHubLogin/GitHubLogin";
+import RecSenha from "../RecSenha/RecSenha";
 
 const Login = () => {
   const [pageRender, setPageRender] = useState(0); //provisório até arrumar o "const { user } = useAuthValue()"
@@ -24,6 +25,11 @@ const Login = () => {
   const cadastar = () => {
     setShowOff(true);
     setPageRender(1);
+  };
+
+  const recoveryPassword = () => {
+    setShowOff(true);
+    setPageRender(2);
   };
 
   const handlerSubmit = async (e) => {
@@ -98,7 +104,9 @@ const Login = () => {
             </div>
           </form>
           <div className="d-flex justify-content-between">
-            <button className={styles.btnHelp}>Recuperar Senha</button>
+            <button onClick={recoveryPassword} className={styles.btnHelp}>
+              Recuperar Senha
+            </button>
             <button onClick={cadastar} className={styles.btnHelp}>
               Cadastro
             </button>
@@ -108,12 +116,13 @@ const Login = () => {
               <GoogleLogin />
               <FacebookLogin />
               <GitHubLogin />
-              <LinkedInLogin/>
+              <LinkedInLogin />
             </div>
           </div>
         </div>
       )}
       {!user && pageRender === 1 && <Cadastro />}
+      {!user && pageRender === 2 && <RecSenha />}
     </>
   );
 };
