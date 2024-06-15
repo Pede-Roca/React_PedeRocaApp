@@ -53,10 +53,11 @@ const Receitas = () => {
   return (
     <>
       <p className={styles.textoIntro}>
-        Nossa equipe disponibiliza uma ferramenta para encontrar as melhores
-        receitas com os produtos do site! Faça sua busca inserindo os
-        ingredientes para obter sugestões de receitas ou insira o nome da
-        receita para obter os ingredientes necessários.
+        Nossa equipe disponibiliza uma ferramenta de I.A. (Inteligencia
+        Artigicial) para encontrar as melhores receitas com os produtos do site!
+        Faça sua busca inserindo os ingredientes para obter sugestões de
+        receitas ou insira o nome da receita para obter os ingredientes
+        necessários.
       </p>
       <label type="text" className={styles.labelPrompt}>
         Ingredientes ou nome da receita

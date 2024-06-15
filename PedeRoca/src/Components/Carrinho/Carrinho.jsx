@@ -54,13 +54,13 @@ const Carrinho = () => {
               <button className={styles.lixeira}>
                 <i className="bi bi-trash" id={styles.lixeira}></i>
               </button>
-              <span>
+              <button className={styles.btn_changeQuantityMinus}>
                 <i className="bi bi-dash" id={styles.minus}></i>
-              </span>
+              </button>
               <span className={styles.qtdProduto}>{produto.quantidade}</span>
-              <span>
+              <button className={styles.btn_changeQuantityPlus}>
                 <i className="bi bi-plus" id={styles.add}></i>
-              </span>
+              </button>
               <span className={styles.nomeProduto}>{produto.nome}</span>
               <span className={styles.precoProduto}>
                 R$ {(produto.preco * produto.quantidade).toFixed(2)}
