@@ -1,35 +1,44 @@
 import React, { useState, useEffect } from "react";
-import styles from './Cadastro.module.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { userAuthentication } from '../../hooks/userAuthentication';
+import styles from "./Cadastro.module.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { userAuthentication, createUser } from "../../hooks/userAuthentication";
 
 const Cadastro = () => {
   const [step, setStep] = useState(1);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmedPassword, setConfirmedPassword] = useState("");
 
-  const [fullName, setFullName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [dob, setDob] = useState('');
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [dob, setDob] = useState("");
 
-  const [cep, setCep] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [neighborhood, setNeighborhood] = useState('');
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState('');
-  const [complement, setComplement] = useState('');
+  const [cep, setCep] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [street, setStreet] = useState("");
+  const [number, setNumber] = useState("");
+  const [complement, setComplement] = useState("");
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [renderPassError, setRenderPassError] = useState(false);
 
   const { createUser, error: authError, loading } = userAuthentication();
 
+  const confirmarSenha = () => {
+    if (password !== confirmedPassword) {
+      setRenderPassError(true);
+    } else {
+      setRenderPassError(false);
+    }
+  };
+
   const handleNext = () => {
     if (step === 1 && password !== confirmedPassword) {
-      setError('As senhas precisam ser iguais.');
+      confirmarSenha();
       return;
     }
     setStep(step + 1);
@@ -41,7 +50,7 @@ const Cadastro = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     const user = {
       displayName: fullName,
@@ -58,7 +67,12 @@ const Cadastro = () => {
         street,
         number,
         complement,
-      }
+      },
+    };
+
+    const user2 = {
+      email,
+      password,
     };
 
     const res = await createUser(user);
@@ -77,27 +91,28 @@ const Cadastro = () => {
 
     if (newCep.length === 8) {
       try {
-        const response = await fetch(`https://viacep.com.br/ws/${newCep}/json/`);
+        const response = await fetch(
+          `https://viacep.com.br/ws/${newCep}/json/`
+        );
         const data = await response.json();
 
         if (data.erro) {
-          setError('CEP inválido.');
+          setError("CEP inválido.");
         } else {
           setCity(data.localidade);
           setState(data.uf);
           setNeighborhood(data.bairro);
           setStreet(data.logradouro);
-          setError('');
+          setError("");
         }
       } catch (error) {
-        setError('Erro ao buscar o CEP.');
+        setError("Erro ao buscar o CEP.");
       }
     }
-  }
+  };
   return (
     <>
       <div className={styles.containerEtapa}>
-        <span className={styles.linhaProgresso}></span>
         <div className={styles.etapa}>
           <span
             className={`${styles.circle} ${step == 1 ? styles.active : ""}`}
@@ -116,14 +131,15 @@ const Cadastro = () => {
           ></span>
           <p>Entrega</p>
         </div>
+        <span className={styles.linhaProgresso}></span>
       </div>
       <div className={styles.registerContainer}>
-        <form class="form-group form-floating mb-3" onSubmit={handleSubmit}>
+        <form className="form-group form-floating mb-3" onSubmit={handleSubmit}>
           {step === 1 && (
-            <div>
+            <div className={styles.containerDados}>
               <h5 className={styles.titulo}>Dados de Acesso</h5>
               <br />
-              <label >
+              <label className={styles.label}>
                 <span className={styles.span}>E-mail: </span>
                 <input
                   type="email"
@@ -132,12 +148,12 @@ const Cadastro = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="form-control"
-                  requiredClass= {styles.formInput}
+                  requiredClass={styles.formInput}
                   id="floatInput"
                   placeholder="Entre com seu e-mail"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Senha: </span>
                 <input
                   type="password"
@@ -146,12 +162,12 @@ const Cadastro = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="form-control"
-                  requiredClass= {styles.formInput}
+                  requiredClass={styles.formInput}
                   id="floatInput"
                   placeholder="Entre com sua senha"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Confirmação da senha: </span>
                 <input
                   type="password"
@@ -160,10 +176,13 @@ const Cadastro = () => {
                   value={confirmedPassword}
                   onChange={(e) => setConfirmedPassword(e.target.value)}
                   className="form-control"
-                  requiredClass= {styles.formInput}
+                  requiredClass={styles.formInput}
                   id="floatInput"
                   placeholder="Confirme sua senha"
                 />
+                {renderPassError && (
+                  <span className={styles.erroPass}>Senhas não conferem</span>
+                )}
               </label>
             </div>
           )}
@@ -172,8 +191,8 @@ const Cadastro = () => {
             <div>
               <h5 className={styles.titulo}>Dados do Usuáro</h5>
               <br />
-              <label>
-                <span>Nome Completo: </span>
+              <label className={styles.label}>
+                <span className={styles.span}>Nome Completo: </span>
                 <input
                   type="text"
                   name="fullName"
@@ -186,7 +205,7 @@ const Cadastro = () => {
                   placeholder="Entre com seu nome completo"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Telefone: </span>
                 <input
                   type="text"
@@ -200,7 +219,7 @@ const Cadastro = () => {
                   placeholder="Entre com seu telefone"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>CPF: </span>
                 <input
                   type="text"
@@ -214,7 +233,7 @@ const Cadastro = () => {
                   placeholder="Entre com seu CPF"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Data de Nascimento: </span>
                 <input
                   type="date"
@@ -234,7 +253,7 @@ const Cadastro = () => {
             <div>
               <h5 className={styles.titulo}>Dados da Entrega</h5>
               <br />
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>CEP: </span>
                 <input
                   type="text"
@@ -248,7 +267,7 @@ const Cadastro = () => {
                   placeholder="Entre com seu CEP"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Cidade: </span>
                 <input
                   type="text"
@@ -262,7 +281,7 @@ const Cadastro = () => {
                   placeholder="Entre com sua cidade"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Estado: </span>
                 <input
                   type="text"
@@ -276,7 +295,7 @@ const Cadastro = () => {
                   placeholder="Entre com seu estado"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Bairro: </span>
                 <input
                   type="text"
@@ -290,7 +309,7 @@ const Cadastro = () => {
                   placeholder="Entre com seu bairro"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Rua: </span>
                 <input
                   type="text"
@@ -304,7 +323,7 @@ const Cadastro = () => {
                   placeholder="Entre com sua rua"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Número: </span>
                 <input
                   type="text"
@@ -318,7 +337,7 @@ const Cadastro = () => {
                   placeholder="Entre com o número"
                 />
               </label>
-              <label>
+              <label className={styles.label}>
                 <span className={styles.span}>Complemento: </span>
                 <input
                   type="text"
@@ -335,13 +354,21 @@ const Cadastro = () => {
           )}
           <div className={styles.containerBtn}>
             {step > 1 && (
-              <button type="button" onClick={handleBack} className={styles.btnBack}>
+              <button
+                type="button"
+                onClick={handleBack}
+                className={styles.btnBack}
+              >
                 <i className="bi bi-arrow-return-left"></i>
               </button>
             )}
 
             {step < 3 && (
-              <button type="button" onClick={handleNext} className={styles.btnNext}>
+              <button
+                type="button"
+                onClick={handleNext}
+                className={styles.btnNext}
+              >
                 <i className="bi bi-check-lg"></i>
               </button>
             )}
@@ -357,7 +384,6 @@ const Cadastro = () => {
                 Aguarde...
               </button>
             )}
-            {error && <p className='error'>{error}</p>}
           </div>
         </form>
       </div>
