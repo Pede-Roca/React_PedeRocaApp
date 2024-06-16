@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Cadastro.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { userAuthentication, createUser } from "../../hooks/userAuthentication";
+import { userAuthentication } from "../../hooks/userAuthentication";
 
 const Cadastro = () => {
   const [step, setStep] = useState(1);
