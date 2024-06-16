@@ -5,6 +5,7 @@ import {
     collection,
     getDocs
 } from 'firebase/firestore'
+import Graficos from '../Graficos/Graficos'
 
 const PainelADM = () => {
     const db = getFirestore()
@@ -28,6 +29,7 @@ const PainelADM = () => {
                     <li key={user.id}>{user.name} - {user.email}</li>
                 ))}
             </ul>
+            <Graficos/>
         </div>
     )
 }
