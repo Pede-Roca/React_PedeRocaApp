@@ -78,45 +78,25 @@
     align-items: center;
   }
 
-  .checkboxLabel{
-    width: 70%;
-    display: block;
-  }
-
-  .precoCkb{
-    width: 30%;
-    display: block;
-    text-align: end;
-  }
-
-  .obsCheckBox{
-    width: 100%;
-  }
-
-  .registerContainer {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .step {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-.span {
+  .span{
+    color: #7C8C03;
+    font-size: 1.2rem;
+    margin: 0px 10px;
     font-weight: bold;
   }
-  
-  .formInput {
+
+  .formInput{
+    border: 1px solid #7C8C03;
+  }
+
+  .label{
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  }
+
+  .erroPass{
+    color: red;
+    font-size: 1rem;
+    margin: 0px 10px;
+    font-weight: bold;
   }
