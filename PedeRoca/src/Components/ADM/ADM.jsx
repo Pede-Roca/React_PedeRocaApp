@@ -91,7 +91,7 @@ const ADM = () => {
                     <tr>
                       <th>Excluir</th>
                       <th>Nome</th>
-                      <th>Email</th>
+                      <th className={styles.ocultarMobile}>Email</th>
                       <th>Nivel de Acesso</th>
                     </tr>
                   </thead>
@@ -107,7 +107,7 @@ const ADM = () => {
                           </button>
                         </td>
                         <td>{user.nome}</td>
-                        <td>{user.email}</td>
+                        <td className={styles.ocultarMobile}>{user.email}</td>
                         <td>{user.nivel_acesso}</td>
                       </tr>
                     ))}
@@ -128,10 +128,11 @@ const ADM = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>Desativar</th>
-                      <th>Ativo?</th>
+                      <th>Status</th>
                       <th>Nome</th>
+                      <th className={styles.ocultarMobile}>Categoria</th>
                       <th>Qtd Stock</th>
+                      <th className={styles.ocultarMobile}>Preço</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -150,12 +151,10 @@ const ADM = () => {
                             )}
                           </button>
                         </td>
-                        <td>
-                          {produto.ativo == true && "Sim"}
-                          {produto.ativo == false && "Não"}
-                        </td>
                         <td>{produto.nome}</td>
+                        <td className={styles.ocultarMobile}>{produto.tipo_produto}</td>
                         <td>{produto.qtd_estoque}</td>
+                        <td className={styles.ocultarMobile}>{produto.preco_unitario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                       </tr>
                     ))}
                   </tbody>

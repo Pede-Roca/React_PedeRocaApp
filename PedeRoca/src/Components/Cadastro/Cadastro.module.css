@@ -35,6 +35,10 @@
   max-width: 24%;
 }
 
+.stepTitle{
+  width: 100px;
+}
+
 .linhaProgresso{
   width: 90%;
   height: 10px;
@@ -100,3 +104,4 @@
     margin: 0px 10px;
     font-weight: bold;
   }
+
