@@ -73,7 +73,7 @@ const ADM = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button className={styles.btnAdm} onClick={handleShow}>
         ADM
       </Button>
 
@@ -103,7 +103,7 @@ const ADM = () => {
                             onClick={() => deleteUser(user.id)}
                             className={styles.btnTrash}
                           >
-                            <i class="bi bi-trash"></i>
+                            <i className="bi bi-trash"></i>
                           </button>
                         </td>
                         <td>{user.nome}</td>
@@ -142,8 +142,12 @@ const ADM = () => {
                             onClick={() => toggleProdutoAtivo(produto.id)}
                             className={styles.btnStatus}
                           >
-                            {produto.ativo && <i class="bi bi-toggle-on"></i>}
-                            {!produto.ativo && <i class="bi bi-toggle-off"></i>}
+                            {produto.ativo && (
+                              <i className="bi bi-toggle-on"></i>
+                            )}
+                            {!produto.ativo && (
+                              <i className="bi bi-toggle-off"></i>
+                            )}
                           </button>
                         </td>
                         <td>
@@ -161,7 +165,7 @@ const ADM = () => {
           </Accordion>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button className={styles.fechar} onClick={handleClose}>
             Fechar
           </Button>
         </Modal.Footer>

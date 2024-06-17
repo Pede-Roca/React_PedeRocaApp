@@ -34,7 +34,12 @@ const SideBar = (props) => {
         <Offcanvas.Header closeButton>
           <div className={styles.bgTitulo}>
             {menuNav == 0 && <h4 className={styles.titulo}>Carrinho</h4>}
-            {menuNav == 1 && <h4 className={styles.titulo}>Login</h4>}
+            {menuNav == 1 && (
+              <h4 className={styles.titulo}>
+                {!user && "Login"}
+                {user && "Perfil do Usuário"}
+              </h4>
+            )}
             {menuNav == 2 && <h4 className={styles.titulo}>Infomações</h4>}
             {menuNav == 3 && <h4 className={styles.titulo}>Receitas</h4>}
           </div>

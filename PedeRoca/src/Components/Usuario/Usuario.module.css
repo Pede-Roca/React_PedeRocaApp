@@ -1,0 +1,160 @@
+.foto{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; 
+    margin: 0 auto;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.userData{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.nomeUser{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #7C8C03;
+}
+
+.btnSair, .btnDados{
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 200px;
+    font-weight: bold;
+}
+
+.btnSair:hover, .btnDados:hover{
+    filter: brightness(0.8);
+}
+
+.btnDados{
+    background-color: #7C8C03;
+}
+
+.btnSair{
+    background-color: #A83C01;
+}
+
+.containerBTN{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Dados{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.label{
+    font-size: 1.2rem;
+    color: #7C8C03;
+    width: 100%;
+    font-weight: bold;
+}
+
+.input{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #7C8C03;
+}
+
+.input2{
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #7C8C03;
+}
+
+.btnEnviar{
+    background-color: #7C8C03;
+    color: white;
+    border: none;
+    padding: 5px 0px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    cursor: pointer;
+    width: 100px;
+    font-weight: bold;
+    display: block;
+}
+
+.btnEnviar:hover{
+    filter: brightness(0.8);
+}
+
+.btnBack {
+    background: white;
+    font-size: 1.6rem;
+    padding: 5px 10px;
+    margin: 15px 20px;
+    border-radius: 50%;
+    border: none;
+    color: #A83C01;
+    border: #A83C01 1px solid;
+    margin: 20px auto;
+    display: block;
+  }
+
+
+  .titulo{
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    background: #7C8C03;
+  }
+
+  .ContainerLinksSocial{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .socialink{
+    color: black;
+    background: white;
+    width: 150px;
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 10px;
+    padding: 5px;
+  }
+
+  #instSVG, #faceSVG, #emailSVG{
+    margin: 10px;
+    font-size: 1.6rem;
+  }
+
+  #instSVG{
+    color: purple;
+  }
+
+  #faceSVG{
+    color: blue;
+  }
+
+  #emailSVG{
+    color: red;
+  }
+
+  .endereco{
+    text-align: center;
+    margin: 2px 0px;
+  }

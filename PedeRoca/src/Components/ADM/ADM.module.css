@@ -41,3 +41,32 @@ tr>td{
     color: #A83C01;
     width: 100%;
 }
+
+.btnAdm{
+    background-color: #7C8C03;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 200px;
+    font-weight: bold;
+}
+
+.btnAdm:hover{
+    background: #7C8C03;
+    filter: brightness(0.8);
+}
+
+.fechar{
+    background-color: #A83C01;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100px;
+    font-weight: bold;
+}
