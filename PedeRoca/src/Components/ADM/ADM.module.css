@@ -70,3 +70,9 @@ tr>td{
     width: 100px;
     font-weight: bold;
 }
+
+@media screen and (max-width: 767px){
+    .ocultarMobile{
+        display: none;
+    }
+}
