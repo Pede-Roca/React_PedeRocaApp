@@ -1,0 +1,47 @@
+  .userTable {
+    margin-top: 20px;
+  }
+  
+  .tableHeader {
+    background-color: #F29F05;
+    color: white;
+  }
+  
+  .statusToggle {
+    border: none;
+    background: none;
+  }
+
+  #ativo {
+    color: #7C8C03; 
+    font-size: 1.6rem;
+  }
+  
+  #inativo {
+    color: #A60303;
+    font-size: 1.6rem;
+  }
+  
+  .actionButton {
+    border: none;
+    background: none;
+  }
+  
+  #editIcon {
+    color: #7C8C03;
+    font-size: 1.4rem;
+  }
+  
+  #deleteIcon {
+    color: #A60303;
+    font-size: 1.4rem;
+  }
+  
+  .actionButton:hover .editIcon {
+    color: #6f7c02; 
+  }
+  
+  .actionButton:hover .delete-icon {
+    color: #8b0202; 
+  }
+  
