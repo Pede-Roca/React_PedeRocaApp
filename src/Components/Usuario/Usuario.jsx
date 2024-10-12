@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import styles from "./Usuario.module.css";
 import { userAuthentication } from "../../hooks/userAuthentication";
@@ -16,6 +17,12 @@ const Usuario = () => {
   const { logout } = userAuthentication();
   const [userId, setUserId] = useState("");
   const db = getFirestore();
+
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    navigate('/admin'); 
+  };
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -100,6 +107,9 @@ const Usuario = () => {
             </button>
             <button className={styles.btnDados} onClick={paginaSuporte}>
               Suporte ao Usuário
+            </button>
+            <button className={styles.btnDados} onClick={handleButtonClick}>
+              Administrador
             </button>
             <button className={styles.btnSair} onClick={logout}>
               Sair
