@@ -1,18 +1,31 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./Products.module.css";
 import SideBar from "../Sidebar/SideBar";
+import { getDocs, collection } from 'firebase/firestore';
+import { db } from '../../firebase/config';
 
-const Products = (props) => {
+const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const lowerCaseBusca = searchTerm.toLowerCase();
-  const handleSearch = props.list.filter(
+  const produtosCollectionRef = collection(db, 'tb_produtos')
+  const [produtos, setProdutos] = useState([]);
+  
+  const handleSearch = produtos.filter(
     (produto) =>
       produto.nome.toLowerCase().includes(lowerCaseBusca) ||
       produto.tipo_produto.toLowerCase().includes(lowerCaseBusca)
   );
+
+  useEffect(() => {
+    const getProdutos = async () => {
+      const data = await getDocs(produtosCollectionRef)
+      setProdutos(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    }
+    getProdutos()
+  },[])
 
   return (
     <>
@@ -41,9 +54,9 @@ const Products = (props) => {
         id="CartaoProduto"
       >
         {handleSearch.map(
-          (produtos, i) =>
+          (produtos) =>
             produtos.ativo && (
-              <div key={i} className={styles.geralCard}>
+              <div key={produtos.id} className={styles.geralCard}>
                 <div className={styles.posicaoPreco}>
                   <span id="precoProduto">
                     R$ {produtos.preco_unitario.toFixed(2).replace(".", ",")}

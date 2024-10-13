@@ -7,10 +7,8 @@ import { userAuthentication } from "../../hooks/userAuthentication";
 import { useAuthValue } from "../../context/AuthContext";
 import GoogleLogin from "../GoogleLogin/GoogleLogin";
 import FacebookLogin from "../FacebookLogin/FacebookLogin";
-import LinkedInLogin from "../LinkedInLogin/LinkedInLogin";
 import Cadastro from "../Cadastro/Cadastro";
 import Usuario from "../Usuario/Usuario";
-import GitHubLogin from "../GitHubLogin/GitHubLogin";
 import RecSenha from "../RecSenha/RecSenha";
 
 const Login = () => {
@@ -115,8 +113,6 @@ const Login = () => {
             <div className={styles.containerRedeSocial}>
               <GoogleLogin />
               <FacebookLogin />
-              <GitHubLogin />
-              <LinkedInLogin />
             </div>
           </div>
         </div>

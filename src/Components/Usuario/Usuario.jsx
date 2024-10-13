@@ -11,7 +11,6 @@ import {
   where,
   getFirestore,
 } from "firebase/firestore";
-import ADM from "../ADM/ADM";
 
 const Usuario = () => {
   const { logout } = userAuthentication();
@@ -21,7 +20,7 @@ const Usuario = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/admin'); 
+    navigate('/adminPage'); 
   };
 
   useEffect(() => {
@@ -94,7 +93,7 @@ const Usuario = () => {
                   alt="foto do usuário"
                 />
                 <h4 className={styles.nomeUser}>{user.nome}</h4>
-                {user.nivel_acesso === "adm" && <ADM />}
+                {user.nivel_acesso === "adm" && <button className={styles.btnDados} onClick={handleButtonClick}>ADM</button>}
               </div>
             ))}
           </div>

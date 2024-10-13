@@ -1,0 +1,38 @@
+  .adminPageContainer{
+    background-color: #F2F2F2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Borda esfumaçada */
+    width: 90%;
+    margin: 40px auto;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .cadastrarButton {
+    background-color: #7C8C03;
+    color: white;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .cadastrarButton:hover {
+    background-color: #6f7c02;
+  }
+  
+  .barraTitulo {
+    background-color: #F29F05;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
