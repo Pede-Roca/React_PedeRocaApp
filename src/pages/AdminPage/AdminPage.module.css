@@ -1,10 +1,60 @@
 /*   Mobile   */
 @media screen and (max-width: 767px){
+  .foto, .userData, .Categorias, .logo, .Voltar, .CategoriasButtonAtivo, .CategoriasButton {
+    display: none;
+  }
 
+  .CategoriasContainer{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    bottom: 0;
+    background: #F2F2F2;
+    width: 100%;
+    height: 15dvh;
+    border-radius: 10px 10px 0px 0px;
+    border: 1px, 0px 0px 0px solid #A60303;
+    box-shadow: 0px -5px 18px 0px rgba(0,0,0,0.56);
+  }
+
+  .CategoriasButtonM, .CategoriasButtonAtivoM, .VoltarM{
+    border: none;
+    background: none;
+    border-radius: 10px;
+    display: block;
+    font-size: 2rem;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .CategoriasButtonAtivoM{
+    background: #F2F2F2;
+    color: #7C8C03;
+    box-shadow: inset 0 0 0 1px #7C8C03;
+  }
+
+  .ConteinerSection{
+    background: #F2F2F2;
+    width: 98%;
+    height: 100dvh;
+    overflow-y: auto;
+    padding-bottom: 15dvh;
+    margin: 0 1%;
+  }
+
+  .nomeNavAtivo{
+    color: #7C8C03;
+  }
 }
 
 /*   Desktop   */
 @media screen and (min-width: 768px) {
+  .CategoriasButtonM, .CategoriasButtonAtivoM, .VoltarM, .nomeNav {
+    display: none;
+  }
+
   .ContainerPai {
     display: flex;
     height: 100vh; 
@@ -16,16 +66,14 @@
     width: 250px; 
     height: 100%; 
     background: #F2F2F2;
-    border-radius: 20px;
-    padding: 10px;
+    border-radius: 20px 0px 0px 20px;
   }
 
   .ConteinerSection {
     flex-grow: 1;
     background-color: #F2F2F2;
     margin-left: 10px; 
-    border-radius: 20px;
-    padding: 20px; 
+    border-radius: 0px 20px 20px 0px;
     box-sizing: border-box;
   }
   
@@ -100,10 +148,9 @@
   }
 
   .ContainerLogo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
   }
 
   .logo {
