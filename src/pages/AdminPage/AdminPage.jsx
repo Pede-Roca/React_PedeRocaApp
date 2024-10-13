@@ -99,22 +99,51 @@ const AdminPage = () => {
               ))}
               <p className={styles.Categorias}>Categorias</p>
               <div className={styles.CategoriasContainer}>
-              <button onClick={paginaVendas} className={`${
-                RenderVendas === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-              }`}><i class="bi bi-cash-coin"></i> Vendas</button>
-                <button onClick={paginaUsuarios} className={`${
-                RenderUsuarios === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-              }`}><i class="bi bi-people"></i> Usuários</button>
-                <button onClick={paginaProdutos} className={`${
-                RenderProdutos === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-              }`}><i class="bi bi-cart3"></i> Produtos</button>
-                <button onClick={paginaMensagens} className={`${
-                RenderMensagens === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-              }`}><i class="bi bi-chat-dots"></i> Mensagens</button>
-                <button onClick={handleButtonClick} className={styles.Voltar}>Voltar ao Site</button>
-              </div>
-              <div className={styles.ContainerLogo}>
-              <img src={logo} alt="Logo Pede Roça" className={styles.logo} />
+                <button onClick={paginaVendas} className={`${
+                  RenderVendas === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+                }`}><i class="bi bi-cash-coin"></i> Vendas</button>
+                  <button onClick={paginaUsuarios} className={`${
+                  RenderUsuarios === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+                }`}><i class="bi bi-people"></i> Usuários</button>
+                  <button onClick={paginaProdutos} className={`${
+                  RenderProdutos === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+                }`}><i class="bi bi-cart3"></i> Produtos</button>
+                  <button onClick={paginaMensagens} className={`${
+                  RenderMensagens === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+                }`}><i class="bi bi-chat-dots"></i> Mensagens</button>
+                  <button onClick={handleButtonClick} className={styles.Voltar}>Voltar ao Site</button>
+                  {/*Mobile*/}
+                  <div>
+                    <button onClick={paginaVendas} className={`${
+                    RenderVendas === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                    }`}><i className="bi bi-cash-coin"></i></button>
+                    <p className={styles.nomeNav}>Vendas</p>
+                  </div>
+                  <div>
+                    <button onClick={paginaUsuarios} className={`${
+                    RenderUsuarios === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                    }`}><i className="bi bi-people"></i></button>
+                    <p className={styles.nomeNav}>Usuarios</p>
+                  </div>
+                  <div>
+                    <button onClick={paginaProdutos} className={`${
+                    RenderProdutos === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                    }`}><i className="bi bi-cart3"></i></button>
+                    <p className={styles.nomeNav}>Produtos</p>
+                  </div>
+                  <div>
+                    <button onClick={paginaMensagens} className={`${
+                    RenderMensagens === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                    }`}><i className="bi bi-chat-dots"></i></button>
+                    <p className={styles.nomeNav}>SMS</p>
+                  </div>
+                  <div>
+                    <button onClick={handleButtonClick} className={styles.VoltarM}><i className="bi bi-x-lg"></i></button>
+                    <p className={styles.nomeNav}>Fechar</p>
+                  </div>
+                </div>
+                <div className={styles.ContainerLogo}>
+                <img src={logo} alt="Logo Pede Roça" className={styles.logo} />
               </div>
           </aside>
           <section className={styles.ConteinerSection}>
