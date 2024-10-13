@@ -20,7 +20,7 @@ const Usuario = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/adminPage'); 
+    navigate('/admin'); 
   };
 
   useEffect(() => {
