@@ -1,38 +1,114 @@
-  .adminPageContainer{
-    background-color: #F2F2F2;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Borda esfumaçada */
-    width: 90%;
-    margin: 40px auto;
-  }
-  
-  .header {
+/*   Mobile   */
+@media screen and (max-width: 767px){
+
+}
+
+/*   Desktop   */
+@media screen and (min-width: 768px) {
+  .ContainerPai {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    height: 100vh; 
+    width: 100%;  
+    box-sizing: border-box; 
   }
-  
-  .cadastrarButton {
-    background-color: #7C8C03;
-    color: white;
-    padding: 10px 40px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .cadastrarButton:hover {
-    background-color: #6f7c02;
-  }
-  
-  .barraTitulo {
-    background-color: #F29F05;
-    color: white;
+
+  .ContainerAside {
+    width: 250px; 
+    height: 100%; 
+    background: #F2F2F2;
+    border-radius: 20px;
     padding: 10px;
+  }
+
+  .ConteinerSection {
+    flex-grow: 1;
+    background-color: #F2F2F2;
+    margin-left: 10px; 
+    border-radius: 20px;
+    padding: 20px; 
+    box-sizing: border-box;
+  }
+  
+  .foto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin: 10px auto;
+    display: block;
+    object-fit: cover;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .userData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .nomeUser {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .Categorias {
+    color: #F2F2F2;
+    background: #F29F05;
+    padding: 0 auto;
     text-align: center;
     font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .CategoriasContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  .CategoriasButton {
+    background: none;
+    border: none;
     margin-top: 20px;
   }
-  
+
+  .CategoriasButtonAtivo {
+    background: none;
+    border: none;
+    margin-top: 20px;
+    color: #7C8C03;
+  }
+
+  .Voltar {
+    background: #A60303;
+    color: #F2F2F2;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 20px;
+    border: none;
+    width: 150px;
+  }
+
+  .Voltar:hover {
+    background-color: #F2F2F2;
+    border: #A60303 1px solid;
+    color: #A60303;
+  }
+
+  .ContainerLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .logo {
+    width: 200px;
+    padding: 5px;
+    margin-top: 50px;
+  }
+}
