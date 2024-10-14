@@ -12,7 +12,7 @@ import Usuario from "../Usuario/Usuario";
 import RecSenha from "../RecSenha/RecSenha";
 
 const Login = () => {
-  const [pageRender, setPageRender] = useState(0); //provisório até arrumar o "const { user } = useAuthValue()"
+  const [pageRender, setPageRender] = useState(0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -37,13 +37,18 @@ const Login = () => {
       password,
     };
     const res = await login(usuario);
+
+    if (res.error) {
+      setError("Usuário ou Senha Inválido");
+    }
   };
 
   useEffect(() => {
     if (authError) {
-      setError(authError);
+      setError("Usuário ou Senha Inválido");
     }
   }, [authError]);
+
   return (
     <>
       {user && !showOff && <Usuario />}
@@ -68,9 +73,7 @@ const Login = () => {
                 id="floatingInput"
                 placeholder="name@exemple.com"
               />
-              <label type="email" htmlFor="floatingInput">
-                Usuário
-              </label>
+              <label htmlFor="floatingInput">Usuário</label>
             </div>
             <div className="form-group form-floating mb-3">
               <input
@@ -80,12 +83,10 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="form-control"
-                id="floatingInput"
-                placeholder="name@exemple.com"
+                id="floatingPassword"
+                placeholder="Senha"
               />
-              <label type="password" htmlFor="floatingInput">
-                Senha
-              </label>
+              <label htmlFor="floatingPassword">Senha</label>
             </div>
             <div className="form-group">
               {!loading && (
