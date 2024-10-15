@@ -128,6 +128,10 @@
     margin-top: 20px;
   }
 
+  .CategoriasButton:hover{
+    color: #7C8C03;
+  }
+
   .CategoriasButtonAtivo {
     background: none;
     border: none;
@@ -139,7 +143,7 @@
     background: #A60303;
     color: #F2F2F2;
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 5px 20px;
     margin-top: 20px;
     border: none;
     width: 150px;

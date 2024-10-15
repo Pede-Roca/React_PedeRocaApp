@@ -35,7 +35,6 @@ const GestaoCategorias = ({ handleEdit, handleDelete }) => {
         <Table bordered hover className={styles.userTable}>
           <thead>
             <tr className={styles.tableHeader}>
-              <th>Id</th>
               <th>Nome</th>
               <th>Ações</th>
             </tr>
@@ -43,7 +42,6 @@ const GestaoCategorias = ({ handleEdit, handleDelete }) => {
           <tbody>
             {Object.entries(categorias).map(([id, nome]) => (
               <tr key={id}>
-                <td>{id}</td>
                 <td>{nome}</td>
                 <td>
                   <Button
@@ -51,7 +49,7 @@ const GestaoCategorias = ({ handleEdit, handleDelete }) => {
                     onClick={() => handleEdit(id)}
                     className={styles.actionButton}
                   >
-                    <i className="bi bi-pencil-square" id={styles.editIcon}></i>
+                    <i className="bi bi-info-square" id={styles.editIcon}></i>
                   </Button>
                   <Button
                     variant="light"

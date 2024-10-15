@@ -47,7 +47,16 @@ const GestaoProdutos = () => {
   return (
     <div>
       {/* Gestão de Produtos */}
-      <div className={styles.adminPageContainer}>
+      <div className={styles.NavOption}>
+        <span className={styles.SpanScroll}>Navegação: </span>
+        <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section1">Categorias</a></button>
+        <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section2">Produtos</a></button>
+      </div>
+      <div id="section1">
+        {/* Componente de Gestão de Categorias */}
+        <GestaoCategorias handleEdit={handleEdit} handleDelete={handleDelete} />
+      </div>
+      <div id="section2" className={styles.adminPageContainer}>
         <div className={styles.header}>
           <h2>Gestão de produtos</h2>
           <button className={styles.cadastrarButton}>Cadastrar</button>
@@ -57,27 +66,35 @@ const GestaoProdutos = () => {
           <Table bordered hover className={styles.userTable}>
             <thead>
               <tr className={styles.tableHeader}>
+                <th>Status</th>
                 <th>Nome</th>
-                <th>Categoria</th>
-                <th>Estoque</th>
-                <th>Preço</th>
+                <th className={styles.MobileOcult}>Categoria</th>
+                <th className={styles.MobileOcult}>Estoque</th>
+                <th className={styles.MobileOcult}>Preço</th>
                 <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               {produtos.map((produto) => (
                 <tr key={produto.id}>
+                  <td>
+                  {produto.status ? (
+                    <i className="bi bi-toggle-on" id={styles.ativo}></i>
+                  ) : (
+                    <i className="bi bi-toggle-off" id={styles.inativo}></i>
+                  )}
+                  </td>
                   <td>{produto.nome}</td>
-                  <td>{categorias[produto.idCategoria] || 'Carregando...'}</td>
-                  <td>{produto.estoque}</td>
-                  <td>{produto.preco.toFixed(2)}</td>
+                  <td className={styles.MobileOcult}>{categorias[produto.idCategoria] || 'Carregando...'}</td>
+                  <td className={styles.MobileOcult}>{produto.estoque}</td>
+                  <td className={styles.MobileOcult}>{produto.preco.toFixed(2)}</td>
                   <td>
                     <Button
                       variant="light"
                       onClick={() => handleEdit(produto.id)}
                       className={styles.actionButton}
                     >
-                      <i className="bi bi-pencil-square" id={styles.editIcon}></i>
+                      <i className="bi bi-info-square" id={styles.editIcon}></i>
                     </Button>
                     <Button
                       variant="light"
@@ -95,9 +112,6 @@ const GestaoProdutos = () => {
           <div className={styles.msgVazia}>A lista de produtos está vazia.</div>
         )}
       </div>
-
-      {/* Componente de Gestão de Categorias */}
-      <GestaoCategorias handleEdit={handleEdit} handleDelete={handleDelete} />
     </div>
   );
 };

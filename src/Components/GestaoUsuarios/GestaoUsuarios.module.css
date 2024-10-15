@@ -1,5 +1,5 @@
-@media screen and(max-width: 767px){
-  .hidefield {
+@media screen and (max-width: 767px) {
+  .MobileOcult{
     display: none;
   }
 }
@@ -51,16 +51,12 @@
     color: #8b0202; 
   }
   
-
-
-
-
   .adminPageContainer{
     background-color: #F2F2F2;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Borda esfumaçada */
-    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 100%;
     margin: 40px auto;
   }
   
@@ -73,7 +69,7 @@
   .cadastrarButton {
     background-color: #7C8C03;
     color: white;
-    padding: 10px 40px;
+    padding: 5px 20px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -81,22 +77,27 @@
   }
   
   .cadastrarButton:hover {
-    background-color: #6f7c02;
+    background: #F2F2F2;
+    color: #7C8C03;
+    border: #7C8C03 1px solid;
   }
+  
   
   .barraTitulo {
     background-color: #F29F05;
     color: white;
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     font-weight: bold;
     margin-top: 20px;
+    border-radius: 10px;
   }
   
   #filtroPesquisa {
       border-radius: 10px 0px 0px 10px;
       border: 1px solid #7C8C03;
-      min-width: 300px;
+      display: inline;
+      width: 100%;
   }
   
   #corPesquisa {

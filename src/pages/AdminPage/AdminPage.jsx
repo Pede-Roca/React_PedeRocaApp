@@ -31,14 +31,12 @@ const AdminPage = () => {
   const [RenderProdutos, setRenderProdutos] = useState(true);
   const [RenderVendas, setRenderVendas] = useState(false);
   const [RenderMensagens, setRenderMensagens] = useState(false);
-  const [RenderCategorias, setRenderCategorias] = useState(false);
 
   const paginaUsuarios = () => {
     setRenderUsuarios(true);
     setRenderProdutos(false);
     setRenderVendas(false);
     setRenderMensagens(false);
-    setRenderCategorias(false);
   };
 
   const paginaProdutos = () => {
@@ -46,7 +44,6 @@ const AdminPage = () => {
     setRenderProdutos(true);
     setRenderVendas(false);
     setRenderMensagens(false);
-    setRenderCategorias(false);
   };
 
   const paginaVendas = () => {
@@ -54,7 +51,6 @@ const AdminPage = () => {
     setRenderProdutos(false);
     setRenderVendas(true);
     setRenderMensagens(false);
-    setRenderCategorias(false);
   };
 
   const paginaMensagens = () => {
@@ -62,7 +58,6 @@ const AdminPage = () => {
     setRenderProdutos(false);
     setRenderVendas(false);
     setRenderMensagens(true);
-    setRenderCategorias(false);
   };
 
   const paginaCategorias = () => {
@@ -70,7 +65,6 @@ const AdminPage = () => {
     setRenderProdutos(false);
     setRenderVendas(false);
     setRenderMensagens(false);
-    setRenderCategorias(true);
   }
 
   return (
@@ -101,9 +95,6 @@ const AdminPage = () => {
                   <button onClick={paginaMensagens} className={`${
                   RenderMensagens === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
                 }`}><i className="bi bi-chat-dots"></i> Mensagens</button>
-                <button onClick={paginaCategorias} className={`${
-                  RenderCategorias === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i className="bi bi-tags"></i> Categorias</button>
                   <button onClick={handleButtonClick} className={styles.Voltar}>Voltar ao Site</button>
                   {/*Mobile*/}
                   <div>
@@ -131,12 +122,6 @@ const AdminPage = () => {
                     <p className={styles.nomeNav}>SMS</p>
                   </div>
                   <div>
-                    <button onClick={paginaCategorias} className={`${
-                    RenderCategorias === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
-                    }`}><i className="bi bi-tags"></i></button>
-                    <p className={styles.nomeNav}>Categorias</p>
-                  </div>
-                  <div>
                     <button onClick={handleButtonClick} className={styles.VoltarM}><i className="bi bi-x-lg"></i></button>
                     <p className={styles.nomeNav}>Fechar</p>
                   </div>
@@ -150,7 +135,6 @@ const AdminPage = () => {
               {RenderProdutos && <GestaoProdutos />}
               {RenderVendas && <GestaoVendas />}
               {RenderMensagens && <GestaoMensagens />}
-              {RenderCategorias && <GestaoCategorias />}
           </section>
         </div>
       </>

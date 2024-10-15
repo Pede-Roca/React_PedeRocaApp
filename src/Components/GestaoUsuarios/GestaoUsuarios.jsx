@@ -89,7 +89,7 @@ const GestaoUsuarios = () => {
           <tr className={styles.tableHeader}>
             <th>Status</th>
             <th>Nome</th>
-            <th className={styles.hidefield}>Email</th>
+            <th className={styles.MobileOcult}>Email</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -110,7 +110,7 @@ const GestaoUsuarios = () => {
                 </Button>
               </td>
               <td>{user.nome}</td>
-              <td className={styles.hidefield}>{user.email}</td>
+              <td className={styles.MobileOcult}>{user.email}</td>
               <td>
                 <Button
                   variant="light"

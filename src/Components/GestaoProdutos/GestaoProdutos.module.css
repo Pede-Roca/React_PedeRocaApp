@@ -47,10 +47,10 @@
   
   .adminPageContainer{
     background-color: #F2F2F2;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Borda esfumaçada */
-    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 100%;
     margin: 40px auto;
   }
   
@@ -63,7 +63,7 @@
   .cadastrarButton {
     background-color: #7C8C03;
     color: white;
-    padding: 10px 40px;
+    padding: 5px 20px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -71,26 +71,70 @@
   }
   
   .cadastrarButton:hover {
-    background-color: #6f7c02;
+    background: #F2F2F2;
+    color: #7C8C03;
+    border: #7C8C03 1px solid;
   }
   
   .barraTitulo {
     background-color: #F29F05;
     color: white;
-    padding: 10px;
+    padding: 3px;
     text-align: center;
     font-weight: bold;
     margin-top: 20px;
+    border-radius: 10px;
   }
 
   .msgVazia {
     display: flex;
-    justify-content: center; /* Centraliza o texto horizontalmente */
-    align-items: center;     /* Centraliza o conteúdo verticalmente */
-    text-align: center;      /* Alinha o texto no centro */
-    margin: 20px 0;          /* Margem superior e inferior de 20px */
-    padding: 20px;           /* Espaçamento interno */
-    color: #6f7c02;              /* Cor do texto */
-    font-size: 18px;          /* Tamanho da fonte */
+    justify-content: center; 
+    align-items: center;   
+    text-align: center;     
+    margin: 20px 0;        
+    padding: 20px;      
+    color: #6f7c02; 
+    font-size: 18px;       
+  }
+
+  .NavOption{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: #F29F05;
+  }
+
+  .buttonScroll{
+    background-color: #F29F05;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 0px 10px;
+  }
+
+  .linkScroll{
+    text-decoration: none;
+    color: white;
+  }
+
+  .SpanScroll{
+    margin: 0 10px;
+    color: #F2F2F2;
+    font-weight: bold;
+  }
+
+  tr > th{
+    text-align: center;
+  }
+
+  tr > td{
+    text-align: center;
+  }
+
+  @media screen and (max-width: 767px) {
+    .MobileOcult{
+      display: none;
+    }
   }
   
