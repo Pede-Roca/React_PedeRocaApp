@@ -28,7 +28,7 @@ const CategoriaInfoModal = ({ show, handleClose, categoria }) => {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <p className={styles.TituloDetalhes}>Detalhes do Usuário</p>
+          <p className={styles.TituloDetalhes}>Editar a categoria</p>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
