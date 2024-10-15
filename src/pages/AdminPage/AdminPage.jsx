@@ -12,10 +12,11 @@ import {
   getFirestore,
 } from "firebase/firestore";
 
-import GestaoUsuarios from './../../Components/GestaoUsuarios/GestaoUsuarios';
-import GestaoProdutos from './../../Components/GestaoProdutos/GestaoProdutos';
-import GestaoVendas from './../../Components/GestaoVendas/GestaoVendas';
-import GestaoMensagens from './../../Components/GestaoMensagens/GestaoMensagens';
+import GestaoUsuarios from '../../Components/GestaoUsuarios/GestaoUsuarios';
+import GestaoProdutos from '../../Components/GestaoProdutos/GestaoProdutos';
+import GestaoVendas from '../../Components/GestaoVendas/GestaoVendas';
+import GestaoMensagens from '../../Components/GestaoMensagens/GestaoMensagens';
+import GestaoCategorias from '../../Components/GestaoCategorias/GestaoCategorias';
 
 const AdminPage = () => {
   const [userId, setUserId] = useState("");
@@ -54,12 +55,14 @@ const AdminPage = () => {
   const [RenderProdutos, setRenderProdutos] = useState(true);
   const [RenderVendas, setRenderVendas] = useState(false);
   const [RenderMensagens, setRenderMensagens] = useState(false);
+  const [RenderCategorias, setRenderCategorias] = useState(false);
 
   const paginaUsuarios = () => {
     setRenderUsuarios(true);
     setRenderProdutos(false);
     setRenderVendas(false);
     setRenderMensagens(false);
+    setRenderCategorias(false);
   };
 
   const paginaProdutos = () => {
@@ -67,6 +70,7 @@ const AdminPage = () => {
     setRenderProdutos(true);
     setRenderVendas(false);
     setRenderMensagens(false);
+    setRenderCategorias(false);
   };
 
   const paginaVendas = () => {
@@ -74,6 +78,7 @@ const AdminPage = () => {
     setRenderProdutos(false);
     setRenderVendas(true);
     setRenderMensagens(false);
+    setRenderCategorias(false);
   };
 
   const paginaMensagens = () => {
@@ -81,7 +86,16 @@ const AdminPage = () => {
     setRenderProdutos(false);
     setRenderVendas(false);
     setRenderMensagens(true);
+    setRenderCategorias(false);
   };
+
+  const paginaCategorias = () => {
+    setRenderUsuarios(false);
+    setRenderProdutos(false);
+    setRenderVendas(false);
+    setRenderMensagens(false);
+    setRenderCategorias(true);
+  }
 
   return (
       <>
@@ -101,16 +115,19 @@ const AdminPage = () => {
               <div className={styles.CategoriasContainer}>
                 <button onClick={paginaVendas} className={`${
                   RenderVendas === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i class="bi bi-cash-coin"></i> Vendas</button>
+                }`}><i className="bi bi-cash-coin"></i> Vendas</button>
                   <button onClick={paginaUsuarios} className={`${
                   RenderUsuarios === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i class="bi bi-people"></i> Usuários</button>
+                }`}><i className="bi bi-people"></i> Usuários</button>
                   <button onClick={paginaProdutos} className={`${
                   RenderProdutos === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i class="bi bi-cart3"></i> Produtos</button>
+                }`}><i className="bi bi-cart3"></i> Produtos</button>
                   <button onClick={paginaMensagens} className={`${
                   RenderMensagens === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i class="bi bi-chat-dots"></i> Mensagens</button>
+                }`}><i className="bi bi-chat-dots"></i> Mensagens</button>
+                <button onClick={paginaCategorias} className={`${
+                  RenderCategorias === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+                }`}><i className="bi bi-tags"></i> Categorias</button>
                   <button onClick={handleButtonClick} className={styles.Voltar}>Voltar ao Site</button>
                   {/*Mobile*/}
                   <div>
@@ -138,6 +155,12 @@ const AdminPage = () => {
                     <p className={styles.nomeNav}>SMS</p>
                   </div>
                   <div>
+                    <button onClick={paginaCategorias} className={`${
+                    RenderCategorias === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                    }`}><i className="bi bi-tags"></i></button>
+                    <p className={styles.nomeNav}>Categorias</p>
+                  </div>
+                  <div>
                     <button onClick={handleButtonClick} className={styles.VoltarM}><i className="bi bi-x-lg"></i></button>
                     <p className={styles.nomeNav}>Fechar</p>
                   </div>
@@ -151,6 +174,7 @@ const AdminPage = () => {
               {RenderProdutos && <GestaoProdutos />}
               {RenderVendas && <GestaoVendas />}
               {RenderMensagens && <GestaoMensagens />}
+              {RenderCategorias && <GestaoCategorias />}
           </section>
         </div>
       </>

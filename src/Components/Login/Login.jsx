@@ -110,12 +110,12 @@ const Login = () => {
               Cadastro
             </button>
           </div>
-          <div className={styles.loginSocial}>
+          {/* <div className={styles.loginSocial}>
             <div className={styles.containerRedeSocial}>
               <GoogleLogin />
               <FacebookLogin />
             </div>
-          </div>
+          </div> */}
         </div>
       )}
       {!user && pageRender === 1 && <Cadastro />}

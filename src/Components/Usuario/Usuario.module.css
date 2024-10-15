@@ -1,160 +1,183 @@
-.foto{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%; 
-    margin: 0 auto;
-    display: block;
-    object-fit: cover;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.foto {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.userData{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.fotoContainer {
+  position: relative;
+  /* Para posicionar o botão em relação à imagem */
 }
 
-.nomeUser{
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #7C8C03;
+.btnTrocarFoto {
+  position: absolute; /* Para que o botão apareça em cima da imagem */
+  bottom: 10px; /* Ajuste a posição conforme necessário */
+  right: 10px; /* Ajuste a posição conforme necessário */
+  background-color: transparent; /* Para ter um fundo transparente */
+  border: none; /* Remove a borda padrão */
+  cursor: pointer; /* Mostra que o botão é clicável */
+  color: black; /* Cor do ícone (ajuste conforme o design) */
+  font-size: 1.2rem; /* Tamanho do ícone */
+  border: 2px solid black; /* Borda do botão */
+  border-radius: 50%; /* Deixa o botão redondo */
 }
 
-.btnSair, .btnDados{
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
-    width: 200px;
-    font-weight: bold;
+
+.userData {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.btnSair:hover, .btnDados:hover{
-    filter: brightness(0.8);
+.nomeUser {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #7C8C03;
 }
 
-.btnDados{
-    background-color: #7C8C03;
+.btnSair,
+.btnDados {
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  width: 200px;
+  font-weight: bold;
 }
 
-.btnSair{
-    background-color: #A83C01;
+.btnSair:hover,
+.btnDados:hover {
+  filter: brightness(0.8);
 }
 
-.containerBTN{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.btnDados {
+  background-color: #7C8C03;
 }
 
-.Dados{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+.btnSair {
+  background-color: #A83C01;
 }
 
-.label{
-    font-size: 1.2rem;
-    color: #7C8C03;
-    width: 100%;
-    font-weight: bold;
+.containerBTN {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.input{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #7C8C03;
+.Dados {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-.input2{
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #7C8C03;
+.label {
+  font-size: 1.2rem;
+  color: #7C8C03;
+  width: 100%;
+  font-weight: bold;
 }
 
-.btnEnviar{
-    background-color: #7C8C03;
-    color: white;
-    border: none;
-    padding: 5px 0px;
-    border-radius: 5px;
-    margin: 10px 0px;
-    cursor: pointer;
-    width: 100px;
-    font-weight: bold;
-    display: block;
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #7C8C03;
 }
 
-.btnEnviar:hover{
-    filter: brightness(0.8);
+.input2 {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #7C8C03;
+}
+
+.btnEnviar {
+  background-color: #7C8C03;
+  color: white;
+  border: none;
+  padding: 5px 0px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  cursor: pointer;
+  width: 100px;
+  font-weight: bold;
+  display: block;
+}
+
+.btnEnviar:hover {
+  filter: brightness(0.8);
 }
 
 .btnBack {
-    background: white;
-    font-size: 1.6rem;
-    padding: 5px 10px;
-    margin: 15px 20px;
-    border-radius: 50%;
-    border: none;
-    color: #A83C01;
-    border: #A83C01 1px solid;
-    margin: 20px auto;
-    display: block;
-  }
+  background: white;
+  font-size: 1.6rem;
+  padding: 5px 10px;
+  margin: 15px 20px;
+  border-radius: 50%;
+  border: none;
+  color: #A83C01;
+  border: #A83C01 1px solid;
+  margin: 20px auto;
+  display: block;
+}
 
 
-  .titulo{
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    background: #7C8C03;
-  }
+.titulo {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  background: #7C8C03;
+}
 
-  .ContainerLinksSocial{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
+.ContainerLinksSocial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-  .socialink{
-    color: black;
-    background: white;
-    width: 150px;
-    text-align: center;
-    font-size: 1.2rem;
-    margin: 10px;
-    padding: 5px;
-  }
+.socialink {
+  color: black;
+  background: white;
+  width: 150px;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 10px;
+  padding: 5px;
+}
 
-  #instSVG, #faceSVG, #emailSVG{
-    margin: 10px;
-    font-size: 1.6rem;
-  }
+#instSVG,
+#faceSVG,
+#emailSVG {
+  margin: 10px;
+  font-size: 1.6rem;
+}
 
-  #instSVG{
-    color: purple;
-  }
+#instSVG {
+  color: purple;
+}
 
-  #faceSVG{
-    color: blue;
-  }
+#faceSVG {
+  color: blue;
+}
 
-  #emailSVG{
-    color: red;
-  }
+#emailSVG {
+  color: red;
+}
 
-  .endereco{
-    text-align: center;
-    margin: 2px 0px;
-  }
+.endereco {
+  text-align: center;
+  margin: 2px 0px;
+}
