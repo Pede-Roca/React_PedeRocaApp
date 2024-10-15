@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css'
+import axios from 'axios';
 
 const GestaoUsuarios = () => {
+  const [usuarios, setUsuarios] = useState([]);
 
-  const [usuarios, setUsuarios] = useState([
-    { id: 1, nome: "João da Silva", email: "joao@gmail.com", status: "Ativo" },
-    { id: 2, nome: "Maria da Silva", email: "maria@gmail.com", status: "Ativo" },
-    { id: 3, nome: "Laura da Silva", email: "laura@gmail.com", status: "Ativo" },
-    { id: 4, nome: "Beatriz da Silva", email: "beatriz@gmail.com", status: "Ativo" },
-    { id: 5, nome: "Carla da Silva", email: "carla@gmail.com", status: "Ativo" },
-    { id: 6, nome: "Amanda da Silva", email: "amanda@gmail.com", status: "Ativo" },
-  ]);
+  const fetchUsuarios = async () => {
+    try {
+      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Usuario`);
+      console.log(data);
+      setUsuarios(data);
+      
+    } catch (error) {
+      console.error("Erro ao buscar produtos:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsuarios();
+  }, []);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -34,9 +42,7 @@ const GestaoUsuarios = () => {
   const handleToggleStatus = (id) => {
     setUsuarios((prevUsuarios) =>
       prevUsuarios.map((user) =>
-        user.id === id
-          ? { ...user, status: user.status === "Ativo" ? "Inativo" : "Ativo" }
-          : user
+        user.id === id ? { ...user, status: user.status ? false : true } : user
       )
     );
   };
@@ -92,7 +98,7 @@ const GestaoUsuarios = () => {
                   onClick={() => handleToggleStatus(user.id)}
                   className={styles.statusToggle}
                 >
-                  {user.status === "Ativo" ? (
+                  {user.status ? (
                     <i className="bi bi-toggle-on" id={styles.ativo}></i>
                   ) : (
                     <i className="bi bi-toggle-off" id={styles.inativo}></i>
