@@ -1,0 +1,38 @@
+.userInfo {
+    line-height: 1.6;
+  }
+  
+  .userInfo p {
+    margin: 0;
+    padding: 5px 0;
+  }
+  .Voltar {
+    background: #A60303;
+    color: #F2F2F2;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border: none;
+    width: 75px;
+  }
+
+  .Voltar:hover {
+    background-color: #F2F2F2;
+    border: #A60303 1px solid;
+    color: #A60303;
+  }
+  .Editar {
+    background: #7C8C03;
+    color: #F2F2F2;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border: none;
+    width: 75px;
+  }
+
+  .Editar:hover {
+    background-color: #F2F2F2;
+    border: #6f7c02 1px solid;
+    color: #6f7c02;
+  }
