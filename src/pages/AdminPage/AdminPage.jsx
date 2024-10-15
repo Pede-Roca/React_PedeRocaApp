@@ -16,7 +16,6 @@ import GestaoUsuarios from '../../Components/GestaoUsuarios/GestaoUsuarios';
 import GestaoProdutos from '../../Components/GestaoProdutos/GestaoProdutos';
 import GestaoVendas from '../../Components/GestaoVendas/GestaoVendas';
 import GestaoMensagens from '../../Components/GestaoMensagens/GestaoMensagens';
-import GestaoCategorias from '../../Components/GestaoCategorias/GestaoCategorias';
 
 const AdminPage = () => {
   const { userId, backendUserId } = useAuth();
@@ -25,7 +24,7 @@ const AdminPage = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/'); 
+    navigate('/');
   };
 
   const [RenderUsuarios, setRenderUsuarios] = useState(false);
