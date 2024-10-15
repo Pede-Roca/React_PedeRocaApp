@@ -20,14 +20,19 @@ const GestaoCategorias = () => {
   };
 
   const handleInfo = (id) => {
-    console.log(`Detalhes da categoria ${id}`);
     const categoria = categorias.find(categoria => categoria.id === id);
-    setSelectedCategoria(categoria); 
+    setSelectedCategoria(categoria);
     setShowModal(true);
   };
 
-  const handleDelete = (id) => {
-    console.log(`Excluir item ${id}`);
+  const handleDelete = async (id) => {
+    try {
+      confirm("Deseja realmente excluir a categoria?") && await axios.delete(`${import.meta.env.VITE_API_URL}Categoria/${id}`);
+      alert("Categoria excluída com sucesso!");
+      fetchCategorias();
+    } catch (error) {
+      console.error("Erro ao excluir a categoria:", error);
+    }
   };
 
   const handleCloseModal = () => {
