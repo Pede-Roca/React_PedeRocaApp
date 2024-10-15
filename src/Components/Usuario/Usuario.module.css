@@ -10,20 +10,23 @@
 
 .fotoContainer {
   position: relative;
-  /* Para posicionar o botão em relação à imagem */
 }
 
 .btnTrocarFoto {
-  position: absolute; /* Para que o botão apareça em cima da imagem */
-  bottom: 10px; /* Ajuste a posição conforme necessário */
-  right: 10px; /* Ajuste a posição conforme necessário */
-  background-color: transparent; /* Para ter um fundo transparente */
-  border: none; /* Remove a borda padrão */
-  cursor: pointer; /* Mostra que o botão é clicável */
-  color: black; /* Cor do ícone (ajuste conforme o design) */
-  font-size: 1.2rem; /* Tamanho do ícone */
-  border: 2px solid black; /* Borda do botão */
-  border-radius: 50%; /* Deixa o botão redondo */
+  position: absolute; 
+  bottom: 4px; 
+  right: 10px; 
+  background-color: #7C8C03; 
+  border: none; 
+  cursor: pointer; 
+  color: #F2F2F2; 
+  font-size: 1.2rem; 
+  border: 2px solid #7C8C03; 
+  border-radius: 50%;
+}
+
+.btnTrocarFoto:hover {
+  filter: brightness(0.8);
 }
 
 

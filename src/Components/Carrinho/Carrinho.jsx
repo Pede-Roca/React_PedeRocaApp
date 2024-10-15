@@ -54,25 +54,27 @@ const Carrinho = () => {
           ></span>
           <p>Produtos</p>
         </div>
+        <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
           <span
             className={`${styles.circle} ${step == 2 ? styles.active : ""}`}
           ></span>
           <p>Entrega</p>
         </div>
+        <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
           <span
             className={`${styles.circle} ${step == 3 ? styles.active : ""}`}
           ></span>
           <p>Pagamento</p>
         </div>
+        <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
           <span
             className={`${styles.circle} ${step == 4 ? styles.active : ""}`}
           ></span>
           <p>Finalização</p>
         </div>
-        <span className={styles.linhaProgresso}></span>
       </div>
       {step === 1 && (
         <div>

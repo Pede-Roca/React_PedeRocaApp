@@ -24,6 +24,14 @@
     color: white;
   }
 
+  .CirculoE{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #A83C01;
+    margin-top: 15px;
+  }
+
   .etapa{
     text-align: center;
     padding: 0px;

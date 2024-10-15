@@ -19,6 +19,14 @@
   z-index: 1;
 }
 
+.CirculoE{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #A83C01;
+  margin-top: 15px;
+}
+
 .circle.active {
   background-color: #A83C01;
   color: white;
