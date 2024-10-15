@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Table, Button } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css"; 
+import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css'
-
 
 const GestaoUsuarios = () => {
 
@@ -14,6 +13,15 @@ const GestaoUsuarios = () => {
     { id: 5, nome: "Carla da Silva", email: "carla@gmail.com", status: "Ativo" },
     { id: 6, nome: "Amanda da Silva", email: "amanda@gmail.com", status: "Ativo" },
   ]);
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const lowerCaseBusca = searchTerm.toLowerCase();
+
+  const filteredUsuarios = usuarios.filter(
+    (usuario) =>
+      usuario.nome.toLowerCase().includes(lowerCaseBusca) 
+  );
 
   const handleEdit = (id) => {
     console.log(`Editar usuário ${id}`);
@@ -39,56 +47,78 @@ const GestaoUsuarios = () => {
         <h2>Gestão de usuários</h2>
         <button className={styles.cadastrarButton}>Cadastrar</button>
       </div>
+      
       <div className={styles.barraTitulo}>Lista de usuários</div>
-    <Table bordered hover className={styles.userTable}> 
-      <thead>
-        <tr className={styles.tableHeader}>      
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Status</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        {usuarios.map((user) => (
-          <tr key={user.id}>
-            <td>{user.id}</td>
-            <td>{user.nome}</td>
-            <td>{user.email}</td>
-            <td>
-              <Button
-                variant="light"
-                onClick={() => handleToggleStatus(user.id)}       
-                className={styles.statusToggle}
-              >
-                {user.status === "Ativo" ? (
-                  <i className="bi bi-toggle-on" id={styles.ativo}></i>   
-                ) : (
-                  <i className="bi bi-toggle-off" id={styles.inativo}></i>          
-                )}
-              </Button>
-            </td>
-            <td>
-              <Button
-                variant="light"
-                onClick={() => handleEdit(user.id)}
-                className={styles.actionButton}
-              >
-                <i className="bi bi-pencil-square" id={styles.editIcon}></i>
-              </Button>
-              <Button
-                variant="light"
-                onClick={() => handleDelete(user.id)}
-                className={styles.actionButton}
-              >
-                <i className="bi bi-trash" id={styles.deleteIcon}></i>
-              </Button>
-            </td>
+      
+      <span
+        className="navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline"
+        id={styles.filtroPesquisa1}
+      >
+        <form className="d-flex" id={styles.TamanhoFormPesquisa}>
+          <input
+            type="text"
+            onChange={(event) => setSearchTerm(event.target.value)}
+            value={searchTerm}
+            className="form-control flex-grow-1"
+            placeholder="Busque por Nome"
+            aria-label="Search"
+            id={styles.filtroPesquisa}
+          />
+          <button className={styles.bgFiltro} type="submit">
+            <i className="bi bi-search" id={styles.corPesquisa}></i>
+          </button>
+        </form>
+      </span>
+
+      <Table bordered hover className={styles.userTable}>
+        <thead>
+          <tr className={styles.tableHeader}>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Ações</th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
+        </thead>
+        <tbody>
+          {filteredUsuarios.map((user) => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.nome}</td>
+              <td>{user.email}</td>
+              <td>
+                <Button
+                  variant="light"
+                  onClick={() => handleToggleStatus(user.id)}
+                  className={styles.statusToggle}
+                >
+                  {user.status === "Ativo" ? (
+                    <i className="bi bi-toggle-on" id={styles.ativo}></i>
+                  ) : (
+                    <i className="bi bi-toggle-off" id={styles.inativo}></i>
+                  )}
+                </Button>
+              </td>
+              <td>
+                <Button
+                  variant="light"
+                  onClick={() => handleEdit(user.id)}
+                  className={styles.actionButton}
+                >
+                  <i className="bi bi-pencil-square" id={styles.editIcon}></i>
+                </Button>
+                <Button
+                  variant="light"
+                  onClick={() => handleDelete(user.id)}
+                  className={styles.actionButton}
+                >
+                  <i className="bi bi-trash" id={styles.deleteIcon}></i>
+                </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
