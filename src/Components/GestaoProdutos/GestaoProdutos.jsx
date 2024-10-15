@@ -53,8 +53,8 @@ const GestaoProdutos = () => {
         <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section2">Produtos</a></button>
       </div>
       <div id="section1">
-        {/* Componente de Gestão de Categorias */}
-        <GestaoCategorias handleEdit={handleEdit} handleDelete={handleDelete} />
+        {/* Gestão de Categorias */}
+        <GestaoCategorias />
       </div>
       <div id="section2" className={styles.adminPageContainer}>
         <div className={styles.header}>
@@ -78,11 +78,11 @@ const GestaoProdutos = () => {
               {produtos.map((produto) => (
                 <tr key={produto.id}>
                   <td>
-                  {produto.status ? (
-                    <i className="bi bi-toggle-on" id={styles.ativo}></i>
-                  ) : (
-                    <i className="bi bi-toggle-off" id={styles.inativo}></i>
-                  )}
+                    {produto.status ? (
+                      <i className="bi bi-toggle-on" id={styles.ativo}></i>
+                    ) : (
+                      <i className="bi bi-toggle-off" id={styles.inativo}></i>
+                    )}
                   </td>
                   <td>{produto.nome}</td>
                   <td className={styles.MobileOcult}>{categorias[produto.idCategoria] || 'Carregando...'}</td>

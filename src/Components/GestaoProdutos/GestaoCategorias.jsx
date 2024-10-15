@@ -3,21 +3,36 @@ import { Table, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoProdutos.module.css';
 import axios from "axios";
+import CategoriaInfoModal from "./CategoriaInfoModal";
 
-const GestaoCategorias = ({ handleEdit, handleDelete }) => {
-  const [categorias, setCategorias] = useState({});
+const GestaoCategorias = () => {
+  const [categorias, setCategorias] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCategoria, setSelectedCategoria] = useState(null);
 
   const fetchCategorias = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Categoria`);
-      const categoriasMap = data.reduce((acc, categoria) => {
-        acc[categoria.id] = categoria.nome;
-        return acc;
-      }, {});
-      setCategorias(categoriasMap);
+      setCategorias(data);
     } catch (error) {
       console.error("Erro ao buscar as categorias:", error);
     }
+  };
+
+  const handleInfo = (id) => {
+    console.log(`Detalhes da categoria ${id}`);
+    const categoria = categorias.find(categoria => categoria.id === id);
+    setSelectedCategoria(categoria); 
+    setShowModal(true);
+  };
+
+  const handleDelete = (id) => {
+    console.log(`Excluir item ${id}`);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    fetchCategorias();
   };
 
   useEffect(() => {
@@ -31,7 +46,7 @@ const GestaoCategorias = ({ handleEdit, handleDelete }) => {
         <button className={styles.cadastrarButton}>Cadastrar</button>
       </div>
       <div className={styles.barraTitulo}>Lista de Categorias</div>
-      {Object.keys(categorias).length > 0 ? (
+      {categorias.length > 0 ? (
         <Table bordered hover className={styles.userTable}>
           <thead>
             <tr className={styles.tableHeader}>
@@ -40,20 +55,19 @@ const GestaoCategorias = ({ handleEdit, handleDelete }) => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(categorias).map(([id, nome]) => (
-              <tr key={id}>
-                <td>{nome}</td>
-                <td>
+            {categorias.map(categoria => (
+              <tr key={categoria.id}>
+                <td>{categoria.nome}</td><td>
                   <Button
                     variant="light"
-                    onClick={() => handleEdit(id)}
+                    onClick={() => handleInfo(categoria.id)}
                     className={styles.actionButton}
                   >
-                    <i className="bi bi-info-square" id={styles.editIcon}></i>
+                    <i className="bi bi-pencil-square" id={styles.editIcon}></i>
                   </Button>
                   <Button
                     variant="light"
-                    onClick={() => handleDelete(id)}
+                    onClick={() => handleDelete(categoria.id)}
                     className={styles.actionButton}
                   >
                     <i className="bi bi-trash" id={styles.deleteIcon}></i>
@@ -65,6 +79,14 @@ const GestaoCategorias = ({ handleEdit, handleDelete }) => {
         </Table>
       ) : (
         <div className={styles.msgVazia}>A lista de categorias está vazia.</div>
+      )}
+
+      {selectedCategoria && (
+        <CategoriaInfoModal
+          show={showModal}
+          handleClose={handleCloseModal}
+          categoria={selectedCategoria}
+        />
       )}
     </div>
   );
