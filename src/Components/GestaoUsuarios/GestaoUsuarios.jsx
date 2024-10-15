@@ -3,6 +3,7 @@ import { Table, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css'
 import axios from 'axios';
+import UserInfoModal from "./UserInfoModal";
 
 const GestaoUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
@@ -17,6 +18,9 @@ const GestaoUsuarios = () => {
       console.error("Erro ao buscar produtos:", error);
     }
   };
+  
+  const [showModal, setShowModal] = useState(false); 
+  const [selectedUser, setSelectedUser] = useState(null); 
 
   useEffect(() => {
     fetchUsuarios();
@@ -31,8 +35,10 @@ const GestaoUsuarios = () => {
       usuario.nome.toLowerCase().includes(lowerCaseBusca) 
   );
 
-  const handleEdit = (id) => {
-    console.log(`Editar usuário ${id}`);
+  const handleInfo = (id) => {
+    const usuario = usuarios.find(user => user.id === id);
+    setSelectedUser(usuario);
+    setShowModal(true); 
   };
 
   const handleDelete = (id) => {
@@ -46,7 +52,9 @@ const GestaoUsuarios = () => {
       )
     );
   };
-
+  const handleCloseModal = () => {
+    setShowModal(false); 
+  };
   return (
     <div className={styles.adminPageContainer}>
       <div className={styles.header}>
@@ -79,19 +87,15 @@ const GestaoUsuarios = () => {
       <Table bordered hover className={styles.userTable}>
         <thead>
           <tr className={styles.tableHeader}>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
             <th>Status</th>
+            <th>Nome</th>
+            <th className={styles.hidefield}>Email</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
           {filteredUsuarios.map((user) => (
             <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.nome}</td>
-              <td>{user.email}</td>
               <td>
                 <Button
                   variant="light"
@@ -105,13 +109,15 @@ const GestaoUsuarios = () => {
                   )}
                 </Button>
               </td>
+              <td>{user.nome}</td>
+              <td className={styles.hidefield}>{user.email}</td>
               <td>
                 <Button
                   variant="light"
-                  onClick={() => handleEdit(user.id)}
+                  onClick={() => handleInfo(user.id)}
                   className={styles.actionButton}
                 >
-                  <i className="bi bi-pencil-square" id={styles.editIcon}></i>
+                  <i class="bi bi-info-square" id={styles.editIcon}></i>
                 </Button>
                 <Button
                   variant="light"
@@ -125,6 +131,13 @@ const GestaoUsuarios = () => {
           ))}
         </tbody>
       </Table>
+      {selectedUser && (
+        <UserInfoModal
+          show={showModal}
+          handleClose={handleCloseModal}
+          usuario={selectedUser}
+        />
+      )}
     </div>
   );
 };
