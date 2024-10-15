@@ -38,7 +38,7 @@
   .ConteinerSection{
     background: #F2F2F2;
     width: 98%;
-    height: 100dvh;
+    min-height: 84dvh;
     overflow-y: auto;
     padding-bottom: 15dvh;
     margin: 0 1%;
@@ -57,16 +57,19 @@
 
   .ContainerPai {
     display: flex;
-    height: 100vh; 
     width: 100%;  
+    min-height: 100dvh;
+    height: auto;
     box-sizing: border-box; 
   }
 
   .ContainerAside {
     width: 250px; 
-    height: 100%; 
     background: #F2F2F2;
     border-radius: 20px 0px 0px 20px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .ConteinerSection {
@@ -75,6 +78,7 @@
     margin-left: 10px; 
     border-radius: 0px 20px 20px 0px;
     box-sizing: border-box;
+    flex-direction: column;
   }
   
   .foto {

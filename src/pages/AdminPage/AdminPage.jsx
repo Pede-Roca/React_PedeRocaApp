@@ -1,8 +1,9 @@
 import React from "react";
 import styles from "./AdminPage.module.css";
 import logo from '../../assets/Logo.svg';
-import { useState, useEffect } from "react";
-import { auth } from "../../firebase/config";
+import { useState } from "react";
+import { useFetchUserData } from "../../Components/Usuario/useFetchUserData";
+import { useAuth } from "../../Components/Usuario/useAuth";
 import { useNavigate } from "react-router-dom";
 import {
   getDocs,
@@ -11,7 +12,6 @@ import {
   where,
   getFirestore,
 } from "firebase/firestore";
-
 import GestaoUsuarios from '../../Components/GestaoUsuarios/GestaoUsuarios';
 import GestaoProdutos from '../../Components/GestaoProdutos/GestaoProdutos';
 import GestaoVendas from '../../Components/GestaoVendas/GestaoVendas';
@@ -19,37 +19,14 @@ import GestaoMensagens from '../../Components/GestaoMensagens/GestaoMensagens';
 import GestaoCategorias from '../../Components/GestaoCategorias/GestaoCategorias';
 
 const AdminPage = () => {
-  const [userId, setUserId] = useState("");
+  const { userId, backendUserId } = useAuth();
+  const { userData } = useFetchUserData(userId, backendUserId);
   const db = getFirestore();
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     navigate('/'); 
   };
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        setUserId(user.uid);
-      }
-    });
-  }, []);
-
-  const [userData, setUserData] = useState([]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const q = query(
-        collection(db, "tb_usuarios"),
-        where("uid", "==", userId)
-      );
-      const querySnapshot = await getDocs(q);
-      setUserData(
-        querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-    };
-    fetchUserData();
-  }, [db, userId]);
 
   const [RenderUsuarios, setRenderUsuarios] = useState(false);
   const [RenderProdutos, setRenderProdutos] = useState(true);
@@ -101,16 +78,16 @@ const AdminPage = () => {
       <>
         <div className={styles.ContainerPai}>
           <aside className={styles.ContainerAside}>
-            {userData.map((user) => (
-                <div key={user.id} className={styles.userData}>
+            {userData && (
+                <div key={userData.id} className={styles.userData}>
                   <img
                     className={styles.foto}
-                    src={user.foto}
+                    src={userData.foto}
                     alt="foto do usuário"
                   />
-                  <h4 className={styles.nomeUser}>{user.nome}</h4>
+                  <h4 className={styles.nomeUser}>{userData.nome}</h4>
                 </div>
-              ))}
+              )}
               <p className={styles.Categorias}>Categorias</p>
               <div className={styles.CategoriasContainer}>
                 <button onClick={paginaVendas} className={`${
