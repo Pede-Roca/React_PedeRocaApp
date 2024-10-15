@@ -16,7 +16,6 @@ import GestaoUsuarios from '../../Components/GestaoUsuarios/GestaoUsuarios';
 import GestaoProdutos from '../../Components/GestaoProdutos/GestaoProdutos';
 import GestaoVendas from '../../Components/GestaoVendas/GestaoVendas';
 import GestaoMensagens from '../../Components/GestaoMensagens/GestaoMensagens';
-import GestaoCategorias from '../../Components/GestaoCategorias/GestaoCategorias';
 
 const AdminPage = () => {
   const [userId, setUserId] = useState("");
@@ -24,7 +23,7 @@ const AdminPage = () => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    navigate('/'); 
+    navigate('/');
   };
 
   useEffect(() => {
@@ -98,86 +97,68 @@ const AdminPage = () => {
   }
 
   return (
-      <>
-        <div className={styles.ContainerPai}>
-          <aside className={styles.ContainerAside}>
-            {userData.map((user) => (
-                <div key={user.id} className={styles.userData}>
-                  <img
-                    className={styles.foto}
-                    src={user.foto}
-                    alt="foto do usuário"
-                  />
-                  <h4 className={styles.nomeUser}>{user.nome}</h4>
-                </div>
-              ))}
-              <p className={styles.Categorias}>Categorias</p>
-              <div className={styles.CategoriasContainer}>
-                <button onClick={paginaVendas} className={`${
-                  RenderVendas === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i className="bi bi-cash-coin"></i> Vendas</button>
-                  <button onClick={paginaUsuarios} className={`${
-                  RenderUsuarios === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i className="bi bi-people"></i> Usuários</button>
-                  <button onClick={paginaProdutos} className={`${
-                  RenderProdutos === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i className="bi bi-cart3"></i> Produtos</button>
-                  <button onClick={paginaMensagens} className={`${
-                  RenderMensagens === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i className="bi bi-chat-dots"></i> Mensagens</button>
-                <button onClick={paginaCategorias} className={`${
-                  RenderCategorias === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
-                }`}><i className="bi bi-tags"></i> Categorias</button>
-                  <button onClick={handleButtonClick} className={styles.Voltar}>Voltar ao Site</button>
-                  {/*Mobile*/}
-                  <div>
-                    <button onClick={paginaVendas} className={`${
-                    RenderVendas === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
-                    }`}><i className="bi bi-cash-coin"></i></button>
-                    <p className={styles.nomeNav}>Vendas</p>
-                  </div>
-                  <div>
-                    <button onClick={paginaUsuarios} className={`${
-                    RenderUsuarios === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
-                    }`}><i className="bi bi-people"></i></button>
-                    <p className={styles.nomeNav}>Usuarios</p>
-                  </div>
-                  <div>
-                    <button onClick={paginaProdutos} className={`${
-                    RenderProdutos === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
-                    }`}><i className="bi bi-cart3"></i></button>
-                    <p className={styles.nomeNav}>Produtos</p>
-                  </div>
-                  <div>
-                    <button onClick={paginaMensagens} className={`${
-                    RenderMensagens === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
-                    }`}><i className="bi bi-chat-dots"></i></button>
-                    <p className={styles.nomeNav}>SMS</p>
-                  </div>
-                  <div>
-                    <button onClick={paginaCategorias} className={`${
-                    RenderCategorias === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
-                    }`}><i className="bi bi-tags"></i></button>
-                    <p className={styles.nomeNav}>Categorias</p>
-                  </div>
-                  <div>
-                    <button onClick={handleButtonClick} className={styles.VoltarM}><i className="bi bi-x-lg"></i></button>
-                    <p className={styles.nomeNav}>Fechar</p>
-                  </div>
-                </div>
-                <div className={styles.ContainerLogo}>
-                <img src={logo} alt="Logo Pede Roça" className={styles.logo} />
-              </div>
-          </aside>
-          <section className={styles.ConteinerSection}>
-              {RenderUsuarios && <GestaoUsuarios />}
-              {RenderProdutos && <GestaoProdutos />}
-              {RenderVendas && <GestaoVendas />}
-              {RenderMensagens && <GestaoMensagens />}
-              {RenderCategorias && <GestaoCategorias />}
-          </section>
-        </div>
-      </>
+    <>
+      <div className={styles.ContainerPai}>
+        <aside className={styles.ContainerAside}>
+          {userData.map((user) => (
+            <div key={user.id} className={styles.userData}>
+              <img
+                className={styles.foto}
+                src={user.foto}
+                alt="foto do usuário"
+              />
+              <h4 className={styles.nomeUser}>{user.nome}</h4>
+            </div>
+          ))}
+          <p className={styles.Categorias}>Categorias</p>
+          <div className={styles.CategoriasContainer}>
+            <button onClick={paginaVendas} className={`${RenderVendas === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+              }`}><i className="bi bi-cash-coin"></i> Vendas</button>
+            <button onClick={paginaUsuarios} className={`${RenderUsuarios === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+              }`}><i className="bi bi-people"></i> Usuários</button>
+            <button onClick={paginaProdutos} className={`${RenderProdutos === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+              }`}><i className="bi bi-cart3"></i> Produtos</button>
+            <button onClick={paginaMensagens} className={`${RenderMensagens === true ? styles.CategoriasButtonAtivo : styles.CategoriasButton
+              }`}><i className="bi bi-chat-dots"></i> Mensagens</button>
+            <button onClick={handleButtonClick} className={styles.Voltar}>Voltar ao Site</button>
+            {/*Mobile*/}
+            <div>
+              <button onClick={paginaVendas} className={`${RenderVendas === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                }`}><i className="bi bi-cash-coin"></i></button>
+              <p className={styles.nomeNav}>Vendas</p>
+            </div>
+            <div>
+              <button onClick={paginaUsuarios} className={`${RenderUsuarios === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                }`}><i className="bi bi-people"></i></button>
+              <p className={styles.nomeNav}>Usuarios</p>
+            </div>
+            <div>
+              <button onClick={paginaProdutos} className={`${RenderProdutos === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                }`}><i className="bi bi-cart3"></i></button>
+              <p className={styles.nomeNav}>Produtos</p>
+            </div>
+            <div>
+              <button onClick={paginaMensagens} className={`${RenderMensagens === true ? styles.CategoriasButtonAtivoM : styles.CategoriasButtonM
+                }`}><i className="bi bi-chat-dots"></i></button>
+              <p className={styles.nomeNav}>SMS</p>
+            </div>
+            <div>
+              <button onClick={handleButtonClick} className={styles.VoltarM}><i className="bi bi-x-lg"></i></button>
+              <p className={styles.nomeNav}>Fechar</p>
+            </div>
+          </div>
+          <div className={styles.ContainerLogo}>
+            <img src={logo} alt="Logo Pede Roça" className={styles.logo} />
+          </div>
+        </aside>
+        <section className={styles.ConteinerSection}>
+          {RenderUsuarios && <GestaoUsuarios />}
+          {RenderProdutos && <GestaoProdutos />}
+          {RenderVendas && <GestaoVendas />}
+          {RenderMensagens && <GestaoMensagens />}
+        </section>
+      </div>
+    </>
   );
 };
 
