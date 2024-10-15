@@ -87,3 +87,25 @@
     margin-top: 20px;
   }
   
+  #filtroPesquisa {
+      border-radius: 10px 0px 0px 10px;
+      border: 1px solid #7C8C03;
+      min-width: 300px;
+  }
+  
+  #corPesquisa {
+      color: #f2f2f2;
+      font-weight: bold;
+  }
+  
+  
+  .bgFiltro {
+    background: #7C8C03;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 0px 5px 5px 0px;
+  }
+  
+  .bgFiltro:hover {
+    background: rgba(124, 140, 3, 0.5);
+  }
