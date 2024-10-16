@@ -51,6 +51,7 @@ const GestaoProdutos = () => {
 
   // Função para filtrar os produtos com base no termo de busca
   const filteredProdutos = produtos.filter((produto) =>
+    produto.nome.toLowerCase().includes(searchTerm.toLowerCase()) || // Filtra por nome
     (categorias[produto.idCategoria] && categorias[produto.idCategoria].toLowerCase().includes(searchTerm.toLowerCase())) // Filtra por categoria
   );
 
@@ -91,7 +92,7 @@ const GestaoProdutos = () => {
               onChange={(event) => setSearchTerm(event.target.value)}
               value={searchTerm}
               className="form-control flex-grow-1"
-              placeholder="Busque por Categoria"
+              placeholder="Busque por Nome/Categoria"
               aria-label="Search"
               id={styles.filtroPesquisa}
             />
