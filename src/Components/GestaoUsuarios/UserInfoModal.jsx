@@ -109,7 +109,7 @@ const UserInfoModal = ({ show, handleClose, usuario, onUpdateUser }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={handleCancel} className={styles.Voltar}>
-          Cancelar
+          Voltar
         </Button>
         {isEditable ? (
           <Button onClick={handleSave} className={styles.Salvar}>

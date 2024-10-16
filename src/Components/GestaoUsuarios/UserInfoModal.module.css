@@ -58,3 +58,19 @@
     font-weight: bold;
     margin: 0px 5px;
   }
+ 
+  .Salvar {
+    background: #7C8C03;
+    color: #F2F2F2;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border: none;
+    width: 75px;
+  }
+
+  .Salvar:hover {
+    background-color: #F2F2F2;
+    border: #6f7c02 1px solid;
+    color: #6f7c02;
+  }
