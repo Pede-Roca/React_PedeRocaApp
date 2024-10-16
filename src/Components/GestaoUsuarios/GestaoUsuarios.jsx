@@ -1,45 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import styles from './GestaoUsuarios.module.css'
+import styles from './GestaoUsuarios.module.css';
 import axios from 'axios';
 import UserInfoModal from "./UserInfoModal";
 
 const GestaoUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
+  const [showModal, setShowModal] = useState(false); 
+  const [selectedUser, setSelectedUser] = useState(null); 
+  const [searchTerm, setSearchTerm] = useState("");
 
   const fetchUsuarios = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Usuario`);
       console.log(data);
       setUsuarios(data);
-      
     } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
+      console.error("Erro ao buscar usuários:", error);
     }
   };
-  
-  const [showModal, setShowModal] = useState(false); 
-  const [selectedUser, setSelectedUser] = useState(null); 
 
   useEffect(() => {
     fetchUsuarios();
   }, []);
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const handleUpdateUser = (updatedUser) => {
+    setUsuarios((prevUsuarios) =>
+      prevUsuarios.map((user) =>
+        user.id === updatedUser.id ? updatedUser : user
+      )
+    );
+  };
 
   const lowerCaseBusca = searchTerm.toLowerCase();
 
   const filteredUsuarios = usuarios.filter(
     (usuario) =>
-      usuario.nome.toLowerCase().includes(lowerCaseBusca) 
+      usuario.nome.toLowerCase().includes(lowerCaseBusca)
   );
+
 
   const handleInfo = (id) => {
     const usuario = usuarios.find(user => user.id === id);
-    setSelectedUser(usuario);
-    setShowModal(true); 
+    setSelectedUser(usuario); 
   };
+
+  useEffect(() => {
+    if (selectedUser) {
+      setShowModal(true);
+    }
+  }, [selectedUser]);
 
   const handleDelete = (id) => {
     console.log(`Excluir usuário ${id}`);
@@ -52,9 +63,12 @@ const GestaoUsuarios = () => {
       )
     );
   };
+
   const handleCloseModal = () => {
     setShowModal(false); 
+    setSelectedUser(null); 
   };
+
   return (
     <div className={styles.adminPageContainer}>
       <div className={styles.header}>
@@ -117,7 +131,7 @@ const GestaoUsuarios = () => {
                   onClick={() => handleInfo(user.id)}
                   className={styles.actionButton}
                 >
-                  <i class="bi bi-info-square" id={styles.editIcon}></i>
+                  <i className="bi bi-info-square" id={styles.editIcon}></i>
                 </Button>
                 <Button
                   variant="light"
@@ -131,11 +145,13 @@ const GestaoUsuarios = () => {
           ))}
         </tbody>
       </Table>
+      
       {selectedUser && (
         <UserInfoModal
           show={showModal}
           handleClose={handleCloseModal}
           usuario={selectedUser}
+          onUpdateUser={handleUpdateUser} // Passa a função para o modal
         />
       )}
     </div>
