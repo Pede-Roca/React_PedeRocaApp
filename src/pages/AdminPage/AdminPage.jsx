@@ -13,9 +13,9 @@ import {
   getFirestore,
 } from "firebase/firestore";
 import GestaoUsuarios from '../../Components/GestaoUsuarios/GestaoUsuarios';
-import GestaoProdutos from '../../Components/GestaoProdutos/GestaoProdutos';
 import GestaoVendas from '../../Components/GestaoVendas/GestaoVendas';
 import GestaoMensagens from '../../Components/GestaoMensagens/GestaoMensagens';
+import PainelProdutos from "../../Components/GestaoProdutos/PainelProdutos";
 
 const AdminPage = () => {
   const { userId, backendUserId } = useAuth();
@@ -132,7 +132,7 @@ const AdminPage = () => {
           </aside>
           <section className={styles.ConteinerSection}>
               {RenderUsuarios && <GestaoUsuarios />}
-              {RenderProdutos && <GestaoProdutos />}
+              {RenderProdutos && <PainelProdutos />}
               {RenderVendas && <GestaoVendas />}
               {RenderMensagens && <GestaoMensagens />}
           </section>
