@@ -57,18 +57,6 @@ const GestaoProdutos = () => {
 
   return (
     <div>
-      {/* Navegação */}
-      <div className={styles.NavOption}>
-        <span className={styles.SpanScroll}>Navegação: </span>
-        <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section1">Categorias</a></button>
-        <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section2">Produtos</a></button>
-      </div>
-
-      {/* Gestão de Categorias */}
-      <div id="section1">
-        <GestaoCategorias />
-      </div>
-
       {/* Gestão de Produtos */}
       <div id="section2" className={styles.adminPageContainer}>
         <div className={styles.header}>
