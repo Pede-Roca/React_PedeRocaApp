@@ -8,15 +8,9 @@ import GestaoCategorias from './GestaoCategorias'; // Importação do componente
 const GestaoProdutos = () => {
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState({});
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de busca
 
-  const handleEdit = (id) => {
-    console.log(`Editar item ${id}`);
-  };
-
-  const handleDelete = (id) => {
-    console.log(`Excluir item ${id}`);
-  };
-
+  // Função para buscar produtos
   const fetchProdutos = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Produto`);
@@ -26,6 +20,7 @@ const GestaoProdutos = () => {
     }
   };
 
+  // Função para buscar categorias
   const fetchCategorias = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Categoria`);
@@ -44,25 +39,69 @@ const GestaoProdutos = () => {
     fetchCategorias();
   }, []);
 
+  // Função para editar produto
+  const handleEdit = (id) => {
+    console.log(`Editar item ${id}`);
+  };
+
+  // Função para deletar produto
+  const handleDelete = (id) => {
+    console.log(`Excluir item ${id}`);
+  };
+
+  // Função para filtrar os produtos com base no termo de busca
+  const filteredProdutos = produtos.filter((produto) =>
+    (categorias[produto.idCategoria] && categorias[produto.idCategoria].toLowerCase().includes(searchTerm.toLowerCase())) // Filtra por categoria
+  );
+
   return (
     <div>
-      {/* Gestão de Produtos */}
+      {/* Navegação */}
       <div className={styles.NavOption}>
         <span className={styles.SpanScroll}>Navegação: </span>
         <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section1">Categorias</a></button>
         <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section2">Produtos</a></button>
       </div>
+
+      {/* Gestão de Categorias */}
       <div id="section1">
-        {/* Gestão de Categorias */}
         <GestaoCategorias />
       </div>
+
+      {/* Gestão de Produtos */}
       <div id="section2" className={styles.adminPageContainer}>
         <div className={styles.header}>
           <h2>Gestão de produtos</h2>
           <button className={styles.cadastrarButton}>Cadastrar</button>
         </div>
-        <div className={styles.barraTitulo}>Lista de produtos</div>
-        {produtos.length > 0 ? (
+
+        {/* Barra de título */}
+        <div className={styles.barraTitulo}>
+          Lista de produtos
+        </div>
+
+        {/* Barra de filtro */}
+        <span
+          className="navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline"
+          id={styles.filtroPesquisa1}
+        >
+          <form className="d-flex" id={styles.TamanhoFormPesquisa} onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="text"
+              onChange={(event) => setSearchTerm(event.target.value)}
+              value={searchTerm}
+              className="form-control flex-grow-1"
+              placeholder="Busque por Categoria"
+              aria-label="Search"
+              id={styles.filtroPesquisa}
+            />
+            <button className={styles.bgFiltro} type="submit">
+              <i className="bi bi-search" id={styles.corPesquisa}></i>
+            </button>
+          </form>
+        </span>
+
+        {filteredProdutos.length > 0 ? (
           <Table bordered hover className={styles.userTable}>
             <thead>
               <tr className={styles.tableHeader}>
@@ -75,7 +114,7 @@ const GestaoProdutos = () => {
               </tr>
             </thead>
             <tbody>
-              {produtos.map((produto) => (
+              {filteredProdutos.map((produto) => (
                 <tr key={produto.id}>
                   <td>
                     {produto.status ? (
@@ -109,7 +148,7 @@ const GestaoProdutos = () => {
             </tbody>
           </Table>
         ) : (
-          <div className={styles.msgVazia}>A lista de produtos está vazia.</div>
+          <div className={styles.msgVazia}>Nenhum produto encontrado.</div>
         )}
       </div>
     </div>
