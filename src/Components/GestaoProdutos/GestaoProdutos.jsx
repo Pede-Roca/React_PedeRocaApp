@@ -4,11 +4,24 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoProdutos.module.css';
 import axios from "axios";
 import GestaoCategorias from './GestaoCategorias'; // Importação do componente de categorias
+import ProdutoInfoModal from "./ProdutoInfoModal";
 
 const GestaoProdutos = () => {
   const [produtos, setProdutos] = useState([]);
+  const [showModal, setShowModal] = useState(false); 
   const [categorias, setCategorias] = useState({});
+  const [selectedProduto, setSelectedProduto] = useState(null); 
   const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de busca
+
+  const handleInfo = (id) => {
+    const produto = produtos.find(produto => produto.id === id);
+    setSelectedProduto(produto); 
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false); 
+    setSelectedProduto(null); 
+  };
 
   // Função para buscar produtos
   const fetchProdutos = async () => {
@@ -37,7 +50,18 @@ const GestaoProdutos = () => {
   useEffect(() => {
     fetchProdutos();
     fetchCategorias();
-  }, []);
+    if (selectedProduto) {
+      setShowModal(true);
+    }
+  }, [selectedProduto]);
+
+  const handleUpdateProduto = (updatedProduto) => {
+    setProdutos((prevProdutos) =>
+      prevProdutos.map((produto) =>
+        produto.id === updatedProduto.id ? updatedProduto : produto
+      )
+    );
+  };
 
   // Função para editar produto
   const handleEdit = (id) => {
@@ -119,10 +143,10 @@ const GestaoProdutos = () => {
                   <td>
                     <Button
                       variant="light"
-                      onClick={() => handleEdit(produto.id)}
+                      onClick={() => handleInfo(produto.id)}
                       className={styles.actionButton}
                     >
-                      <i className="bi bi-info-square" id={styles.editIcon}></i>
+                      <i className="bi bi-pencil" id={styles.editIcon}></i>
                     </Button>
                     <Button
                       variant="light"
@@ -139,6 +163,16 @@ const GestaoProdutos = () => {
         ) : (
           <div className={styles.msgVazia}>Nenhum produto encontrado.</div>
         )}
+
+          {selectedProduto && (
+            <ProdutoInfoModal
+              show={showModal}
+              handleClose={handleCloseModal}
+              produto={selectedProduto}
+              onUpdateProduto={handleUpdateProduto} // Passa a função para o modal
+            />
+          )}
+
       </div>
     </div>
   );
