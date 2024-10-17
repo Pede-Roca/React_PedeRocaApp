@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getFirestore } from "firebase/firestore";
-import axios from "axios";
+import { buscarEnderecoPorIdDoUsuarioNoBackend, buscarUsuarioPorIdNoBackend } from '../../services';
 
 export const useFetchUserData = (userId, backendUserId) => {
     const [userData, setUserData] = useState({});
@@ -24,30 +24,28 @@ export const useFetchUserData = (userId, backendUserId) => {
             if (!userId) return;
             if (!backendUserId) return;
             try {
-                const [enderecoResponse, usuarioResponse] = await Promise.all([
-                    axios.get(`${import.meta.env.VITE_API_URL}Endereco/usuario/${backendUserId}`),
-                    axios.get(`${import.meta.env.VITE_API_URL}Usuario/${backendUserId}`)
-                ]);
+                const enderecoResponse = await buscarEnderecoPorIdDoUsuarioNoBackend(backendUserId);
+                const usuarioResponse = await buscarUsuarioPorIdNoBackend(backendUserId);
 
                 setUserData({
-                    id: usuarioResponse.data.id,
-                    nome: usuarioResponse.data.nome,
-                    email: usuarioResponse.data.email,
-                    cpf: cpfMask(usuarioResponse.data.cpf),
-                    telefone: phoneMask(usuarioResponse.data.telefone),
-                    dataNasc: dateMask(usuarioResponse.data.dataNasc),
-                    nivelAcesso: usuarioResponse.data.nivelAcesso,
-                    foto: usuarioResponse.data.uidFotoPerfil
+                    id: usuarioResponse.id,
+                    nome: usuarioResponse.nome,
+                    email: usuarioResponse.email,
+                    cpf: cpfMask(usuarioResponse.cpf),
+                    telefone: phoneMask(usuarioResponse.telefone),
+                    dataNasc: dateMask(usuarioResponse.dataNasc),
+                    nivelAcesso: usuarioResponse.nivelAcesso,
+                    foto: usuarioResponse.uidFotoPerfil
                 });
 
                 setEnderecoData({
-                    cep: enderecoResponse.data.cep,
-                    logradouro: enderecoResponse.data.logradouro.split(" - ")[0],
-                    cidade: enderecoResponse.data.cidade,
-                    uf: enderecoResponse.data.uf,
-                    bairro: enderecoResponse.data.bairro || enderecoResponse.data.logradouro.split(" - ")[1] || "",
-                    numero: enderecoResponse.data.numero,
-                    complemento: enderecoResponse.data.complemento
+                    cep: enderecoResponse.cep,
+                    logradouro: enderecoResponse.logradouro,
+                    cidade: enderecoResponse.cidade,
+                    uf: enderecoResponse.uf,
+                    bairro: enderecoResponse.bairro,
+                    numero: enderecoResponse.numero,
+                    complemento: enderecoResponse.complemento
                 });
 
             } catch (err) {

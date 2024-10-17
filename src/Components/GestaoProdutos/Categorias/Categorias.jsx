@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import styles from './GestaoProdutos.module.css';
-import axios from "axios";
+import { buscarCategoriasNoBackend, deletarCategoriaNoBackend, atualizarCategoriaNoBackend, criarCategoriaNoBackend } from '../../../services';
+
 import CategoriaInfoModal from "./CategoriaInfoModal";
+import styles from '../Produtos/Produtos.module.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const GestaoCategorias = () => {
   const [categorias, setCategorias] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedCategoria, setSelectedCategoria] = useState(null);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const fetchCategorias = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Categoria`);
+      const data = await buscarCategoriasNoBackend();
       setCategorias(data);
     } catch (error) {
       console.error("Erro ao buscar as categorias:", error);
@@ -22,14 +24,23 @@ const GestaoCategorias = () => {
   const handleInfo = (id) => {
     const categoria = categorias.find(categoria => categoria.id === id);
     setSelectedCategoria(categoria);
+    setIsEditMode(true);
+    setShowModal(true);
+  };
+
+  const handleCreate = () => {
+    setSelectedCategoria(null);
+    setIsEditMode(false);
     setShowModal(true);
   };
 
   const handleDelete = async (id) => {
     try {
-      confirm("Deseja realmente excluir a categoria?") && await axios.delete(`${import.meta.env.VITE_API_URL}Categoria/${id}`);
-      alert("Categoria excluída com sucesso!");
-      fetchCategorias();
+      if (confirm("Deseja realmente excluir a categoria?")) {
+        await deletarCategoriaNoBackend(id);
+        alert("Categoria excluída com sucesso!");
+        fetchCategorias();
+      }
     } catch (error) {
       console.error("Erro ao excluir a categoria:", error);
     }
@@ -48,7 +59,7 @@ const GestaoCategorias = () => {
     <div className={styles.adminPageContainer}>
       <div className={styles.header}>
         <h2>Gestão de Categorias</h2>
-        <button className={styles.cadastrarButton}>Cadastrar</button>
+        <button className={styles.cadastrarButton} onClick={handleCreate}>Cadastrar</button>
       </div>
       <div className={styles.barraTitulo}>Lista de Categorias</div>
       {categorias.length > 0 ? (
@@ -62,7 +73,8 @@ const GestaoCategorias = () => {
           <tbody>
             {categorias.map(categoria => (
               <tr key={categoria.id}>
-                <td>{categoria.nome}</td><td>
+                <td>{categoria.nome}</td>
+                <td>
                   <Button
                     variant="light"
                     onClick={() => handleInfo(categoria.id)}
@@ -86,11 +98,14 @@ const GestaoCategorias = () => {
         <div className={styles.msgVazia}>A lista de categorias está vazia.</div>
       )}
 
-      {selectedCategoria && (
+      {showModal && (
         <CategoriaInfoModal
           show={showModal}
           handleClose={handleCloseModal}
           categoria={selectedCategoria}
+          isEditMode={isEditMode}
+          atualizarCategoria={atualizarCategoriaNoBackend}
+          criarCategoria={criarCategoriaNoBackend}
         />
       )}
     </div>

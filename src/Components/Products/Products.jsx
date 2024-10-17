@@ -54,9 +54,9 @@ const Products = () => {
         id="CartaoProduto"
       >
         {handleSearch.map(
-          (produtos) =>
+          (produtos, i) =>
             produtos.ativo && (
-              <div key={produtos.id} className={styles.geralCard}>
+              <div key={produtos.id + i} className={styles.geralCard}>
                 <div className={styles.posicaoPreco}>
                   <span id="precoProduto">
                     R$ {produtos.preco_unitario.toFixed(2).replace(".", ",")}

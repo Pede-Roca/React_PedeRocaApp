@@ -36,7 +36,7 @@ const StepUsuario = ({
   };
 
   const handleDobChange = (e) => {
-    let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+    let value = e.target.value.replace(/\D/g, "");
     if (value.length > 4) {
       value = value.replace(/(\d{2})(\d{2})(\d{0,4})/, "$1/$2/$3");
     } else if (value.length > 2) {

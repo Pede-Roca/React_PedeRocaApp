@@ -6,7 +6,8 @@ import {
 } from "firebase/storage";
 
 import { getAuth, updateProfile } from "firebase/auth";
-import axios from "axios"; // Certifique-se de que axios está importado
+import axios from "axios"; 
+import { atualizarFotoUsuarioNoBackend } from '../services';
 
 const storage = getStorage();
 
@@ -56,9 +57,7 @@ const profileImage = async (file, uid, backendUserId) => {
             photoURL: downloadURL,
           });
 
-          const { data } = await axios.put(`${import.meta.env.VITE_API_URL}Usuario/FotoPerfil/${backendUserId}`, {
-            uidFotoPerfil: downloadURL,
-          });
+          const data = await atualizarFotoUsuarioNoBackend(backendUserId, downloadURL);
           console.log("Foto de perfil atualizada:", data);
           
           return downloadURL;
