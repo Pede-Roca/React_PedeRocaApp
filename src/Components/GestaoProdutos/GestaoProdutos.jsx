@@ -4,26 +4,19 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoProdutos.module.css';
 import axios from "axios";
 import GestaoCategorias from './GestaoCategorias'; // Importação do componente de categorias
-import ProdutoInfoModal from "./ProdutoInfoModal";
 
 const GestaoProdutos = () => {
   const [produtos, setProdutos] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
   const [categorias, setCategorias] = useState({});
-  const [selectedProduto, setSelectedProduto] = useState(null); 
-  const [searchTerm, setSearchTerm] = useState(""); // Estado para o termo de busca
 
-  const handleInfo = (id) => {
-    const produto = produtos.find(produto => produto.id === id);
-    setSelectedProduto(produto); 
+  const handleEdit = (id) => {
+    console.log(`Editar item ${id}`);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false); 
-    setSelectedProduto(null); 
+  const handleDelete = (id) => {
+    console.log(`Excluir item ${id}`);
   };
 
-  // Função para buscar produtos
   const fetchProdutos = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Produto`);
@@ -33,7 +26,6 @@ const GestaoProdutos = () => {
     }
   };
 
-  // Função para buscar categorias
   const fetchCategorias = async () => {
     try {
       const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Categoria`);
@@ -46,75 +38,39 @@ const GestaoProdutos = () => {
       console.error("Erro ao buscar as categorias:", error);
     }
   };
-
-  useEffect(() => {
-    fetchProdutos();
-    fetchCategorias();
-    if (selectedProduto) {
-      setShowModal(true);
-    }
-  }, [selectedProduto]);
-
-  const handleUpdateProduto = (updatedProduto) => {
+   
+  const handleToggleStatus = (id) => {
     setProdutos((prevProdutos) =>
       prevProdutos.map((produto) =>
-        produto.id === updatedProduto.id ? updatedProduto : produto
+        produto.id === id ? { ...produto, status: produto.status ? false : true } : produto
       )
     );
   };
 
-  // Função para editar produto
-  const handleEdit = (id) => {
-    console.log(`Editar item ${id}`);
-  };
-
-  // Função para deletar produto
-  const handleDelete = (id) => {
-    console.log(`Excluir item ${id}`);
-  };
-
-  // Função para filtrar os produtos com base no termo de busca
-  const filteredProdutos = produtos.filter((produto) =>
-    produto.nome.toLowerCase().includes(searchTerm.toLowerCase()) || // Filtra por nome
-    (categorias[produto.idCategoria] && categorias[produto.idCategoria].toLowerCase().includes(searchTerm.toLowerCase())) // Filtra por categoria
-  );
+  useEffect(() => {
+    fetchProdutos();
+    fetchCategorias();
+  }, []);
 
   return (
     <div>
       {/* Gestão de Produtos */}
+      <div className={styles.NavOption}>
+        <span className={styles.SpanScroll}>Navegação: </span>
+        <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section1">Categorias</a></button>
+        <button className={styles.buttonScroll}><a className={styles.linkScroll} href="#section2">Produtos</a></button>
+      </div>
+      <div id="section1">
+        {/* Gestão de Categorias */}
+        <GestaoCategorias />
+      </div>
       <div id="section2" className={styles.adminPageContainer}>
         <div className={styles.header}>
           <h2>Gestão de produtos</h2>
           <button className={styles.cadastrarButton}>Cadastrar</button>
         </div>
-
-        {/* Barra de título */}
-        <div className={styles.barraTitulo}>
-          Lista de produtos
-        </div>
-
-        {/* Barra de filtro */}
-        <span
-          className="navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline"
-          id={styles.filtroPesquisa1}
-        >
-          <form className="d-flex" id={styles.TamanhoFormPesquisa} onSubmit={(e) => e.preventDefault()}>
-            <input
-              type="text"
-              onChange={(event) => setSearchTerm(event.target.value)}
-              value={searchTerm}
-              className="form-control flex-grow-1"
-              placeholder="Busque por Nome/Categoria"
-              aria-label="Search"
-              id={styles.filtroPesquisa}
-            />
-            <button className={styles.bgFiltro} type="submit">
-              <i className="bi bi-search" id={styles.corPesquisa}></i>
-            </button>
-          </form>
-        </span>
-
-        {filteredProdutos.length > 0 ? (
+        <div className={styles.barraTitulo}>Lista de produtos</div>
+        {produtos.length > 0 ? (
           <Table bordered hover className={styles.userTable}>
             <thead>
               <tr className={styles.tableHeader}>
@@ -127,14 +83,20 @@ const GestaoProdutos = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredProdutos.map((produto) => (
+              {produtos.map((produto) => (
                 <tr key={produto.id}>
                   <td>
-                    {produto.status ? (
-                      <i className="bi bi-toggle-on" id={styles.ativo}></i>
-                    ) : (
-                      <i className="bi bi-toggle-off" id={styles.inativo}></i>
-                    )}
+                    <Button
+                      variant="light"
+                      onClick={() => handleToggleStatus(produto.id)}
+                      className={styles.statusToggle}
+                    >
+                      {produto.status ? (
+                        <i className="bi bi-toggle-on" id={styles.ativo}></i>
+                      ) : (
+                        <i className="bi bi-toggle-off" id={styles.inativo}></i>
+                      )}
+                    </Button>
                   </td>
                   <td>{produto.nome}</td>
                   <td className={styles.MobileOcult}>{categorias[produto.idCategoria] || 'Carregando...'}</td>
@@ -143,10 +105,10 @@ const GestaoProdutos = () => {
                   <td>
                     <Button
                       variant="light"
-                      onClick={() => handleInfo(produto.id)}
+                      onClick={() => handleEdit(produto.id)}
                       className={styles.actionButton}
                     >
-                      <i className="bi bi-pencil" id={styles.editIcon}></i>
+                      <i className="bi bi-info-square" id={styles.editIcon}></i>
                     </Button>
                     <Button
                       variant="light"
@@ -161,18 +123,9 @@ const GestaoProdutos = () => {
             </tbody>
           </Table>
         ) : (
-          <div className={styles.msgVazia}>Nenhum produto encontrado.</div>
+          <div className={styles.msgVazia}>A lista de produtos está vazia.</div>
+
         )}
-
-          {selectedProduto && (
-            <ProdutoInfoModal
-              show={showModal}
-              handleClose={handleCloseModal}
-              produto={selectedProduto}
-              onUpdateProduto={handleUpdateProduto} // Passa a função para o modal
-            />
-          )}
-
       </div>
     </div>
   );
