@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css';
-import axios from 'axios';
 import UserInfoModal from "./UserInfoModal";
+import { buscarTodosUsuariosNoBackend, atualizarUsuarioNoBackend, alterarStatusUsuarioNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend, atualizarEnderecoNoBackend } from '../../services';
 
 const GestaoUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
-  const [selectedUser, setSelectedUser] = useState(null); 
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
   const fetchUsuarios = async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_API_URL}Usuario`);
-      console.log(data);
-      setUsuarios(data);
+      setUsuarios(await buscarTodosUsuariosNoBackend());
     } catch (error) {
       console.error("Erro ao buscar usuários:", error);
     }
@@ -43,7 +41,7 @@ const GestaoUsuarios = () => {
 
   const handleInfo = (id) => {
     const usuario = usuarios.find(user => user.id === id);
-    setSelectedUser(usuario); 
+    setSelectedUser(usuario);
   };
 
   useEffect(() => {
@@ -56,17 +54,27 @@ const GestaoUsuarios = () => {
     console.log(`Excluir usuário ${id}`);
   };
 
-  const handleToggleStatus = (id) => {
-    setUsuarios((prevUsuarios) =>
-      prevUsuarios.map((user) =>
-        user.id === id ? { ...user, status: user.status ? false : true } : user
-      )
-    );
+  const handleToggleStatus = async (id) => {
+    const user = usuarios.find((user) => user.id === id);
+
+    const novoStatus = !user.status;
+
+    try {
+      await alterarStatusUsuarioNoBackend(id, novoStatus);
+
+      setUsuarios((prevUsuarios) =>
+        prevUsuarios.map((user) =>
+          user.id === id ? { ...user, status: novoStatus } : user
+        )
+      );
+    } catch (error) {
+      console.error("Erro ao alterar o status do usuário:", error);
+    }
   };
 
   const handleCloseModal = () => {
-    setShowModal(false); 
-    setSelectedUser(null); 
+    setShowModal(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -75,9 +83,9 @@ const GestaoUsuarios = () => {
         <h2>Gestão de usuários</h2>
         <button className={styles.cadastrarButton}>Cadastrar</button>
       </div>
-      
+
       <div className={styles.barraTitulo}>Lista de usuários</div>
-      
+
       <span
         className="navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline"
         id={styles.filtroPesquisa1}
@@ -145,13 +153,16 @@ const GestaoUsuarios = () => {
           ))}
         </tbody>
       </Table>
-      
+
       {selectedUser && (
         <UserInfoModal
           show={showModal}
           handleClose={handleCloseModal}
           usuario={selectedUser}
-          onUpdateUser={handleUpdateUser} // Passa a função para o modal
+          onUpdateUser={handleUpdateUser}
+          atualizarUsuario={atualizarUsuarioNoBackend}
+          atualizarEndereco={atualizarEnderecoNoBackend}
+          buscarEnderecoDoUsuario={buscarEnderecoPorIdDoUsuarioNoBackend}
         />
       )}
     </div>

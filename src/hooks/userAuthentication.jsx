@@ -1,6 +1,7 @@
 import { db } from "../firebase/config";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { registrarUsuarioNoBackend, criarEnderecoNoBackend, efetuarLoginNoBackend } from '../services';
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -37,7 +38,6 @@ export const userAuthentication = () => {
         setError(null);
 
         try {
-            // Dados para o backend
             const userToBackend = {
                 email: data.email,
                 senha: data.password,
@@ -46,39 +46,37 @@ export const userAuthentication = () => {
                 cpf: data.cpf,
                 dataNasc: data.dob,
                 uidFotoPerfil: "",
-                createUserDate: formatDate(Date.now()),
-                status: true,
-                nivelAcesso: "comum"
             };
 
-            // Criação do usuário no backend
-            const responseCreateUser = await axios.post(`${import.meta.env.VITE_API_URL}Usuario`, userToBackend);
-            const backendUserId = responseCreateUser.data.id;
+            const { backendUserId, token } = await registrarUsuarioNoBackend(userToBackend);
 
-            // Dados de endereço para o backend
+            if(!backendUserId) {
+                setLoading(false);
+                return setError("Erro ao criar usuário, tente novamente mais tarde.");
+            }
+
+            localStorage.setItem("token", token);
+
             const enderecoToBackend = {
                 cep: data.address.cep,
                 cidade: data.address.city,
                 estado: data.address.state,
-                logradouro: `${data.address.street} - ${data.address.neighborhood}`,
+                logradouro: data.address.street,
+                bairro: data.address.neighborhood,
                 numero: data.address.number,
                 complemento: data.address.complement || "",
                 idUsuario: backendUserId
             };
 
-            // Criação do endereço no backend
-            await axios.post(`${import.meta.env.VITE_API_URL}Endereco`, enderecoToBackend);
+            const resultEnd = await criarEnderecoNoBackend(enderecoToBackend); // resultEnd tem id e message
 
-            // Criação do usuário no Firebase Authentication
             const { user } = await createUserWithEmailAndPassword(auth, data.email, data.password);
 
-            // Atualiza o perfil no Firebase (somente nome e foto são permitidos)
             await updateProfile(user, {
                 displayName: data.displayName,
                 photoURL: ""
             });
 
-            // Salva o backendId no Firestore (ou outro banco de dados)
             await setDoc(doc(db, "tb_usuarios", user.uid), { backendId: backendUserId });
 
             setLoading(false);
@@ -104,6 +102,7 @@ export const userAuthentication = () => {
     const logout = () => {
         checkIfIsCancelled();
         signOut(auth);
+        localStorage.clear();
     }
 
     const login = async (data) => {
@@ -112,7 +111,9 @@ export const userAuthentication = () => {
         setError(null);
 
         try {
+            const token = await efetuarLoginNoBackend({ email: data.email, senha: data.password });
             await signInWithEmailAndPassword(auth, data.email, data.password);
+            localStorage.setItem("token", token);
             setLoading(false);
         } catch (error) {
             console.error(error.message);
