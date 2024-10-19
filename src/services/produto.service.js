@@ -35,3 +35,17 @@ export const buscarProdutosSemEstoqueNoBackend = async () => {
         console.error(error);
     }
 }
+
+export const buscarProdutosTop10NoBackend = async () => {
+    try {
+        //const { data } = await axios.get(`${import.meta.env.VITE_API_URL}produto/top-10`);
+        var data = [
+            {"nome": "Banana", "quantidadeVendida": 100, "valorTotal": 10.80},
+            {"nome": "Maça", "quantidadeVendida": 200, "valorTotal": 20.80},
+            {"nome": "Cenoura", "quantidadeVendida": 300, "valorTotal": 30.80}
+        ];
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
