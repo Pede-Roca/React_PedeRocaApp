@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Badge, Stack } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css';
 import UserInfoModal from "./UserInfoModal";
 import { buscarTodosUsuariosNoBackend, atualizarUsuarioNoBackend, alterarStatusUsuarioNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend, atualizarEnderecoNoBackend } from '../../services';
+
+const niveisAcesso = {
+  todos: "Todos",
+  adm: "Administrador",
+  comum: "Comum",
+  produtor: "Produtor",
+  assinante: "Assinante",
+  entregador: "Entregador",
+};
 
 const GestaoUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filtroTipoUsuario, setFiltroTipoUsuario] = useState("");
 
   const fetchUsuarios = async () => {
     try {
@@ -33,14 +43,13 @@ const GestaoUsuarios = () => {
 
   const lowerCaseBusca = searchTerm.toLowerCase();
 
-  const filteredUsuarios = usuarios.filter(
-    (usuario) =>
-      usuario.nome.toLowerCase().includes(lowerCaseBusca)
+  const filteredUsuarios = usuarios.filter((usuario) =>
+    usuario.nome.toLowerCase().includes(lowerCaseBusca) &&
+    (filtroTipoUsuario === "" || usuario.nivelAcesso === filtroTipoUsuario)
   );
 
-
   const handleInfo = (id) => {
-    const usuario = usuarios.find(user => user.id === id);
+    const usuario = usuarios.find((user) => user.id === id);
     setSelectedUser(usuario);
   };
 
@@ -56,12 +65,10 @@ const GestaoUsuarios = () => {
 
   const handleToggleStatus = async (id) => {
     const user = usuarios.find((user) => user.id === id);
-
     const novoStatus = !user.status;
 
     try {
       await alterarStatusUsuarioNoBackend(id, novoStatus);
-
       setUsuarios((prevUsuarios) =>
         prevUsuarios.map((user) =>
           user.id === id ? { ...user, status: novoStatus } : user
@@ -77,6 +84,27 @@ const GestaoUsuarios = () => {
     setSelectedUser(null);
   };
 
+  const handleFilterChange = (tipo) => {
+    setFiltroTipoUsuario(tipo.toLowerCase());
+  };
+
+  const formatNameAccessLevel = (level) => {
+    switch (level) {
+      case "adm":
+        return "Administrador"
+      case "comum":
+        return "Comum"
+      case "produtor":
+        return "Produtor"
+      case "assinante":
+        return "Assinante"
+      case "entregador":
+        return "Entregador"
+      default:
+        return "Todos"
+    }
+  }
+
   return (
     <div className={styles.adminPageContainer}>
       <div className={styles.header}>
@@ -90,19 +118,38 @@ const GestaoUsuarios = () => {
         className="navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline"
         id={styles.filtroPesquisa1}
       >
-        <form className="d-flex" id={styles.TamanhoFormPesquisa}>
-          <input
-            type="text"
-            onChange={(event) => setSearchTerm(event.target.value)}
-            value={searchTerm}
-            className="form-control flex-grow-1"
-            placeholder="Busque por Nome"
-            aria-label="Search"
-            id={styles.filtroPesquisa}
-          />
-          <button className={styles.bgFiltro} type="submit">
-            <i className="bi bi-search" id={styles.corPesquisa}></i>
-          </button>
+        <form className="d-flex flex-column gap-2" id={styles.TamanhoFormPesquisa}>
+
+          <div className="d-flex">
+            <input
+              type="text"
+              onChange={(event) => setSearchTerm(event.target.value)}
+              value={searchTerm}
+              className="form-control flex-grow-1"
+              placeholder="Busque por Nome"
+              aria-label="Search"
+              id={styles.filtroPesquisa}
+            />
+            <button className={styles.bgFiltro} type="submit">
+              <i className="bi bi-search" id={styles.corPesquisa}></i>
+            </button>
+          </div>
+
+          <span>{filtroTipoUsuario ? `Filtrando pelo nivel: ${formatNameAccessLevel(filtroTipoUsuario)}` : 'Filtre pelo nivel de acesso'}</span>
+          <Stack direction="horizontal" gap={2}>
+
+            {niveisAcesso && Object.keys(niveisAcesso).map((nivel) => {
+              return (
+                <Badge
+                  className={`${styles.badgeColor} ${filtroTipoUsuario === nivel ? styles.selectedBadge : ''}`}
+                  onClick={() => handleFilterChange(nivel === 'todos' ? '' : nivel)}
+                  style={{ cursor: 'pointer' }}
+                  key={nivel}
+                >
+                  {niveisAcesso[nivel]}
+                </Badge>)
+            })}
+          </Stack>
         </form>
       </span>
 
@@ -112,6 +159,7 @@ const GestaoUsuarios = () => {
             <th>Status</th>
             <th>Nome</th>
             <th className={styles.MobileOcult}>Email</th>
+            <th className={styles.MobileOcult}>Nivel de Acesso</th>
             <th>Ações</th>
           </tr>
         </thead>
@@ -133,6 +181,13 @@ const GestaoUsuarios = () => {
               </td>
               <td>{user.nome}</td>
               <td className={styles.MobileOcult}>{user.email}</td>
+              <td className={styles.MobileOcult}>
+                {user.nivelAcesso === "adm"
+                  ? "Administrador"
+                  : user.nivelAcesso === "comum"
+                    ? "Comum"
+                    : "Produtor"}
+              </td>
               <td>
                 <Button
                   variant="light"

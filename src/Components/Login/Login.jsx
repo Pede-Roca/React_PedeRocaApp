@@ -32,14 +32,15 @@ const Login = () => {
 
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    const usuario = {
-      email,
-      password,
-    };
-    const res = await login(usuario);
-
-    if (res.error) {
-      setError("Usuário ou Senha Inválido");
+    try {
+      const { status, message, user } = await login({ email, password });
+      if (status === false) {
+        setError(message);
+      } else {
+        setError("");
+      }
+    } catch (error) {
+      setError("Erro ao logar, tente novamente mais tarde.");
     }
   };
 
