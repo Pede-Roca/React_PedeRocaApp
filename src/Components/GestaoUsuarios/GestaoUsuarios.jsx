@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Badge, Stack } from "react-bootstrap";
+import { Table, Button, Badge, Stack, Dropdown, DropdownButton } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css';
 import UserInfoModal from "./UserInfoModal";
@@ -135,21 +135,20 @@ const GestaoUsuarios = () => {
             </button>
           </div>
 
-          <span>{filtroTipoUsuario ? `Filtrando pelo nivel: ${formatNameAccessLevel(filtroTipoUsuario)}` : 'Filtre pelo nivel de acesso'}</span>
-          <Stack direction="horizontal" gap={2}>
-
-            {niveisAcesso && Object.keys(niveisAcesso).map((nivel) => {
-              return (
-                <Badge
-                  className={`${styles.badgeColor} ${filtroTipoUsuario === nivel ? styles.selectedBadge : ''}`}
-                  onClick={() => handleFilterChange(nivel === 'todos' ? '' : nivel)}
-                  style={{ cursor: 'pointer' }}
-                  key={nivel}
-                >
-                  {niveisAcesso[nivel]}
-                </Badge>)
-            })}
-          </Stack>
+          <select
+            id="nivelAcesso"
+            onChange={(e) => handleFilterChange(e.target.value === 'todos' ? '' : e.target.value)}
+            value={filtroTipoUsuario}
+          >
+            <option value="" disabled>
+              Nível de Acesso
+            </option>
+            {niveisAcesso && Object.keys(niveisAcesso).map((nivel) => (
+              <option key={nivel} value={nivel}>
+                {niveisAcesso[nivel]}
+              </option>
+            ))}
+          </select>
         </form>
       </span>
 
