@@ -6,12 +6,50 @@ import styles from "./Products.module.css";
 import SideBar from "../Sidebar/SideBar";
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from '../../firebase/config';
+import { useAuthValue } from "../../context/AuthContext";
+import { useAuth } from "../Usuario/useAuth";
+import { registrarProdutoFavoritoNoBackend, desregistrarProdutoFavoritoNoBackend } from "../../services/produto.service"
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const lowerCaseBusca = searchTerm.toLowerCase();
   const produtosCollectionRef = collection(db, 'tb_produtos')
   const [produtos, setProdutos] = useState([]);
+  const { user } = useAuthValue();
+  const { backendUserId } = useAuth();
+
+  const handleFavorito = async (produto) => {
+
+    if(produto.favorito){
+      try {
+        const data = await desregistrarProdutoFavoritoNoBackend(produto.idFavorito);
+        if(data){
+          const produtosAtualizados = produtos.map(item => 
+            item.id === produto.id ? { ...item, favorito: false } : item
+          );
+          setProdutos(produtosAtualizados);
+        }
+      } catch (error) {
+        console.error("Erro ao desregistrar o produto favorito:", error);
+      }
+    } else {
+      const produtoFavorito = {
+          idProduto: produto.id,
+          idUsuario: backendUserId
+      };
+      try {
+        const data = await registrarProdutoFavoritoNoBackend(produtoFavorito);
+        if(data){
+          const produtosAtualizados = produtos.map(item => 
+            item.id === produto.id ? { ...item, favorito: true, idFavorito: data.id } : item
+          );
+          setProdutos(produtosAtualizados);
+        }
+      } catch (error) {
+        console.error("Erro ao registrar o produto favorito:", error);
+      }
+    }
+  };
   
   const handleSearch = produtos.filter(
     (produto) =>
@@ -62,11 +100,17 @@ const Products = () => {
                     R$ {produtos.preco_unitario.toFixed(2).replace(".", ",")}
                   </span>
                 </div>
+                {user &&
                 <div className={styles.posicaoFavorito}>
-                  <button id={styles.boxFavoritoF1}>
-                    <i className="bi bi-heart" id={styles.tamanhoFavorito}></i>
+                  <button id={styles.boxFavoritoF1} onClick={() => handleFavorito(produtos)}>
+                    {produtos.favorito ? (
+                    <i className="bi bi-heart-fill" id={styles.tamanhoFavorito}></i>
+                    ):(
+                      <i className="bi bi-heart" id={styles.tamanhoFavorito}></i>
+                    )}
                   </button>
                 </div>
+                }
                 <div className={styles.imagemVenda}>
                   <img
                     src={produtos.imagem}
