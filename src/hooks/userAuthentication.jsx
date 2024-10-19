@@ -11,12 +11,8 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
-const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+const loginReturn = (user, message, status) => {
+    return { user, message, status };
 };
 
 export const userAuthentication = () => {
@@ -50,7 +46,7 @@ export const userAuthentication = () => {
 
             const { backendUserId, token } = await registrarUsuarioNoBackend(userToBackend);
 
-            if(!backendUserId) {
+            if (!backendUserId) {
                 setLoading(false);
                 return setError("Erro ao criar usuário, tente novamente mais tarde.");
             }
@@ -112,9 +108,17 @@ export const userAuthentication = () => {
 
         try {
             const token = await efetuarLoginNoBackend({ email: data.email, senha: data.password });
-            await signInWithEmailAndPassword(auth, data.email, data.password);
-            localStorage.setItem("token", token);
+            if (!token) {
+                setLoading(false);
+                return { user: null, message: "Erro ao logar, tente novamente mais tarde", status: false };
+            };
+
+            const result = await signInWithEmailAndPassword(auth, data.email, data.password);
+            
             setLoading(false);
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(result.user));
+            return { user: result.user, message: "Usuário logado com sucesso", status: false };
         } catch (error) {
             console.error(error.message);
 
