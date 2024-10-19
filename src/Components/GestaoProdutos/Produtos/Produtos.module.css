@@ -59,6 +59,10 @@
     justify-content: space-between;
     align-items: center;
   }
+
+  .header h2, .header button {
+    margin: 0px 20px;
+  }
   
   .cadastrarButton {
     background-color: #7C8C03;
@@ -173,3 +177,39 @@
   .TamanhoFormPesquisa {
     width: 100%; /* Faz o formulário ocupar toda a largura disponível */
   }
+
+  /* Paginação */
+  .pgAtivo, .pgN{
+    margin: 5px;
+  }
+
+  .paginacao{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .pgAtivo{
+    background-color: #7C8C03;
+    color: #f2f2f2;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .pgN{
+    background-color: #f2f2f2;
+    color: #7C8C03;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px;
+  }
+
+  .pgN:hover{
+    background-color: #7C8C03;
+    color: #f2f2f2;
+  }
+

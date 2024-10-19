@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button } from "react-bootstrap";
 import { buscarProdutosNoBackend, buscarCategoriasNoBackend, atualizarProdutoNoBackend, buscarUnidadesMedidaNoBackend } from '../../../services';
-
 import ProdutoInfoModal from './ProdutoInfoModal';
 import styles from './Produtos.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -13,9 +12,24 @@ const Produtos = () => {
   const [unidadesMedidasBackend, setUnidadesMedidasBackend] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null);
+  
+  // Paginação
+  const ProdutosPorPagina = 7;
+  const [paginaAtual, setPaginaAtual] = useState(1);
+
+  const primeiroProdutoPaginaAtual = (paginaAtual - 1) * ProdutosPorPagina;
+  const ultimoProdutoPaginaAtual = primeiroProdutoPaginaAtual + ProdutosPorPagina;
+
+  const produtosPaginaAtual = produtos.slice(primeiroProdutoPaginaAtual, ultimoProdutoPaginaAtual);
+
+  const mudarPagina = (pagina) => {
+    setPaginaAtual(pagina);
+  };
+
+  const numeroPaginas = Math.ceil(produtos.length / ProdutosPorPagina);
 
   const handleEdit = (id) => {
-    const produto = produtos.find(produto => produto.id === id);
+    const produto = produtos.find((produto) => produto.id === id);
     setSelectedProduto(produto);
     setShowModal(true);
   };
@@ -36,7 +50,6 @@ const Produtos = () => {
     });
     setShowModal(true);
   };
-
 
   const fetchProdutos = async () => {
     try {
@@ -73,7 +86,7 @@ const Produtos = () => {
   const handleToggleStatus = (id) => {
     setProdutos((prevProdutos) =>
       prevProdutos.map((produto) =>
-        produto.id === id ? { ...produto, status: produto.status ? false : true } : produto
+        produto.id === id ? { ...produto, status: !produto.status } : produto
       )
     );
   };
@@ -99,57 +112,72 @@ const Produtos = () => {
       </div>
       <div className={styles.barraTitulo}>Lista de produtos</div>
       {produtos.length > 0 ? (
-        <Table bordered hover className={styles.userTable}>
-          <thead>
-            <tr className={styles.tableHeader}>
-              <th>Status</th>
-              <th>Nome</th>
-              <th className={styles.MobileOcult}>Categoria</th>
-              <th className={styles.MobileOcult}>Estoque</th>
-              <th className={styles.MobileOcult}>Preço</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {produtos.map((produto) => (
-              <tr key={produto.id}>
-                <td>
-                  <Button
-                    variant="light"
-                    onClick={() => handleToggleStatus(produto.id)}
-                    className={styles.statusToggle}
-                  >
-                    {produto.status ? (
-                      <i className="bi bi-toggle-on" id={styles.ativo}></i>
-                    ) : (
-                      <i className="bi bi-toggle-off" id={styles.inativo}></i>
-                    )}
-                  </Button>
-                </td>
-                <td>{produto.nome}</td>
-                <td className={styles.MobileOcult}>{categorias[produto.idCategoria] || 'Carregando...'}</td>
-                <td className={styles.MobileOcult}>{produto.estoque}</td>
-                <td className={styles.MobileOcult}>{produto.preco.toFixed(2)}</td>
-                <td>
-                  <Button
-                    variant="light"
-                    onClick={() => handleEdit(produto.id)}
-                    className={styles.actionButton}
-                  >
-                    <i className="bi bi-info-square" id={styles.editIcon}></i>
-                  </Button>
-                  <Button
-                    variant="light"
-                    onClick={() => handleDelete(produto.id)}
-                    className={styles.actionButton}
-                  >
-                    <i className="bi bi-trash" id={styles.deleteIcon}></i>
-                  </Button>
-                </td>
+        <>
+          <Table bordered hover className={styles.userTable}>
+            <thead>
+              <tr className={styles.tableHeader}>
+                <th>Status</th>
+                <th>Nome</th>
+                <th className={styles.MobileOcult}>Categoria</th>
+                <th className={styles.MobileOcult}>Estoque</th>
+                <th className={styles.MobileOcult}>Preço</th>
+                <th>Ações</th>
               </tr>
+            </thead>
+            <tbody>
+              {produtosPaginaAtual.map((produto) => (
+                <tr key={produto.id}>
+                  <td>
+                    <Button
+                      variant="light"
+                      onClick={() => handleToggleStatus(produto.id)}
+                      className={styles.statusToggle}
+                    >
+                      {produto.status ? (
+                        <i className="bi bi-toggle-on" id={styles.ativo}></i>
+                      ) : (
+                        <i className="bi bi-toggle-off" id={styles.inativo}></i>
+                      )}
+                    </Button>
+                  </td>
+                  <td>{produto.nome}</td>
+                  <td className={styles.MobileOcult}>
+                    {categorias[produto.idCategoria] || 'Carregando...'}
+                  </td>
+                  <td className={styles.MobileOcult}>{produto.estoque}</td>
+                  <td className={styles.MobileOcult}>{produto.preco.toFixed(2)}</td>
+                  <td>
+                    <Button
+                      variant="light"
+                      onClick={() => handleEdit(produto.id)}
+                      className={styles.actionButton}
+                    >
+                      <i className="bi bi-info-square" id={styles.editIcon}></i>
+                    </Button>
+                    <Button
+                      variant="light"
+                      onClick={() => handleDelete(produto.id)}
+                      className={styles.actionButton}
+                    >
+                      <i className="bi bi-trash" id={styles.deleteIcon}></i>
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <div className={styles.paginacao}>
+            {Array.from({ length: numeroPaginas }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => mudarPagina(index + 1)}
+                className={paginaAtual === index + 1 ? styles.pgAtivo : styles.pgN}
+              >
+                {index + 1}
+              </button>
             ))}
-          </tbody>
-        </Table>
+          </div>
+        </>
       ) : (
         <div className={styles.msgVazia}>A lista de produtos está vazia.</div>
       )}
@@ -164,7 +192,6 @@ const Produtos = () => {
           unidadesMedidas={unidadesMedidasBackend}
         />
       )}
-
     </div>
   );
 };
