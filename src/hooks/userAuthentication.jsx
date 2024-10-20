@@ -12,10 +12,6 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
-const loginReturn = (user, message, status) => {
-    return { user, message, status };
-};
-
 export const userAuthentication = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(null);
@@ -52,7 +48,7 @@ export const userAuthentication = () => {
                 return setError("Erro ao criar usuário, tente novamente mais tarde.");
             }
 
-            localStorage.setItem("token", token);
+            sessionStorage.setItem("token", token);
 
             const enderecoToBackend = {
                 cep: data.address.cep,
@@ -75,6 +71,11 @@ export const userAuthentication = () => {
             });
 
             await setDoc(doc(db, "tb_usuarios", user.uid), { backendId: backendUserId });
+
+            sessionStorage.setItem("user", JSON.stringify({
+                ...user,
+                backendId: backendUserId
+            }));
 
             setLoading(false);
             return user;
@@ -99,7 +100,7 @@ export const userAuthentication = () => {
     const logout = () => {
         checkIfIsCancelled();
         signOut(auth);
-        localStorage.clear();
+        sessionStorage.clear();
     }
 
     const login = async (data) => {
@@ -120,8 +121,8 @@ export const userAuthentication = () => {
             const result = await signInWithEmailAndPassword(auth, data.email, data.password);
 
             setLoading(false);
-            localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify({
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", JSON.stringify({
                 ...result.user,
                 backendId: userId
             }));

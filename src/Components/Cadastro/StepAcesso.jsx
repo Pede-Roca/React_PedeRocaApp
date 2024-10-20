@@ -12,9 +12,10 @@ const StepAcesso = ({
     fieldError,
 }) => {
     const [emailError, setEmailError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmedPassword, setShowConfirmedPassword] = useState(false);
 
     const validateEmail = (email) => {
-        // Regex simples para validar e-mail
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
@@ -22,7 +23,15 @@ const StepAcesso = ({
     const handleEmailChange = (e) => {
         const value = e.target.value;
         setEmail(value);
-        setEmailError(!validateEmail(value)); // Define erro se o e-mail for inválido
+        setEmailError(!validateEmail(value));
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
+
+    const toggleConfirmedPasswordVisibility = () => {
+        setShowConfirmedPassword((prevShowConfirmedPassword) => !prevShowConfirmedPassword);
     };
 
     return (
@@ -44,25 +53,45 @@ const StepAcesso = ({
             </label>
             <label className={styles.label}>
                 <span className={styles.span}>Senha: </span>
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="form-control"
-                    placeholder="Entre com sua senha"
-                />
+                <div className={styles.passwordContainer}>
+                    <input
+                        type={showPassword ? "text" : "password"}
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="form-control"
+                        placeholder="Entre com sua senha"
+                    />
+                    <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className={styles.toggleButton}
+                        aria-label="Mostrar/Esconder senha"
+                    >
+                        {showPassword ? "🙈" : "👁️"}
+                    </button>
+                </div>
             </label>
             <label className={styles.label}>
                 <span className={styles.span}>Confirmação da senha: </span>
-                <input
-                    type="password"
-                    name="confirmedPassword"
-                    value={confirmedPassword}
-                    onChange={(e) => setConfirmedPassword(e.target.value)}
-                    className="form-control"
-                    placeholder="Confirme sua senha"
-                />
+                <div className={styles.passwordContainer}>
+                    <input
+                        type={showConfirmedPassword ? "text" : "password"}
+                        name="confirmedPassword"
+                        value={confirmedPassword}
+                        onChange={(e) => setConfirmedPassword(e.target.value)}
+                        className="form-control"
+                        placeholder="Confirme sua senha"
+                    />
+                    <button
+                        type="button"
+                        onClick={toggleConfirmedPasswordVisibility}
+                        className={styles.toggleButton}
+                        aria-label="Mostrar/Esconder confirmação da senha"
+                    >
+                        {showConfirmedPassword ? "🙈" : "👁️"}
+                    </button>
+                </div>
                 {renderPassError && (
                     <span className={styles.erroPass}>Senhas não conferem</span>
                 )}

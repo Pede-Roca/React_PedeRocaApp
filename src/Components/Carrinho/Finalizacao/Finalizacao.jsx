@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../Carrinho.module.css';
-import { buscarUsuarioPorIdNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend } from '../../../services';
+import { buscarUsuarioPorIdNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend, capturarIdDoUsuarioESetarNoLocalStorage } from '../../../services';
 
 export const Finalizacao = ({ frete, pagamento, produtos }) => {
     const [usuario, setUsuario] = useState({});
@@ -38,21 +38,20 @@ export const Finalizacao = ({ frete, pagamento, produtos }) => {
     };
 
     useEffect(() => {
-        const userStorage = JSON.parse(localStorage.getItem('user'));
-        if (userStorage) {
-            const fetchUserData = async () => {
-                try {
-                    const userReturn = await buscarUsuarioPorIdNoBackend(userStorage.backendId);
-                    setUsuario(userReturn);
+        const fetchUserData = async () => {
+            try {
+                let backendId = await capturarIdDoUsuarioESetarNoLocalStorage();
+            
+                const userReturn = await buscarUsuarioPorIdNoBackend(backendId);
+                setUsuario(userReturn);
 
-                    const enderecoReturn = await buscarEnderecoPorIdDoUsuarioNoBackend();
-                    setEndereco(enderecoReturn);
-                } catch (error) {
-                    console.error("Erro ao buscar os dados do usuário", error);
-                }
-            };
-            fetchUserData();
-        }
+                const enderecoReturn = await buscarEnderecoPorIdDoUsuarioNoBackend();
+                setEndereco(enderecoReturn);
+            } catch (error) {
+                console.error("Erro ao buscar os dados do usuário", error);
+            }
+        };
+        fetchUserData();
     }, []);
 
     return (

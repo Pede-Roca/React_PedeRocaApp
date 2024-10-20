@@ -1,4 +1,4 @@
-.containerEtapa{
+.containerEtapa {
   width: 100%;
   height: 68px;
   display: flex;
@@ -19,7 +19,7 @@
   z-index: 1;
 }
 
-.CirculoE{
+.CirculoE {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -32,7 +32,7 @@
   color: white;
 }
 
-.etapa{
+.etapa {
   text-align: center;
   padding: 0px;
   margin: 0 auto;
@@ -43,11 +43,11 @@
   max-width: 24%;
 }
 
-.stepTitle{
+.stepTitle {
   width: 100px;
 }
 
-.linhaProgresso{
+.linhaProgresso {
   width: 90%;
   height: 10px;
   border-radius: 10px;
@@ -56,60 +56,73 @@
   margin-top: 17px;
 }
 
-  .titulo{
-    color: #f2f2f2;
-    background: #7C8C03;
-    border-radius: 5px;
-    text-align: center;
-    padding: 5px 0px;
-    margin: 5px 0px;
-  }
+.titulo {
+  color: #f2f2f2;
+  background: #7C8C03;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px 0px;
+  margin: 5px 0px;
+}
 
-  .btnNext, .btnBack {
-    background: white;
-    font-size: 1.6rem;
-    padding: 5px 10px;
-    margin: 15px 20px;
-    border-radius: 50%;
-    border: none;;
-  }
+.btnNext,
+.btnBack {
+  background: white;
+  font-size: 1.6rem;
+  padding: 5px 10px;
+  margin: 15px 20px;
+  border-radius: 50%;
+  border: none;
+  ;
+}
 
-  .btnNext{
-    color: #7C8C03;
-    border: #7C8C03 1px solid;
-  }
+.btnNext {
+  color: #7C8C03;
+  border: #7C8C03 1px solid;
+}
 
-  .btnBack{
-    color: #A83C01;
-    border: #A83C01 1px solid;
-  }
+.btnBack {
+  color: #A83C01;
+  border: #A83C01 1px solid;
+}
 
-  .containerBtn{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.containerBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .span{
-    color: #7C8C03;
-    font-size: 1.2rem;
-    margin: 0px 10px;
-    font-weight: bold;
-  }
+.span {
+  color: #7C8C03;
+  font-size: 1.2rem;
+  margin: 0px 10px;
+  font-weight: bold;
+}
 
-  .formInput{
-    border: 1px solid #7C8C03;
-  }
+.formInput {
+  border: 1px solid #7C8C03;
+}
 
-  .label{
-    width: 100%;
-    margin-bottom: 10px;
-  }
+.label {
+  width: 100%;
+  margin-bottom: 10px;
+}
 
-  .erroPass{
-    color: red;
-    font-size: 1rem;
-    margin: 0px 10px;
-    font-weight: bold;
-  }
+.erroPass {
+  color: red;
+  font-size: 1rem;
+  margin: 0px 10px;
+  font-weight: bold;
+}
 
+.passwordContainer {
+  display: flex;
+  align-items: center;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 8px;
+}
