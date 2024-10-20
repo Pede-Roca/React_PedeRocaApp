@@ -1,40 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Toast } from "react-bootstrap";
 import { buscarProdutosNoBackend, buscarCategoriasNoBackend, atualizarProdutoNoBackend, buscarUnidadesMedidaNoBackend } from '../../../services';
 import ProdutoInfoModal from './ProdutoInfoModal';
 import styles from './Produtos.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Produtos = () => {
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState("green");
+
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState({});
   const [categoriasBackend, setCategoriasBackend] = useState([]);
   const [unidadesMedidasBackend, setUnidadesMedidasBackend] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null);
-
-  const handleEdit = (id) => {
-    const produto = produtos.find((produto) => produto.id === id);
-    setSelectedProduto(produto);
-    setShowModal(true);
-  };
-
-  const handleDelete = (id) => {
-    console.log(`Excluir item ${id}`);
-  };
-
-  const handleCreate = () => {
-    setSelectedProduto({
-      nome: '',
-      descricao: '',
-      preco: 0,
-      estoque: 0,
-      idCategoria: '',
-      idUnidade: '',
-      status: true,
-    });
-    setShowModal(true);
-  };
 
   const fetchProdutos = async () => {
     try {
@@ -68,6 +49,29 @@ const Produtos = () => {
     }
   };
 
+  const handleEdit = (id) => {
+    const produto = produtos.find((produto) => produto.id === id);
+    setSelectedProduto(produto);
+    setShowModal(true);
+  };
+
+  const handleDelete = (id) => {
+    console.log(`Excluir item ${id}`);
+  };
+
+  const handleCreate = () => {
+    setSelectedProduto({
+      nome: '',
+      descricao: '',
+      preco: 0,
+      estoque: 0,
+      idCategoria: '',
+      idUnidade: '',
+      status: true,
+    });
+    setShowModal(true);
+  };
+
   const handleToggleStatus = (id) => {
     setProdutos((prevProdutos) =>
       prevProdutos.map((produto) =>
@@ -76,9 +80,28 @@ const Produtos = () => {
     );
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseModal = (produtoReturn) => {
+    console.log(produtoReturn);
+    if (!produtoReturn) return setShowModal(false);
+    const { produto, tipo } = produtoReturn;
+    if (tipo === 'create') {
+      setShowModal(false);
+      setProdutos((prevProdutos) => [...prevProdutos, produto]);
+      handleShowToast("Produto criado com sucesso!", "#28a745");
+    } else if (tipo === 'update') {
+      setShowModal(false);
+      setProdutos((prevProdutos) => prevProdutos.map((p) => p.id === produto.id ? produto : p));
+      handleShowToast("Produto atualizado com sucesso!", "#28a745");
+    }
     fetchProdutos();
+    fetchCategorias();
+    fetchUnidadesMedida();
+  };
+
+  const handleShowToast = (message, color) => {
+    setToastMessage(message);
+    setToastColor(color);
+    setShowToast(true);
   };
 
   useEffect(() => {
@@ -166,6 +189,25 @@ const Produtos = () => {
           unidadesMedidas={unidadesMedidasBackend}
         />
       )}
+
+      {/* Toast para exibir mensagem de sucesso/erro */}
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={3000}
+        autohide
+        style={{
+          position: "fixed",
+          top: "20px",
+          right: "20px",
+          zIndex: 1050,
+          backgroundColor: toastColor,
+          color: "white",
+          fontSize: "1rem",
+        }}
+      >
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
     </div>
   );
 };

@@ -50,14 +50,22 @@
     color: #7C8C03;
   }
 
-  .btnTrocarFoto {
-    background-color: #7C8C03; 
-    border: none; 
-    cursor: pointer; 
-    color: #F2F2F2; 
-    font-size: 1.2rem; 
-    border: 2px solid #7C8C03; 
-    border-radius: 50%;
+  .btnAlterarFoto{
+    background: #7C8C03;
+    color: #F2F2F2;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-top: 10px;
+    border: none;
+    width: 150px;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  .btnAlterarFoto:hover{
+    background-color: #F2F2F2;
+    box-shadow: inset 0 0 0 1px #6f7c02;
+    color: #6f7c02;
   }
 
   @media screen and (max-width: 767px) {
@@ -107,13 +115,24 @@
       border-radius: 10px;
       margin-left: 25px;
     }
-
-    .btnTrocarFoto{
-      position: relative;
-      top: -15px;
-      left: 80px;
-    }
     
+    .btnAlterarFoto{
+      margin-left: 20px;
+    }
+
+    .containerTexto{
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .inputFieldDescricao{
+      display: inline;
+      min-width: 250px;
+      min-height: 10dvh;
+    }
   }
 
   @media screen and (min-width: 767px) {
@@ -159,29 +178,35 @@
       width: 200px;
     }
     
- 
     .imgProduto{
       width: 150px;
       border: 1px solid #7C8C03;
       border-radius: 10px;
       margin: 10px;
     }
+
+    .containerTexto{
+      display: block;
+      box-sizing: border-box;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .inputFieldDescricao{
+      width: 100%;
+      height: 100%;
+      min-width: 450px;
+      min-height: 10dvh;
+    }
+    
   }
 
   @media screen and (min-width: 992px) {
-    .btnTrocarFoto{
-      position: absolute;
-      top: 190px;
-      left: 85px;
+    .inputFieldDescricao{
+      min-width: 750px;
+      min-height: 10dvh;
     }
-  }
-
-  @media screen and (min-width: 768px ) and (max-width: 991px){
-    .btnTrocarFoto{
-      position: absolute;
-      top: 290px;
-      left: 85px;
-    }
+    
   }
 
   
