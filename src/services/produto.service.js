@@ -35,3 +35,12 @@ export const buscarProdutosSemEstoqueNoBackend = async () => {
         console.error(error);
     }
 }
+
+export const NumeroProdutosForaDeEstoque = async () => {
+    try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}produto/sem-estoque`);
+        return data.length;
+    } catch (error) {
+        console.error(error);
+    }
+}

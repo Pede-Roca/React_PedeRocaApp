@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Button } from "react-bootstrap";
 import { atualizarProdutoNoBackend, criarProdutoNoBackend } from '../../../services';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import styles from './ProdutoInfoModal.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
+
 
 const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedidas }) => {
   const [nome, setNome] = useState(produto?.nome || '');
@@ -12,6 +14,12 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
   const [estoque, setEstoque] = useState(produto?.estoque || 0);
   const [idCategoria, setIdCategoria] = useState(produto?.idCategoria || '');
   const [idUnidade, setIdUnidade] = useState(produto?.idUnidade || '');
+  const [uidFoto, setUidFoto] = useState(produto?.uidFoto || ''); 
+
+
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const storage = getStorage();
 
   useEffect(() => {
     if (produto) {
@@ -21,6 +29,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
       setEstoque(produto.estoque || 0);
       setIdCategoria(produto.idCategoria || '');
       setIdUnidade(produto.idUnidade || '');
+      setUidFoto(produto.uidFoto || '');  // Corrigido aqui para setImageUrl
     }
   }, [produto]);
 
@@ -33,6 +42,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
       estoque,
       idCategoria,
       idUnidade,
+      uidFoto: imageUrl,
     };
 
     try {
@@ -62,6 +72,23 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
     handleClose();
   };
 
+  const HandleFileChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = () => {
+    const storageRef = ref(storage, `Produtos/${image.name}`);
+    uploadBytes(storageRef, image).then((snapshot) => {
+      console.log("imagem upload");
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrl(url);
+      });
+    });
+  };
+
+
   return (
     <Modal show={show} onHide={handleCancel}>
       <Modal.Header closeButton>
@@ -77,7 +104,6 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
               className={styles.inputField}
             />
           </label>
-          <br />
           <label className={styles.label}>Descrição:
             <input
               type="text"
@@ -86,7 +112,6 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
               className={styles.inputField}
             />
           </label>
-          <br />
           <label className={styles.label}>Preço:
             <input
               type="number"
@@ -95,7 +120,6 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
               className={styles.inputField}
             />
           </label>
-          <br />
           <label className={styles.label}>Estoque:
             <input
               type="number"
@@ -104,7 +128,6 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
               className={styles.inputField}
             />
           </label>
-          <br />
           <label className={styles.label}>Categoria:
             <select
               value={idCategoria}
@@ -119,7 +142,6 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
               ))}
             </select>
           </label>
-          <br />
           <label className={styles.label}>Unidade de Medida:
             <select
               value={idUnidade}
@@ -134,6 +156,15 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
               ))}
             </select>
           </label>
+          <label className={styles.label}>Imagem:
+          <input
+            type="file"
+            onChange={HandleFileChange}
+            className={styles.inputField}
+          />
+            <button onClick={handleSubmit}>Upload Imagem</button>
+            {imageUrl && <img src={imageUrl} alt="Imagem enviada" className={styles.imgEnviada} />}
+        </label>
         </div>
       </Modal.Body>
       <Modal.Footer>
