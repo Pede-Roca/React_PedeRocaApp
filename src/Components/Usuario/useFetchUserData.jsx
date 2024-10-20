@@ -24,7 +24,7 @@ export const useFetchUserData = (userId, backendUserId) => {
             if (!userId) return;
             if (!backendUserId) return;
             try {
-                const enderecoResponse = await buscarEnderecoPorIdDoUsuarioNoBackend(backendUserId);
+                const enderecoResponse = await buscarEnderecoPorIdDoUsuarioNoBackend();
                 const usuarioResponse = await buscarUsuarioPorIdNoBackend(backendUserId);
 
                 setUserData({

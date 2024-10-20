@@ -13,6 +13,7 @@ const SideBar = (props) => {
   const { user } = useAuthValue();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const changeToLogin = () => setMenuNav(1);
   const [menuNav, setMenuNav] = useState(1);
   return (
     <>
@@ -85,7 +86,7 @@ const SideBar = (props) => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           {menuNav == 1 && <Login />}
-          {menuNav == 0 && <Carrinho />}
+          {menuNav == 0 && <Carrinho close={changeToLogin} />}
           {menuNav == 2 && <Info />}
           {menuNav == 3 && <Receitas />}
         </Offcanvas.Body>

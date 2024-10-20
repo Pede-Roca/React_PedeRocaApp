@@ -3,7 +3,7 @@ import styles from './Home.module.css';
 import Carrocel from '../../Components/Carrocel/Carrocel';
 import logo from '../../assets/Logo.svg';
 import banner from '../../assets/Desktop_.svg';
-import Products from '../../Components/Products/Products';
+import Produtos from '../../Components/Produtos/Produtos';
 import FooterDesktop from './../../Components/FooterDesktop/FooterDesktop';
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
 
         <img src={banner} alt="Logo Pede Roça" className={styles.DesktopBanner} />
         <Carrocel />
-        <Products />
+        <Produtos />
         <FooterDesktop />
     </>
   )

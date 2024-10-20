@@ -18,9 +18,10 @@ export const atualizarEnderecoNoBackend = async (id, payload) => {
     }
 }
 
-export const buscarEnderecoPorIdDoUsuarioNoBackend = async (id) => {
+export const buscarEnderecoPorIdDoUsuarioNoBackend = async () => {
+    let userData = JSON.parse(localStorage.getItem("user"));
     try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}endereco/usuario/${id}`);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}endereco/usuario/${userData.backendId}`);
         return data;
     } catch (error) {
         console.error(error);

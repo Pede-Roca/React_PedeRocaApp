@@ -1,6 +1,7 @@
 import { db } from "../firebase/config";
 import { useState, useEffect } from "react";
 import { registrarUsuarioNoBackend, criarEnderecoNoBackend, efetuarLoginNoBackend } from '../services';
+import { jwtDecode } from "jwt-decode";
 
 import {
     getAuth,
@@ -111,14 +112,21 @@ export const userAuthentication = () => {
             if (!token) {
                 setLoading(false);
                 return { user: null, message: "Erro ao logar, tente novamente mais tarde", status: false };
-            };
+            }
+
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.id;
 
             const result = await signInWithEmailAndPassword(auth, data.email, data.password);
-            
+
             setLoading(false);
             localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(result.user));
-            return { user: result.user, message: "Usuário logado com sucesso", status: false };
+            localStorage.setItem("user", JSON.stringify({
+                ...result.user,
+                backendId: userId
+            }));
+
+            return { user: result.user, message: "Usuário logado com sucesso", status: true };
         } catch (error) {
             console.error(error.message);
 
@@ -135,7 +143,8 @@ export const userAuthentication = () => {
             setLoading(false);
             setError(systemErrorMessage);
         }
-    }
+    };
+
 
     useEffect(() => {
         return () => setCancelled(true);
