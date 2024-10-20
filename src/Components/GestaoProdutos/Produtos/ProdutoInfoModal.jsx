@@ -30,55 +30,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
     }
   }, [produto]);
 
-  // const handleSave = async () => {
-  //   const produtoAtualizado = {
-  //     ...produto,
-  //     nome,
-  //     descricao,
-  //     preco,
-  //     estoque,
-  //     idCategoria,
-  //     idUnidade,
-  //     uidFoto: uidFoto || '',
-  //   };
-
-  //   try {
-  //     if (produto.id) {
-  //       if (hasTempUrl && selectedImage) {
-  //         const downloadURL = await produtoImage(selectedImage, produto.id);
-  //         if (downloadURL) produtoAtualizado.uidFoto = downloadURL;
-  //       }
-
-  //       const data = await atualizarProdutoNoBackend(produto.id, produtoAtualizado);
-  //       if (!data) {
-  //         alert("Erro ao atualizar o produto");
-  //         return console.error("Erro ao atualizar o produto");
-  //       }
-  //       alert("Produto atualizado com sucesso!");
-  //       setHasTempUrl(false);
-  //       setSelectedImage(null);
-  //       return produtoAtualizado;
-  //     } else {
-
-  //       let data = await criarProdutoNoBackend(produtoAtualizado);
-  //       if (!data) {
-  //         alert("Erro ao criar o produto");
-  //         return console.error("Erro ao criar o produto");
-  //       }
-
-  //       if (hasTempUrl && selectedImage) {
-  //         const downloadURL = await produtoImage(selectedImage, data.id);
-  //       }
-
-  //       alert("Produto criado com sucesso!");
-  //       return data;
-  //     }
-  //   } catch (error) {
-  //     console.error("Erro ao salvar as alterações do produto:", error);
-  //   }
-  // };
-
-  const handleSave = async () => {
+    const handleSave = async () => {
     const produtoAtualizado = {
       ...produto,
       nome,
@@ -178,14 +130,6 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
                 className={styles.inputField}
               />
             </label>
-            <label className={styles.label}>Descrição:
-              <input
-                type="text"
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-                className={styles.inputField}
-              />
-            </label>
             <label className={styles.label}>Preço:
               <input
                 type="number"
@@ -232,6 +176,15 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
             </label>
           </div>
         </div>
+        <div className={styles.containerTexto}>
+            <label className={styles.label}>Descrição:
+            <textarea
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              className={styles.inputFieldDescricao}
+            />
+              </label>
+          </div>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={handleCancel} className={styles.Voltar}>
