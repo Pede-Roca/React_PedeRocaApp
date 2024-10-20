@@ -60,7 +60,7 @@ const UserInfoModal = ({ show, handleClose, usuario, onUpdateUser, atualizarUsua
 
   const fetchEndereco = async () => {
     try {
-      const enderecoData = await buscarEnderecoDoUsuario(usuario.id);
+      const enderecoData = await buscarEnderecoDoUsuario();
       setEndereco({
         id: enderecoData.id,
         logradouro: enderecoData.logradouro,

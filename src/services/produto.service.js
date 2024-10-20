@@ -36,7 +36,7 @@ export const buscarProdutosSemEstoqueNoBackend = async () => {
     }
 }
 
-export const NumeroProdutosForaDeEstoque = async () => {
+export const numeroProdutosForaDeEstoque = async () => {
     try {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}produto/sem-estoque`);
         return data.length;
