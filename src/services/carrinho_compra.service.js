@@ -15,13 +15,13 @@ const realizarRequisicao = async (metodo, url, dados = {}) => {
 // Captura ou cria o ID do carrinho de compra
 const capturaIdDoCarrinho = async () => {
     const backendId = await capturarIdDoUsuarioESetarNoLocalStorage();
-    const { data: carrinhoExistente } = await buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend(backendId);
-    
+    const carrinhoExistente = await buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend(backendId);
+
     if (!carrinhoExistente) {
-        const { data: novoCarrinho } = await criarCarrinhoDeCompraNoBackend(backendId);
+        const novoCarrinho = await criarCarrinhoDeCompraNoBackend(backendId);
         return novoCarrinho || null;
     }
-    
+
     return carrinhoExistente;
 };
 
@@ -57,9 +57,22 @@ export const adicionarProdutoNoCarrinho = async (quantidade, idProduto) => {
 
 // Busca os itens do carrinho de compra pelo ID do usuário no backend
 export const buscarItensDoCarrinhoPorUsuarioNoBackend = async () => {
-    const idUsuario = await capturarIdDoUsuarioESetarNoLocalStorage();
-    const { data } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario/${idUsuario}`);
-    return data || [];
+    try {
+        const idCarrinhoCompra = await capturaIdDoCarrinho();
+        if (!idCarrinhoCompra) throw new Error("Erro ao obter o ID do carrinho");
+
+        const idUsuario = await capturarIdDoUsuarioESetarNoLocalStorage();
+        const { data } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario`, {
+            params: {
+                idUsuario,
+                idCarrinhoCompra
+            }
+        });
+
+        return data || [];
+    } catch (error) {
+        return { status: false, message: "Erro ao buscar itens do carrinho" };
+    }
 };
 
 // Remove um produto do carrinho de compra no backend

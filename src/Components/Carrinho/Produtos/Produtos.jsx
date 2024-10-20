@@ -27,6 +27,7 @@ export const Produtos = () => {
     useEffect(() => {
         const fetchCarrinho = async () => {
             const produtos = await buscarItensDoCarrinhoPorUsuarioNoBackend();
+            console.log(produtos);
             setProdutos(produtos);
         };
         fetchCarrinho();
@@ -42,14 +43,14 @@ export const Produtos = () => {
                     </button>
                     <button
                         className={styles.btn_changeQuantityMinus}
-                        onClick={() => atualizarQuantidadeProduto(produto.idProdutoPedido, false)} // Corrigido para usar uma função anônima
+                        onClick={() => atualizarQuantidadeProduto(produto.idProdutoPedido, false)}
                     >
                         <i className="bi bi-dash" id={styles.minus}></i>
                     </button>
                     <span className={styles.qtdProduto}>{produto.quantidade}</span>
                     <button
                         className={styles.btn_changeQuantityPlus}
-                        onClick={() => atualizarQuantidadeProduto(produto.idProdutoPedido, true)} // Corrigido para usar uma função anônima
+                        onClick={() => atualizarQuantidadeProduto(produto.idProdutoPedido, true)}
                     >
                         <i className="bi bi-plus" id={styles.add}></i>
                     </button>
