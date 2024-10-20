@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Offcanvas } from "react-bootstrap";
 import { atualizarProdutoNoBackend, criarProdutoNoBackend } from '../../../services';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -90,81 +90,88 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
 
 
   return (
-    <Modal show={show} onHide={handleCancel}>
+    <Modal show={show} onHide={handleCancel} size="lg">
       <Modal.Header closeButton>
         <Modal.Title><p className={styles.TituloDetalhes}>Detalhes do Produto</p></Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className={styles.produtoInfo}>
-          <label className={styles.label}>Nome:
-            <input
-              type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              className={styles.inputField}
-            />
-          </label>
-          <label className={styles.label}>Descrição:
-            <input
-              type="text"
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
-              className={styles.inputField}
-            />
-          </label>
-          <label className={styles.label}>Preço:
-            <input
-              type="number"
-              value={preco}
-              onChange={(e) => setPreco(e.target.value)}
-              className={styles.inputField}
-            />
-          </label>
-          <label className={styles.label}>Estoque:
-            <input
-              type="number"
-              value={estoque}
-              onChange={(e) => setEstoque(e.target.value)}
-              className={styles.inputField}
-            />
-          </label>
-          <label className={styles.label}>Categoria:
-            <select
-              value={idCategoria}
-              onChange={(e) => setIdCategoria(e.target.value)}
-              className={styles.inputField}
-            >
-              <option value="" disabled>Selecione uma categoria</option>
-              {categorias.map((categoria) => (
-                <option key={categoria.id} value={categoria.id}>
-                  {categoria.nome}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={styles.label}>Unidade de Medida:
-            <select
-              value={idUnidade}
-              onChange={(e) => setIdUnidade(e.target.value)}
-              className={styles.inputField}
-            >
-              <option value="" disabled>Selecione uma unidade</option>
-              {unidadesMedidas.map((unidade) => (
-                <option key={unidade.id} value={unidade.id}>
-                  {unidade.nomeUnidade}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label className={styles.label}>Imagem:
-          <input
-            type="file"
-            onChange={HandleFileChange}
-            className={styles.inputField}
-          />
-            <button onClick={handleSubmit}>Upload Imagem</button>
-            {imageUrl && <img src={imageUrl} alt="Imagem enviada" className={styles.imgEnviada} />}
-        </label>
+          <div className={styles.ContainerImagemProduto}>
+            <img className={styles.imgProduto} src={imageUrl || produto.uidFoto} alt="Imagem do produto" />
+            <label className={styles.label}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={HandleFileChange}
+                className={styles.inputField}
+              />
+                <button className={styles.btnTrocarFoto} onClick={handleSubmit}>
+                  <i className="bi bi-pencil"></i>
+                  </button>
+            </label>
+          </div>
+          <div className={styles.containerDescricao}>
+            <label className={styles.label}>Nome:
+              <input
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                className={styles.inputField}
+              />
+            </label>
+            <label className={styles.label}>Descrição:
+              <input
+                type="text"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                className={styles.inputField}
+              />
+            </label>
+            <label className={styles.label}>Preço:
+              <input
+                type="number"
+                value={preco}
+                onChange={(e) => setPreco(e.target.value)}
+                className={styles.inputField}
+              />
+            </label>
+            <label className={styles.label}>Estoque:
+              <input
+                type="number"
+                value={estoque}
+                onChange={(e) => setEstoque(e.target.value)}
+                className={styles.inputField}
+              />
+            </label>
+            <label className={styles.label}>Categoria:
+              <select
+                value={idCategoria}
+                onChange={(e) => setIdCategoria(e.target.value)}
+                className={styles.inputField}
+              >
+                <option value="" disabled>Selecione uma categoria</option>
+                {categorias.map((categoria) => (
+                  <option key={categoria.id} value={categoria.id}>
+                    {categoria.nome}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className={styles.label}>Unidade de Medida:
+              <select
+                value={idUnidade}
+                onChange={(e) => setIdUnidade(e.target.value)}
+                className={styles.inputField}
+              >
+                <option value="" disabled>Selecione uma unidade</option>
+                {unidadesMedidas.map((unidade) => (
+                  <option key={unidade.id} value={unidade.id}>
+                    {unidade.nomeUnidade}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
         </div>
       </Modal.Body>
       <Modal.Footer>

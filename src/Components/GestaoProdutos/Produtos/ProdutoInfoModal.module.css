@@ -1,4 +1,8 @@
-.userInfo {
+  input[type="file"] {
+    display: none;
+  }
+
+  .userInfo {
     line-height: 1.6;
     display: flex;
     flex-direction: column;
@@ -46,19 +50,138 @@
     color: #7C8C03;
   }
 
-  .inputField{
-    min-width: 300px;
-    padding: 5px;
-    margin: 5px 0;
-    border: none;
+  .btnTrocarFoto {
+    background-color: #7C8C03; 
+    border: none; 
+    cursor: pointer; 
+    color: #F2F2F2; 
+    font-size: 1.2rem; 
+    border: 2px solid #7C8C03; 
+    border-radius: 50%;
   }
 
-  .label{
-    color: #7C8C03;
-    font-weight: bold;
-    margin: 0px 5px;
+  @media screen and (max-width: 767px) {
+    .inputField{
+      padding: 5px;
+      margin: 5px 0px;
+      border: none;
+      background: #b8b8b8;
+      border-radius: 10px;
+      min-width: 250px;
+    }
+  
+    .label{
+      color: #7C8C03;
+      font-weight: bold;
+      margin: 0px 5px;
+      width: 250px;
+    }
+
+    .containerDescricao{
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .imgEnviada{
+      width: 100px;
+    }
+  
+    .produtoInfo{
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .ContainerImagemProduto{
+      width: 200px;
+    }
+ 
+    .imgProduto{
+      width: 150px;
+      border: 1px solid #7C8C03;
+      border-radius: 10px;
+      margin-left: 25px;
+    }
+
+    .btnTrocarFoto{
+      position: relative;
+      top: -15px;
+      left: 80px;
+    }
+    
   }
 
-  .imgEnviada{
-    width: 100px;
+  @media screen and (min-width: 767px) {
+
+    .inputField{
+      padding: 5px;
+      margin: 5px 0px;
+      border: none;
+      background: #b8b8b8;
+      border-radius: 10px;
+      min-width: 220px;
+    }
+  
+    .label{
+      color: #7C8C03;
+      font-weight: bold;
+      margin: 0px 5px;
+      width: 200px;
+    
+    }
+
+    .containerDescricao{
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px;
+    }
+  
+    .imgEnviada{
+      width: 100px;
+    }
+  
+    .produtoInfo{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    .ContainerImagemProduto{
+      width: 200px;
+    }
+    
+ 
+    .imgProduto{
+      width: 150px;
+      border: 1px solid #7C8C03;
+      border-radius: 10px;
+      margin: 10px;
+    }
   }
+
+  @media screen and (min-width: 992px) {
+    .btnTrocarFoto{
+      position: absolute;
+      top: 190px;
+      left: 85px;
+    }
+  }
+
+  @media screen and (min-width: 768px ) and (max-width: 991px){
+    .btnTrocarFoto{
+      position: absolute;
+      top: 290px;
+      left: 85px;
+    }
+  }
+
+  
