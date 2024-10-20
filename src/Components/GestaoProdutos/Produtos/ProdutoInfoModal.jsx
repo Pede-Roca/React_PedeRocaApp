@@ -29,7 +29,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
       setEstoque(produto.estoque || 0);
       setIdCategoria(produto.idCategoria || '');
       setIdUnidade(produto.idUnidade || '');
-      setUidFoto(produto.uidFoto || '');  // Corrigido aqui para setImageUrl
+      setUidFoto(produto.uidFoto || ''); 
     }
   }, [produto]);
 
@@ -75,12 +75,13 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
   const HandleFileChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      handleSubmit();
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const storageRef = ref(storage, `Produtos/${image.name}`);
-    uploadBytes(storageRef, image).then((snapshot) => {
+    await uploadBytes(storageRef, image).then((snapshot) => {
       console.log("imagem upload");
       getDownloadURL(snapshot.ref).then((url) => {
         setImageUrl(url);
@@ -103,11 +104,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
                 type="file"
                 accept="image/*"
                 onChange={HandleFileChange}
-                className={styles.inputField}
-              />
-                <button className={styles.btnTrocarFoto} onClick={handleSubmit}>
-                  <i className="bi bi-pencil"></i>
-                  </button>
+              /><p className={styles.btnAlterarFoto}><i className="bi bi-pencil"></i> Alterar Foto</p>
             </label>
           </div>
           <div className={styles.containerDescricao}>
