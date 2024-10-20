@@ -12,21 +12,6 @@ const Produtos = () => {
   const [unidadesMedidasBackend, setUnidadesMedidasBackend] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null);
-  
-  // Paginação
-  const ProdutosPorPagina = 7;
-  const [paginaAtual, setPaginaAtual] = useState(1);
-
-  const primeiroProdutoPaginaAtual = (paginaAtual - 1) * ProdutosPorPagina;
-  const ultimoProdutoPaginaAtual = primeiroProdutoPaginaAtual + ProdutosPorPagina;
-
-  const produtosPaginaAtual = produtos.slice(primeiroProdutoPaginaAtual, ultimoProdutoPaginaAtual);
-
-  const mudarPagina = (pagina) => {
-    setPaginaAtual(pagina);
-  };
-
-  const numeroPaginas = Math.ceil(produtos.length / ProdutosPorPagina);
 
   const handleEdit = (id) => {
     const produto = produtos.find((produto) => produto.id === id);
@@ -112,7 +97,7 @@ const Produtos = () => {
       </div>
       <div className={styles.barraTitulo}>Lista de produtos</div>
       {produtos.length > 0 ? (
-        <>
+        <div className={styles.scrollContainer}>
           <Table bordered hover className={styles.userTable}>
             <thead>
               <tr className={styles.tableHeader}>
@@ -125,7 +110,7 @@ const Produtos = () => {
               </tr>
             </thead>
             <tbody>
-              {produtosPaginaAtual.map((produto) => (
+              {produtos.map((produto) => (
                 <tr key={produto.id}>
                   <td>
                     <Button
@@ -166,18 +151,7 @@ const Produtos = () => {
               ))}
             </tbody>
           </Table>
-          <div className={styles.paginacao}>
-            {Array.from({ length: numeroPaginas }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => mudarPagina(index + 1)}
-                className={paginaAtual === index + 1 ? styles.pgAtivo : styles.pgN}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        </>
+        </div>
       ) : (
         <div className={styles.msgVazia}>A lista de produtos está vazia.</div>
       )}

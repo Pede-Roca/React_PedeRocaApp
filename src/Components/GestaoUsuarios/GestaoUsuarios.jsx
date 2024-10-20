@@ -151,62 +151,64 @@ const GestaoUsuarios = () => {
           </select>
         </form>
       </span>
-
-      <Table bordered hover className={styles.userTable}>
-        <thead>
-          <tr className={styles.tableHeader}>
-            <th>Status</th>
-            <th>Nome</th>
-            <th className={styles.MobileOcult}>Email</th>
-            <th className={styles.MobileOcult}>Nivel de Acesso</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsuarios.map((user) => (
-            <tr key={user.id}>
-              <td>
-                <Button
-                  variant="light"
-                  onClick={() => handleToggleStatus(user.id)}
-                  className={styles.statusToggle}
-                >
-                  {user.status ? (
-                    <i className="bi bi-toggle-on" id={styles.ativo}></i>
-                  ) : (
-                    <i className="bi bi-toggle-off" id={styles.inativo}></i>
-                  )}
-                </Button>
-              </td>
-              <td>{user.nome}</td>
-              <td className={styles.MobileOcult}>{user.email}</td>
-              <td className={styles.MobileOcult}>
-                {user.nivelAcesso === "adm"
-                  ? "Administrador"
-                  : user.nivelAcesso === "comum"
-                    ? "Comum"
-                    : "Produtor"}
-              </td>
-              <td>
-                <Button
-                  variant="light"
-                  onClick={() => handleInfo(user.id)}
-                  className={styles.actionButton}
-                >
-                  <i className="bi bi-info-square" id={styles.editIcon}></i>
-                </Button>
-                <Button
-                  variant="light"
-                  onClick={() => handleDelete(user.id)}
-                  className={styles.actionButton}
-                >
-                  <i className="bi bi-trash" id={styles.deleteIcon}></i>
-                </Button>
-              </td>
+      <div className={styles.scrollContainer}>
+        <Table bordered hover className={styles.userTable}>
+          <thead>
+            <tr className={styles.tableHeader}>
+              <th>Status</th>
+              <th>Nome</th>
+              <th className={styles.MobileOcult}>Email</th>
+              <th className={styles.MobileOcult}>Nivel de Acesso</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
+          </thead>
+          <tbody>
+            {filteredUsuarios.map((user) => (
+              <tr key={user.id}>
+                <td>
+                  <Button
+                    variant="light"
+                    onClick={() => handleToggleStatus(user.id)}
+                    className={styles.statusToggle}
+                  >
+                    {user.status ? (
+                      <i className="bi bi-toggle-on" id={styles.ativo}></i>
+                    ) : (
+                      <i className="bi bi-toggle-off" id={styles.inativo}></i>
+                    )}
+                  </Button>
+                </td>
+                <td>{user.nome}</td>
+                <td className={styles.MobileOcult}>{user.email}</td>
+                <td className={styles.MobileOcult}>
+                  {user.nivelAcesso === "adm"
+                    ? "Administrador"
+                    : user.nivelAcesso === "comum"
+                      ? "Comum"
+                      : "Produtor"}
+                </td>
+                <td>
+                  <Button
+                    variant="light"
+                    onClick={() => handleInfo(user.id)}
+                    className={styles.actionButton}
+                  >
+                    <i className="bi bi-info-square" id={styles.editIcon}></i>
+                  </Button>
+                  <Button
+                    variant="light"
+                    onClick={() => handleDelete(user.id)}
+                    className={styles.actionButton}
+                  >
+                    <i className="bi bi-trash" id={styles.deleteIcon}></i>
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </div>
+      
 
       {selectedUser && (
         <UserInfoModal
