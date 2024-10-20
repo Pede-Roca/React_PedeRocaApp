@@ -6,3 +6,4 @@ export * from './produto_pedido.service';
 export * from './produto.service';
 export * from './unidade_medida.service';
 export * from './usuario.services';
+export * from './validacoes.service';

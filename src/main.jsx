@@ -5,9 +5,9 @@ import axios from 'axios'
 import './index.css'
 
 axios.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
-  if (token) config.headers.Authorization = localStorage.getItem("token");
+  if (token) config.headers.Authorization = sessionStorage.getItem("token");
   else delete config.headers.Authorization;
 
   return config;

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { capturarIdDoUsuarioESetarNoLocalStorage } from "../services";
 
 export const criarEnderecoNoBackend = async (payload) => {
     try {
@@ -19,9 +20,10 @@ export const atualizarEnderecoNoBackend = async (id, payload) => {
 }
 
 export const buscarEnderecoPorIdDoUsuarioNoBackend = async () => {
-    let userData = JSON.parse(localStorage.getItem("user"));
+    let backendId = await capturarIdDoUsuarioESetarNoLocalStorage();
+
     try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}endereco/usuario/${userData.backendId}`);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}endereco/usuario/${backendId}`);
         return data;
     } catch (error) {
         console.error(error);

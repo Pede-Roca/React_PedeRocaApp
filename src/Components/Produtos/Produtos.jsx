@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./Produtos.module.css";
 import SideBar from "../Sidebar/SideBar";
-import Produto from "./Produto";
+import Produto from "./Produto/Produto";
 import { buscarProdutosNoBackend } from '../../services';
 
 const Produtos = () => {

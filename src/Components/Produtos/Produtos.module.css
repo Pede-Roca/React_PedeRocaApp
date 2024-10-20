@@ -99,10 +99,10 @@
       border-radius: 5px;
     }
   
-    #nomeProduto {
+    .nomeProduto {
       padding: 5px 0px;
     }
-    #nomeProduto h5, #nomeProduto .h5 {
+    .nomeProduto h5, .nomeProduto .h5 {
       text-align: center;
       background: #7C8C03;
       color: white;
@@ -110,19 +110,19 @@
       text-transform: uppercase;
       border-radius: 5px;
     }
-    #nomeProduto p {
+    .nomeProduto p {
       text-align: justify;
       padding: 0px 5px;
     }
   
-   #quantidadeProduto {
+   .quantidadeProduto {
       border-radius: 5px 0px 0px 5px;
       border: 1px solid #7C8C03;
       text-align: center;
       width:50%;
    }
   
-   #btn_addcarrinho{
+   .btn_addcarrinho{
       border-radius: 0px 5px  5px 0px;
       padding: 5px;
       display: inline;
@@ -198,10 +198,10 @@
       padding: 5px 15px;
       border-radius: 10px 0px 10px 0px;
     }
-    #nomeProduto {
+    .nomeProduto {
       padding: 5px 0px;
     }
-    #nomeProduto h5, #nomeProduto .h5 {
+    .nomeProduto h5, .nomeProduto .h5 {
       text-align: center;
       background: #7C8C03;
       color: white;
@@ -209,19 +209,19 @@
       text-transform: uppercase;
       border-radius: 5px;
     }
-    #nomeProduto p {
+    .nomeProduto p {
       text-align: justify;
       padding: 0px 5px;
       height: 110px;
     }
-    #quantidadeProduto {
+    .quantidadeProduto {
       width: 50%;
       border-radius: 5px 0px 0px 5px;
       border: 1px solid #7C8C03;
       text-align: center;
     }
   
-  #btn_addcarrinho{
+  .btn_addcarrinho{
       width: 50%;
       color: #f2f2f2;
       background: #7C8C03;

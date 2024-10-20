@@ -124,20 +124,20 @@ const Cadastro = () => {
     };
 
     const handleCepChange = async (e) => {
-        const {value } = e.target;
+        const { value } = e.target;
 
         const newCep = maskCep(value);
 
         const cleanedCep = newCep.replace(/\D/g, ""); // Remove caracteres não numéricos
-        
+
         setCep(newCep); // Atualiza o valor formatado para exibição
-    
+
         // Verifica se o CEP limpo tem 8 dígitos
         if (cleanedCep.length === 8) {
             try {
                 const response = await fetch(`https://viacep.com.br/ws/${cleanedCep}/json/`);
                 const data = await response.json();
-    
+
                 if (data.erro) {
                     setError("CEP inválido.");
                 } else {
@@ -152,7 +152,7 @@ const Cadastro = () => {
             }
         }
     };
-    
+
     return (
         <>
             <div className={styles.containerEtapa}>
@@ -192,6 +192,7 @@ const Cadastro = () => {
                             fieldError={fieldError}
                         />
                     )}
+
                     {step === 2 && (
                         <StepUsuario
                             fullName={fullName}
@@ -205,6 +206,7 @@ const Cadastro = () => {
                             fieldError={fieldError}
                         />
                     )}
+
                     {step === 3 && (
                         <StepEntrega
                             cep={cep}
@@ -225,6 +227,7 @@ const Cadastro = () => {
                             fieldError={fieldError}
                         />
                     )}
+                    
                     <div className={styles.containerBtn}>
                         {step > 1 && (
                             <button

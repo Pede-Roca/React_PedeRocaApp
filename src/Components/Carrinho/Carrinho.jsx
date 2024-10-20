@@ -11,12 +11,11 @@ const Carrinho = ({ close }) => {
   const [selectedOption, setSelectedOption] = useState('Economica');
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [avisoPagamento, setAvisoPagamento] = useState(false);
-
   const [produtos, setProdutos] = useState([]);
 
   const setarProdutosNoSessionStorage = (produtos) => {
     sessionStorage.setItem("produtos", JSON.stringify(produtos));
-  }
+  };
 
   useEffect(() => {
     const fetchCarrinho = async () => {
@@ -35,35 +34,39 @@ const Carrinho = ({ close }) => {
     }
   }, [selectedPayment, step]);
 
+  const handleBack = () => {
+    setStep(step > 1 ? step - 1 : close());
+  };
+
+  const handleNext = () => {
+    setStep(step < 4 ? step + 1 : step);
+  };
+
   return (
     <>
       <div className={styles.containerEtapa}>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step == 1 ? styles.active : ""}`}></span>
+          <span className={`${styles.circle} ${step === 1 ? styles.active : ""}`}></span>
           <p>Produtos</p>
         </div>
         <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step == 2 ? styles.active : ""}`}></span>
+          <span className={`${styles.circle} ${step === 2 ? styles.active : ""}`}></span>
           <p>Entrega</p>
         </div>
         <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step == 3 ? styles.active : ""}`}></span>
+          <span className={`${styles.circle} ${step === 3 ? styles.active : ""}`}></span>
           <p>Pagamento</p>
         </div>
         <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step == 4 ? styles.active : ""}`}></span>
+          <span className={`${styles.circle} ${step === 4 ? styles.active : ""}`}></span>
           <p>Finalização</p>
         </div>
       </div>
-      {step === 1 && (
-        <Produtos />
-      )}
-      {step === 2 && (
-        <Endereco selected={selectedOption} setSelected={setSelectedOption} />
-      )}
+      {step === 1 && <Produtos />}
+      {step === 2 && <Endereco selected={selectedOption} setSelected={setSelectedOption} />}
       {step === 3 && selectedOption && (
         <Pagamento selected={selectedPayment} setSelected={setSelectedPayment} aviso={avisoPagamento} />
       )}
@@ -71,16 +74,10 @@ const Carrinho = ({ close }) => {
         <Finalizacao frete={selectedOption} pagamento={selectedPayment} produtos={produtos} />
       )}
       <div className={styles.containerBtn}>
-        <button
-          className={styles.btnBack}
-          onClick={() => setStep(step > 1 ? step - 1 : close)}
-        >
+        <button className={styles.btnBack} onClick={handleBack}>
           <i className="bi bi-arrow-return-left"></i>
         </button>
-        <button
-          className={styles.btnNext}
-          onClick={() => setStep(step < 4 ? step + 1 : step)}
-        >
+        <button className={styles.btnNext} onClick={handleNext}>
           <i className="bi bi-check-lg"></i>
         </button>
       </div>

@@ -1,104 +1,75 @@
 import axios from "axios";
-import { criarProdutoPedidoNoBackend } from "./produto_pedido.service";
+import { criarProdutoPedidoNoBackend, capturarIdDoUsuarioESetarNoLocalStorage } from "../services";
 
+// Função auxiliar para lidar com requisições HTTP
+const realizarRequisicao = async (metodo, url, dados = {}) => {
+    try {
+        const response = await axios[metodo](url, dados);
+        return { data: response.data, erro: null };
+    } catch (error) {
+        console.error(`Erro ao realizar requisição: ${error}`);
+        return { data: null, erro: error };
+    }
+};
+
+// Captura ou cria o ID do carrinho de compra
 const capturaIdDoCarrinho = async () => {
-    let idCarrinho = sessionStorage.getItem('idCarrinho') || null;
-        
-    if (!idCarrinho) {
-        const userData = JSON.parse(localStorage.getItem("user"));
-        idCarrinho = await buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend(userData.backendId);
-        sessionStorage.setItem('idCarrinho', idCarrinho);
+    const backendId = await capturarIdDoUsuarioESetarNoLocalStorage();
+    const { data: carrinhoExistente } = await buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend(backendId);
+    
+    if (!carrinhoExistente) {
+        const { data: novoCarrinho } = await criarCarrinhoDeCompraNoBackend(backendId);
+        return novoCarrinho || null;
     }
+    
+    return carrinhoExistente;
+};
 
-    return idCarrinho;
-}
-
-const capturaIdDoUsuario = () => {
-    const userData = JSON.parse(localStorage.getItem("user"));
-    return userData.backendId;
-}
-
+// Cria um novo carrinho de compra no backend
 export const criarCarrinhoDeCompraNoBackend = async (idUsuario) => {
-    try {
-        const data_atual = new Date().toISOString();
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}carrinho-compra`, {
-            data: data_atual,
-            status: true,
-            idUsuario
-        });
+    const { data, erro } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra`, { idUsuario });
+    return erro ? null : data.id;
+};
 
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
+// Busca o carrinho de compra pelo ID do usuário no backend
 export const buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend = async (idUsuario) => {
-    try {
-        let idCarrinho = sessionStorage.getItem('idCarrinho') || null;
-        if (idCarrinho) return idCarrinho;
+    const { data, erro } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/buscar-por-id-usuario/${idUsuario}`);
+    return erro ? null : data.id;
+};
 
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}carrinho-compra/buscar-por-id-usuario/${idUsuario}`);
-
-        if (data.length === 0) {
-            const novoCarrinho = await criarCarrinhoDeCompraNoBackend(idUsuario);
-            sessionStorage.setItem('idCarrinho', novoCarrinho.id);
-            return novoCarrinho.id;
-        }
-
-        return data.id;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
+// Adiciona um produto ao carrinho de compra
 export const adicionarProdutoNoCarrinho = async (quantidade, idProduto) => {
     try {
-        let idCarrinho = await capturaIdDoCarrinho();
-        const produto_pedido = await criarProdutoPedidoNoBackend(quantidade, idProduto);
+        const idCarrinho = await capturaIdDoCarrinho();
+        if (!idCarrinho) throw new Error("Erro ao obter o ID do carrinho");
 
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}carrinho-compra/adicionar-no-carrinho`, {
+        const produtoPedido = await criarProdutoPedidoNoBackend(quantidade, idProduto);
+        const { data } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/adicionar-no-carrinho`, {
             idCarrinhoCompra: idCarrinho,
-            idProdutosPedido: produto_pedido.id
+            idProdutosPedido: produtoPedido.id
         });
-        
-        return {
-            status: true,
-            message: data.message
-        };
-    } catch (error) {
-        return {
-            status: false,
-            message: "Erro ao adicionar produto no carrinho"
-        };
-    }
-}
 
+        return { status: true, message: data.message };
+    } catch (error) {
+        return { status: false, message: "Erro ao adicionar produto no carrinho" };
+    }
+};
+
+// Busca os itens do carrinho de compra pelo ID do usuário no backend
 export const buscarItensDoCarrinhoPorUsuarioNoBackend = async () => {
-    try {
-        let idUsuario = capturaIdDoUsuario();
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario/${idUsuario}`);
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
-}
+    const idUsuario = await capturarIdDoUsuarioESetarNoLocalStorage();
+    const { data } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario/${idUsuario}`);
+    return data || [];
+};
 
+// Remove um produto do carrinho de compra no backend
 export const removerProdutoDoCarrinhoNoBackend = async (idCarrinhoCompra, idProdutoPedido) => {
-    try {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}carrinho-compra/remover-produto-carrinho`, {
-            idCarrinhoCompra,
-            idProdutoPedido
-        });
-          
-        return {
-            status: true,
-            message: data.message
-        };
-    } catch (error) {
-        return {
-            status: false,
-            message: "Erro ao remover produto do carrinho"
-        };
-    }
-}
+    const { data, erro } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/remover-produto-carrinho`, {
+        idCarrinhoCompra,
+        idProdutoPedido
+    });
+
+    return erro
+        ? { status: false, message: "Erro ao remover produto do carrinho" }
+        : { status: true, message: data.message };
+};

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Toast } from "react-bootstrap";
-import styles from "./Produtos.module.css";
-import { adicionarProdutoNoCarrinho } from "../../services";
+import styles from "../Produtos.module.css";
+import { adicionarProdutoNoCarrinho } from "../../../services";
 
 const Produto = ({ produto, i }) => {
     const [showToast, setShowToast] = useState(false);
@@ -73,7 +73,7 @@ const Produto = ({ produto, i }) => {
             <hr />
 
             {/* Nome e Descrição */}
-            <div id={styles.nomeProduto}>
+            <div className={styles.nomeProduto} >
                 <h5>{produto.nome}</h5>
                 <p>
                     {produto.descricao}
@@ -93,8 +93,7 @@ const Produto = ({ produto, i }) => {
                     onSubmit={handleSubmit}
                 >
                     <input
-                        className="inputBorda"
-                        id={styles.quantidadeProduto}
+                        className={`inputBorda ${styles.quantidadeProduto}`}
                         type="number"
                         min="1"
                         name="quantidadeProduto"
@@ -106,8 +105,7 @@ const Produto = ({ produto, i }) => {
                     />
                     <button
                         type="submit"
-                        className="inputBorda"
-                        id={styles.btn_addcarrinho}
+                        className={`inputBorda ${styles.btn_addcarrinho}`}
                         aria-label="Adicionar ao carrinho"
                     >
                         <i className="bi bi-cart-plus"></i> Adicionar
