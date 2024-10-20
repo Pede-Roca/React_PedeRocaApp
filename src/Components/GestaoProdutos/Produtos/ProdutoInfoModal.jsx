@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Button, Offcanvas } from "react-bootstrap";
-import { atualizarProdutoNoBackend, criarProdutoNoBackend } from '../../../services';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-
+import { Modal, Button } from "react-bootstrap";
+import { atualizarProdutoNoBackend, criarProdutoNoBackend, buscarProdutoPorIdNoBackend } from '../../../services';
+import { produtoImage } from "../../../hooks/ImgUploadHook";
 import styles from './ProdutoInfoModal.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
-
 
 const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedidas }) => {
   const [nome, setNome] = useState(produto?.nome || '');
@@ -14,12 +12,10 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
   const [estoque, setEstoque] = useState(produto?.estoque || 0);
   const [idCategoria, setIdCategoria] = useState(produto?.idCategoria || '');
   const [idUnidade, setIdUnidade] = useState(produto?.idUnidade || '');
-  const [uidFoto, setUidFoto] = useState(produto?.uidFoto || ''); 
-
-
-  const [image, setImage] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
-  const storage = getStorage();
+  const [uidFoto, setUidFoto] = useState(produto?.uidFoto || '');
+  const [previewImage, setPreviewImage] = useState(produto?.uidFoto || '');
+  const [hasTempUrl, setHasTempUrl] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     if (produto) {
@@ -29,40 +25,111 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
       setEstoque(produto.estoque || 0);
       setIdCategoria(produto.idCategoria || '');
       setIdUnidade(produto.idUnidade || '');
-      setUidFoto(produto.uidFoto || ''); 
+      setUidFoto(produto.uidFoto || '');
+      setPreviewImage(produto.uidFoto || '');
     }
   }, [produto]);
+
+  // const handleSave = async () => {
+  //   const produtoAtualizado = {
+  //     ...produto,
+  //     nome,
+  //     descricao,
+  //     preco,
+  //     estoque,
+  //     idCategoria,
+  //     idUnidade,
+  //     uidFoto: uidFoto || '',
+  //   };
+
+  //   try {
+  //     if (produto.id) {
+  //       if (hasTempUrl && selectedImage) {
+  //         const downloadURL = await produtoImage(selectedImage, produto.id);
+  //         if (downloadURL) produtoAtualizado.uidFoto = downloadURL;
+  //       }
+
+  //       const data = await atualizarProdutoNoBackend(produto.id, produtoAtualizado);
+  //       if (!data) {
+  //         alert("Erro ao atualizar o produto");
+  //         return console.error("Erro ao atualizar o produto");
+  //       }
+  //       alert("Produto atualizado com sucesso!");
+  //       setHasTempUrl(false);
+  //       setSelectedImage(null);
+  //       return produtoAtualizado;
+  //     } else {
+
+  //       let data = await criarProdutoNoBackend(produtoAtualizado);
+  //       if (!data) {
+  //         alert("Erro ao criar o produto");
+  //         return console.error("Erro ao criar o produto");
+  //       }
+
+  //       if (hasTempUrl && selectedImage) {
+  //         const downloadURL = await produtoImage(selectedImage, data.id);
+  //       }
+
+  //       alert("Produto criado com sucesso!");
+  //       return data;
+  //     }
+  //   } catch (error) {
+  //     console.error("Erro ao salvar as alterações do produto:", error);
+  //   }
+  // };
 
   const handleSave = async () => {
     const produtoAtualizado = {
       ...produto,
       nome,
       descricao,
-      preco,
-      estoque,
+      preco: Number(preco),
+      estoque: Number(estoque),
       idCategoria,
       idUnidade,
-      uidFoto: imageUrl,
+      uidFoto: uidFoto || '',
     };
 
     try {
-      if (produto.id) {
+      const isUpdating = Boolean(produto.id);
+
+      const handleImageUpload = async (produtoId) => {
+        if (hasTempUrl && selectedImage) {
+          const downloadURL = await produtoImage(selectedImage, produtoId);
+          if (downloadURL) produtoAtualizado.uidFoto = downloadURL;
+        }
+      };
+
+      if (isUpdating) {
+        if(produto.uidFoto === '') await handleImageUpload(produto.id);
+
         const data = await atualizarProdutoNoBackend(produto.id, produtoAtualizado);
         if (!data) {
-          alert("Erro ao atualizar o produto");
-          return console.error("Erro ao atualizar o produto");
+          console.error("Erro ao atualizar o produto");
+          return;
         }
-        alert("Produto atualizado com sucesso!");
-      } else {
-        const data = await criarProdutoNoBackend(produtoAtualizado);
-        if (!data) {
-          alert("Erro ao criar o produto");
-          return console.error("Erro ao criar o produto");
-        }
-        alert("Produto criado com sucesso!");
-      }
 
-      handleClose();
+        setHasTempUrl(false);
+        setSelectedImage(null);
+        return handleClose({ produto: produtoAtualizado, tipo: 'update' });
+
+      } else {
+        let data = await criarProdutoNoBackend(produtoAtualizado);
+        if (!data) {
+          console.error("Erro ao criar o produto");
+          return;
+        }
+
+        await handleImageUpload(data.id);
+
+        const produtoCriado = await buscarProdutoPorIdNoBackend(data.id);
+        if (!produtoCriado) {
+          console.error("Erro ao buscar o produto criado");
+          return;
+        }
+
+        return handleClose({ produto: produtoCriado, tipo: 'create' });
+      }
     } catch (error) {
       console.error("Erro ao salvar as alterações do produto:", error);
     }
@@ -73,38 +140,33 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
   };
 
   const HandleFileChange = (e) => {
-    if (e.target.files[0]) {
-      setImage(e.target.files[0]);
-      handleSubmit();
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      const tempUrl = URL.createObjectURL(file);
+      setHasTempUrl(true);
+      setPreviewImage(tempUrl);
     }
   };
-
-  const handleSubmit = async () => {
-    const storageRef = ref(storage, `Produtos/${image.name}`);
-    await uploadBytes(storageRef, image).then((snapshot) => {
-      console.log("imagem upload");
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrl(url);
-      });
-    });
-  };
-
 
   return (
     <Modal show={show} onHide={handleCancel} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title><p className={styles.TituloDetalhes}>Detalhes do Produto</p></Modal.Title>
+        <Modal.Title>
+          <p className={styles.TituloDetalhes}>Detalhes do Produto</p>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className={styles.produtoInfo}>
           <div className={styles.ContainerImagemProduto}>
-            <img className={styles.imgProduto} src={imageUrl || produto.uidFoto} alt="Imagem do produto" />
+            <img className={styles.imgProduto} src={previewImage || produto.uidFoto} alt="Imagem do produto" />
             <label className={styles.label}>
               <input
                 type="file"
                 accept="image/*"
                 onChange={HandleFileChange}
-              /><p className={styles.btnAlterarFoto}><i className="bi bi-pencil"></i> Alterar Foto</p>
+              />
+              <p className={styles.btnAlterarFoto}><i className="bi bi-pencil"></i> Alterar Foto</p>
             </label>
           </div>
           <div className={styles.containerDescricao}>

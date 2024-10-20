@@ -7,7 +7,7 @@ import {
 
 import { getAuth, updateProfile } from "firebase/auth";
 import axios from "axios"; 
-import { atualizarFotoUsuarioNoBackend } from '../services';
+import { atualizarFotoUsuarioNoBackend, atualizarFotoProdutoNoBackend } from '../services';
 
 const storage = getStorage();
 
@@ -72,4 +72,40 @@ const profileImage = async (file, uid, backendUserId) => {
   );
 };
 
-export { uploadFile, profileImage };
+const produtoImage = async (file, produtoId) => {
+  return new Promise((resolve, reject) => {
+    const storageRef = ref(storage, `Produtos/${produtoId}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log(`Upload is ${progress}% done`);
+      },
+      (error) => {
+        console.error("Erro durante o upload:", error);
+        reject(error); // Rejeitar a Promise se houver um erro no upload
+      },
+      async () => {
+        try {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          const data = await atualizarFotoProdutoNoBackend(produtoId, downloadURL); 
+          
+          if (data) {
+            console.log("Foto do produto atualizada no backend com sucesso");
+            resolve(downloadURL);
+          } else {
+            throw new Error("Erro ao atualizar a foto do produto no backend");
+          }
+        } catch (error) {
+          console.error("Erro ao atualizar documento do produto:", error);
+          reject(error);
+        }
+      }
+    );
+  });
+};
+
+
+export { uploadFile, profileImage, produtoImage };
