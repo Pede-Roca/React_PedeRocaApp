@@ -9,6 +9,8 @@ const Produto = ({ produto, i }) => {
     const [toastColor, setToastColor] = useState("green");
     const [quantity, setQuantity] = useState(1);
 
+    console.log(produto);
+
     const handleShowToast = (message, color) => {
         setToastMessage(message);
         setToastColor(color);
@@ -78,7 +80,7 @@ const Produto = ({ produto, i }) => {
                 <p>
                     {produto.descricao}
                     <br />
-                    <span className="d-none">Categoria: {produto.tipo_produto}</span>
+                    <span className="d-none">Categoria: {produto.idCategoria}</span>
                 </p>
             </div>
 

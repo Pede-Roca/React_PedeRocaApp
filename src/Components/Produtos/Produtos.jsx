@@ -4,25 +4,39 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./Produtos.module.css";
 import SideBar from "../Sidebar/SideBar";
 import Produto from "./Produto/Produto";
-import { buscarProdutosNoBackend } from '../../services';
+import { buscarProdutosNoBackend, buscarCategoriasNoBackend } from '../../services';
 
 const Produtos = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const lowerCaseBusca = searchTerm.toLowerCase();
   const [produtos, setProdutos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
 
   const searchProductsInBackend = async () => {
     const produtos = await buscarProdutosNoBackend();
+    console.log(produtos);
     setProdutos(produtos);
   }
 
-  const handleSearch = produtos.filter(
-    (produto) =>
-      produto.nome.toLowerCase().includes(lowerCaseBusca) //||
-    // produto.tipo_produto.toLowerCase().includes(lowerCaseBusca)
-  );
+  const searchCategoriesInBackend = async () => {
+    const categorias = await buscarCategoriasNoBackend();
+    console.log(categorias);
+    setCategorias(categorias);
+  }
+
+  const handleSearch = produtos.filter((produto) => {
+    const produtoNome = produto.nome.toLowerCase();
+    const categoriaNome = categorias.find(categoria => categoria.id === produto.idCategoria)?.nome.toLowerCase();
+  
+    return (
+      produtoNome.includes(lowerCaseBusca) ||
+      (categoriaNome && categoriaNome.includes(lowerCaseBusca))
+    );
+  });
+  
 
   useEffect(() => {
+    searchCategoriesInBackend();
     searchProductsInBackend();
   }, []);
 
