@@ -86,3 +86,14 @@ export const removerProdutoDoCarrinhoNoBackend = async (idCarrinhoCompra, idProd
         ? { status: false, message: "Erro ao remover produto do carrinho" }
         : { status: true, message: data.message };
 };
+
+export const finalizarCompraNoBackend = async () => {
+    try {
+        const idCarrinhoCompra = await capturaIdDoCarrinho();
+        const { data } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/finalizar-compra/${idCarrinhoCompra}`)
+        console.log(data);
+        return { status: true, message: data.message };
+    } catch (error) {
+        return { status: false, message: "Erro ao finalizar a compra" };
+    }
+};

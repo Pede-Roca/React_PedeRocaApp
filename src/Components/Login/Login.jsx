@@ -20,6 +20,9 @@ const Login = () => {
   const { login, error: authError, loading } = userAuthentication();
   const [showOff, setShowOff] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+
   const cadastar = () => {
     setShowOff(true);
     setPageRender(1);
@@ -28,6 +31,10 @@ const Login = () => {
   const recoveryPassword = () => {
     setShowOff(true);
     setPageRender(2);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
   const handlerSubmit = async (e) => {
@@ -78,7 +85,7 @@ const Login = () => {
             </div>
             <div className="form-group form-floating mb-3">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 required
                 value={password}
@@ -87,6 +94,14 @@ const Login = () => {
                 id="floatingPassword"
                 placeholder="Senha"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className={styles.toggleButton}
+                aria-label="Mostrar/Esconder senha"
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
               <label htmlFor="floatingPassword">Senha</label>
             </div>
             <div className="form-group">

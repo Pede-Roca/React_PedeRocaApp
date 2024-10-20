@@ -4,7 +4,7 @@ import { Produtos } from "./Produtos/Produtos";
 import { Endereco } from "./Endereco/Endereco";
 import { Pagamento } from "./Pagamento/Pagamento";
 import { Finalizacao } from "./Finalizacao/Finalizacao";
-import { buscarItensDoCarrinhoPorUsuarioNoBackend } from "../../services";
+import { buscarItensDoCarrinhoPorUsuarioNoBackend, finalizarCompraNoBackend } from "../../services";
 
 const Carrinho = ({ close }) => {
   const [step, setStep] = useState(1);
@@ -38,9 +38,20 @@ const Carrinho = ({ close }) => {
     setStep(step > 1 ? step - 1 : close());
   };
 
-  const handleNext = () => {
-    setStep(step < 4 ? step + 1 : step);
+  const handleNext = async () => {
+    try {
+      if(step === 4) {
+        const { status, message } = await finalizarCompraNoBackend();
+        if(status) return alert(message);
+      }
+        
+      setStep(step < 4 ? step + 1 : step);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  
 
   return (
     <>
