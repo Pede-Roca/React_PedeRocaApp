@@ -5,6 +5,10 @@
   .tableHeader {
     background-color: #F29F05;
     color: white;
+    z-index: 10;
+    position: sticky; 
+    top: 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .statusToggle {
@@ -58,6 +62,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .header h2, .header button {
+    margin: 0px 20px;
   }
   
   .cadastrarButton {
@@ -167,9 +175,14 @@
   }
   
   .filtroPesquisa1 {
-    margin-bottom: 20px; /* Espaçamento abaixo da barra de filtro */
+    margin-bottom: 20px;
   }
   
   .TamanhoFormPesquisa {
-    width: 100%; /* Faz o formulário ocupar toda a largura disponível */
+    width: 100%;
+  }
+
+  .scrollContainer {
+    max-height: 60dvh;
+    overflow-y: auto; 
   }

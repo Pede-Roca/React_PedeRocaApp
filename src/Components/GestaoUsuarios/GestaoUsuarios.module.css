@@ -1,118 +1,138 @@
+.scrollContainer {
+  max-height: 60dvh;
+  overflow-y: auto; 
+}
+
 @media screen and (max-width: 767px) {
-  .MobileOcult{
+  .MobileOcult {
     display: none;
   }
 }
 
 .userTable {
-    margin-top: 20px;
-  }
-  
-  .tableHeader {
-    background-color: #F29F05;
-    color: white;
-  }
-  
-  .statusToggle {
-    border: none;
-    background: none;
-  }
+  margin-top: 20px;
+}
 
-  #ativo {
-    color: #7C8C03; 
-    font-size: 1.6rem;
-  }
-  
-  #inativo {
-    color: #A60303;
-    font-size: 1.6rem;
-  }
-  
-  .actionButton {
-    border: none;
-    background: none;
-  }
-  
-  #editIcon {
-    color: #7C8C03;
-    font-size: 1.4rem;
-  }
-  
-  #deleteIcon {
-    color: #A60303;
-    font-size: 1.4rem;
-  }
-  
-  .actionButton:hover .editIcon {
-    color: #6f7c02; 
-  }
-  
-  .actionButton:hover .delete-icon {
-    color: #8b0202; 
-  }
-  
-  .adminPageContainer{
-    background-color: #F2F2F2;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    width: 100%;
-    margin: 40px auto;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .cadastrarButton {
-    background-color: #7C8C03;
-    color: white;
-    padding: 5px 20px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  
-  .cadastrarButton:hover {
-    background: #F2F2F2;
-    color: #7C8C03;
-    border: #7C8C03 1px solid;
-  }
-  
-  
-  .barraTitulo {
-    background-color: #F29F05;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
-    border-radius: 10px;
-  }
-  
-  #filtroPesquisa {
-      border-radius: 10px 0px 0px 10px;
-      border: 1px solid #7C8C03;
-      display: inline;
-      width: 100%;
-  }
-  
-  #corPesquisa {
-      color: #f2f2f2;
-      font-weight: bold;
-  }
-  
-  
-  .bgFiltro {
-    background: #7C8C03;
-    border: none;
-    padding: 8px 10px;
-    border-radius: 0px 5px 5px 0px;
-  }
-  
-  .bgFiltro:hover {
-    background: rgba(124, 140, 3, 0.5);
-  }
+.tableHeader {
+  background-color: #F29F05;
+  color: white;
+  z-index: 10;
+  position: sticky; 
+  top: 0; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.statusToggle {
+  border: none;
+  background: none;
+}
+
+#ativo {
+  color: #7C8C03;
+  font-size: 1.6rem;
+}
+
+#inativo {
+  color: #A60303;
+  font-size: 1.6rem;
+}
+
+.actionButton {
+  border: none;
+  background: none;
+}
+
+#editIcon {
+  color: #7C8C03;
+  font-size: 1.4rem;
+}
+
+#deleteIcon {
+  color: #A60303;
+  font-size: 1.4rem;
+}
+
+.actionButton:hover .editIcon {
+  color: #6f7c02;
+}
+
+.actionButton:hover .delete-icon {
+  color: #8b0202;
+}
+
+.adminPageContainer {
+  background-color: #F2F2F2;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin: 40px auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cadastrarButton {
+  background-color: #7C8C03;
+  color: white;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cadastrarButton:hover {
+  background: #F2F2F2;
+  color: #7C8C03;
+  border: #7C8C03 1px solid;
+}
+
+
+.barraTitulo {
+  background-color: #F29F05;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+#filtroPesquisa {
+  border-radius: 10px 0px 0px 10px;
+  border: 1px solid #7C8C03;
+  display: inline;
+  width: 100%;
+}
+
+#corPesquisa {
+  color: #f2f2f2;
+  font-weight: bold;
+}
+
+
+.bgFiltro {
+  background: #7C8C03;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 0px 5px 5px 0px;
+}
+
+.bgFiltro:hover {
+  background: rgba(124, 140, 3, 0.5);
+}
+
+.selectedBadge {
+  background-color: rgba(124, 140, 3, 0.5) !important; /* Cor de fundo quando a badge estiver selecionada */
+  color: white;
+}
+
+.badgeColor {
+  background-color: #7C8C03 !important; /* Cor padrão das badges */
+  color: white;
+}
+

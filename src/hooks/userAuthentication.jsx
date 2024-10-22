@@ -1,6 +1,7 @@
 import { db } from "../firebase/config";
 import { useState, useEffect } from "react";
 import { registrarUsuarioNoBackend, criarEnderecoNoBackend, efetuarLoginNoBackend } from '../services';
+import { jwtDecode } from "jwt-decode";
 
 import {
     getAuth,
@@ -10,14 +11,6 @@ import {
     signOut
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-
-const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-};
 
 export const userAuthentication = () => {
     const [error, setError] = useState(null);
@@ -50,12 +43,12 @@ export const userAuthentication = () => {
 
             const { backendUserId, token } = await registrarUsuarioNoBackend(userToBackend);
 
-            if(!backendUserId) {
+            if (!backendUserId) {
                 setLoading(false);
                 return setError("Erro ao criar usuário, tente novamente mais tarde.");
             }
 
-            localStorage.setItem("token", token);
+            sessionStorage.setItem("token", token);
 
             const enderecoToBackend = {
                 cep: data.address.cep,
@@ -78,6 +71,11 @@ export const userAuthentication = () => {
             });
 
             await setDoc(doc(db, "tb_usuarios", user.uid), { backendId: backendUserId });
+
+            sessionStorage.setItem("user", JSON.stringify({
+                ...user,
+                backendId: backendUserId
+            }));
 
             setLoading(false);
             return user;
@@ -102,7 +100,7 @@ export const userAuthentication = () => {
     const logout = () => {
         checkIfIsCancelled();
         signOut(auth);
-        localStorage.clear();
+        sessionStorage.clear();
     }
 
     const login = async (data) => {
@@ -112,9 +110,24 @@ export const userAuthentication = () => {
 
         try {
             const token = await efetuarLoginNoBackend({ email: data.email, senha: data.password });
-            await signInWithEmailAndPassword(auth, data.email, data.password);
-            localStorage.setItem("token", token);
+            if (!token) {
+                setLoading(false);
+                return { user: null, message: "Erro ao logar, tente novamente mais tarde", status: false };
+            }
+
+            const decodedToken = jwtDecode(token);
+            const userId = decodedToken.id;
+
+            const result = await signInWithEmailAndPassword(auth, data.email, data.password);
+
             setLoading(false);
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", JSON.stringify({
+                ...result.user,
+                backendId: userId
+            }));
+
+            return { user: result.user, message: "Usuário logado com sucesso", status: true };
         } catch (error) {
             console.error(error.message);
 
@@ -131,7 +144,8 @@ export const userAuthentication = () => {
             setLoading(false);
             setError(systemErrorMessage);
         }
-    }
+    };
+
 
     useEffect(() => {
         return () => setCancelled(true);

@@ -15,7 +15,7 @@ import {
 import GestaoUsuarios from '../../Components/GestaoUsuarios/GestaoUsuarios';
 import GestaoVendas from '../../Components/GestaoVendas/GestaoVendas';
 import GestaoMensagens from '../../Components/GestaoMensagens/GestaoMensagens';
-import PainelProdutos from "../../Components/GestaoProdutos/PainelProdutos";
+import PainelProtudos from "../../Components/GestaoProdutos/PainelProdutos/PainelProtudos";
 
 const AdminPage = () => {
   const { userId, backendUserId } = useAuth();
@@ -132,7 +132,7 @@ const AdminPage = () => {
           </aside>
           <section className={styles.ConteinerSection}>
               {RenderUsuarios && <GestaoUsuarios />}
-              {RenderProdutos && <PainelProdutos />}
+              {RenderProdutos && <PainelProtudos />}
               {RenderVendas && <GestaoVendas />}
               {RenderMensagens && <GestaoMensagens />}
           </section>

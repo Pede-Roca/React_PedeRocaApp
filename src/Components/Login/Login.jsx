@@ -20,6 +20,9 @@ const Login = () => {
   const { login, error: authError, loading } = userAuthentication();
   const [showOff, setShowOff] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+
+
   const cadastar = () => {
     setShowOff(true);
     setPageRender(1);
@@ -30,16 +33,21 @@ const Login = () => {
     setPageRender(2);
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   const handlerSubmit = async (e) => {
     e.preventDefault();
-    const usuario = {
-      email,
-      password,
-    };
-    const res = await login(usuario);
-
-    if (res.error) {
-      setError("Usuário ou Senha Inválido");
+    try {
+      const { status, message, user } = await login({ email, password });
+      if (status === false) {
+        setError(message);
+      } else {
+        setError("");
+      }
+    } catch (error) {
+      setError("Erro ao logar, tente novamente mais tarde.");
     }
   };
 
@@ -77,7 +85,7 @@ const Login = () => {
             </div>
             <div className="form-group form-floating mb-3">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 required
                 value={password}
@@ -86,6 +94,14 @@ const Login = () => {
                 id="floatingPassword"
                 placeholder="Senha"
               />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className={styles.toggleButton}
+                aria-label="Mostrar/Esconder senha"
+              >
+                {showPassword ? "🙈" : "👁️"}
+              </button>
               <label htmlFor="floatingPassword">Senha</label>
             </div>
             <div className="form-group">

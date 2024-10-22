@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import { buscarCategoriasNoBackend, deletarCategoriaNoBackend, atualizarCategoriaNoBackend, criarCategoriaNoBackend } from '../../../services';
-
 import CategoriaInfoModal from "./CategoriaInfoModal";
 import styles from '../Produtos/Produtos.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -56,13 +55,14 @@ const GestaoCategorias = () => {
   }, []);
 
   return (
-    <div className={styles.adminPageContainer}>
+    <>
       <div className={styles.header}>
         <h2>Gestão de Categorias</h2>
         <button className={styles.cadastrarButton} onClick={handleCreate}>Cadastrar</button>
       </div>
       <div className={styles.barraTitulo}>Lista de Categorias</div>
       {categorias.length > 0 ? (
+        <div className={styles.scrollContainer}>
         <Table bordered hover className={styles.userTable}>
           <thead>
             <tr className={styles.tableHeader}>
@@ -94,6 +94,8 @@ const GestaoCategorias = () => {
             ))}
           </tbody>
         </Table>
+        </div>
+
       ) : (
         <div className={styles.msgVazia}>A lista de categorias está vazia.</div>
       )}
@@ -108,7 +110,7 @@ const GestaoCategorias = () => {
           criarCategoria={criarCategoriaNoBackend}
         />
       )}
-    </div>
+    </>
   );
 };
 
