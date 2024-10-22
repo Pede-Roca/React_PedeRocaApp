@@ -16,6 +16,7 @@ const Produtos = () => {
   const [unidadesMedidasBackend, setUnidadesMedidasBackend] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // Adicionar estado de pesquisa
 
   const fetchProdutos = async () => {
     try {
@@ -110,6 +111,11 @@ const Produtos = () => {
     fetchUnidadesMedida();
   }, []);
 
+  const filteredProdutos = produtos.filter((produto) =>
+    produto.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (categorias[produto.idCategoria] && categorias[produto.idCategoria].toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
   return (
     <div>
       <div className={styles.header}>
@@ -118,8 +124,30 @@ const Produtos = () => {
           Cadastrar
         </button>
       </div>
+  
       <div className={styles.barraTitulo}>Lista de produtos</div>
-      {produtos.length > 0 ? (
+
+      <span
+        className="navbar navbar-expand-xxxl sticky-top d-flex justify-content-center align-items-baseline"
+        id={styles.filtroPesquisa1}
+      >
+        <form className="d-flex" id={styles.TamanhoFormPesquisa} onSubmit={(e) => e.preventDefault()}>
+          <input
+            type="text"
+            onChange={(event) => setSearchTerm(event.target.value)}
+            value={searchTerm}
+            className="form-control flex-grow-1"
+            placeholder="Busque por Nome/Categoria"
+            aria-label="Search"
+            id={styles.filtroPesquisa}
+          />
+          <button className={styles.bgFiltro} type="submit">
+            <i className="bi bi-search" id={styles.corPesquisa}></i>
+          </button>
+        </form>
+      </span>
+   
+      {filteredProdutos.length > 0 ? (
         <div className={styles.scrollContainer}>
           <Table bordered hover className={styles.userTable}>
             <thead>
@@ -133,7 +161,7 @@ const Produtos = () => {
               </tr>
             </thead>
             <tbody>
-              {produtos.map((produto) => (
+              {filteredProdutos.map((produto) => (
                 <tr key={produto.id}>
                   <td>
                     <Button
@@ -176,7 +204,7 @@ const Produtos = () => {
           </Table>
         </div>
       ) : (
-        <div className={styles.msgVazia}>A lista de produtos está vazia.</div>
+        <div className={styles.msgVazia}>Nenhum produto encontrado.</div>
       )}
 
       {selectedProduto && (
