@@ -68,3 +68,12 @@ export const numeroProdutosForaDeEstoque = async () => {
         console.error(error);
     }
 }
+
+export const buscarProdutosTop10NoBackend = async () => {
+    try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}carrinho-compra/produtos-mais-vendidos`);
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
