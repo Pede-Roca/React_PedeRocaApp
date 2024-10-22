@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import { buscarProdutosTop10NoBackend } from '../../services';
-import styles from './Produtos/Produtos.module.css';
+import { buscarProdutosTop10NoBackend } from '../../../services';
+import styles from '../Produtos/Produtos.module.css';
 
 const ProdutosTop10 = () => {
 
@@ -37,10 +37,10 @@ const ProdutosTop10 = () => {
           </thead>
           <tbody>
             {produtos.map((produto) => (
-              <tr key={produto.id}>
-                <td>{produto.nome}</td>
+              <tr key={produto.idProduto}>
+                <td>{produto.nomeProduto}</td>
                 <td>{produto.quantidadeVendida}</td>
-                <td>{produto.valorTotal.toFixed(2)}</td>
+                <td>{produto.valorTotal?.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
