@@ -2,14 +2,52 @@ import { useState } from "react";
 import { Toast } from "react-bootstrap";
 import styles from "../Produtos.module.css";
 import { adicionarProdutoNoCarrinho } from "../../../services";
+import { useAuthValue } from "../../../context/AuthContext";
+import { useAuth } from "../../Usuario/useAuth";
+import { registrarProdutoFavoritoNoBackend, desregistrarProdutoFavoritoNoBackend } from "../../../services/produto.service"
 
-const Produto = ({ produto, i }) => {
+const Produto = ({ produto, i, setProductInCart }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastColor, setToastColor] = useState("green");
     const [quantity, setQuantity] = useState(1);
+    const { user } = useAuthValue();
+    const { backendUserId } = useAuth();
 
-    console.log(produto);
+    const handleFavorito = async () => {
+
+        if(produto.favorito){
+          try {
+            const data = await desregistrarProdutoFavoritoNoBackend(produto.idFavorito);
+            if(data){
+                setProductInCart((prevProdutos) => {
+                    return prevProdutos.map((prod) =>
+                        prod.id === produto.id ? { ...produto, favorito: false, idFavorito: null }  : prod
+                    );
+                });
+            }
+          } catch (error) {
+            console.error("Erro ao desregistrar o produto favorito:", error);
+          }
+        } else {
+          const produtoFavorito = {
+              idProduto: produto.id,
+              idUsuario: backendUserId
+          };
+          try {
+            const data = await registrarProdutoFavoritoNoBackend(produtoFavorito);
+            if(data){
+              setProductInCart((prevProdutos) => {
+                return prevProdutos.map((prod) =>
+                    prod.id === produto.id ? { ...produto, favorito: true, idFavorito: data.id }  : prod
+                );
+              });
+            }
+          } catch (error) {
+            console.error("Erro ao registrar o produto favorito:", error);
+          }
+        }
+      };
 
     const handleShowToast = (message, color) => {
         setToastMessage(message);
@@ -57,11 +95,17 @@ const Produto = ({ produto, i }) => {
             </div>
 
             {/* Favorito */}
+            {user &&
             <div className={styles.posicaoFavorito}>
-                <button id={styles.boxFavoritoF1} aria-label="Favoritar produto">
-                    <i className="bi bi-heart" id={styles.tamanhoFavorito}></i>
+                <button id={styles.boxFavoritoF1} aria-label="Favoritar produto" onClick={() => handleFavorito()}>
+                    {produto.favorito ? (
+                    <i className="bi bi-heart-fill" id={styles.tamanhoFavorito}></i>
+                    ):(
+                      <i className="bi bi-heart" id={styles.tamanhoFavorito}></i>
+                    )}
                 </button>
             </div>
+            }
 
             {/* Imagem */}
             <div className={styles.imagemVenda}>
