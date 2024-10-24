@@ -4,7 +4,7 @@ import styles from "../Produtos.module.css";
 import { adicionarProdutoNoCarrinho } from "../../../services";
 import { useAuthValue } from "../../../context/AuthContext";
 import { useAuth } from "../../Usuario/useAuth";
-import { registrarProdutoFavoritoNoBackend, desregistrarProdutoFavoritoNoBackend } from "../../../services/produto.service"
+import { favoritarProdutoNoBackend, desfavoritarProdutoNoBackend } from "../../../services"
 
 const Produto = ({ produto, i, setProductInCart }) => {
     const [showToast, setShowToast] = useState(false);
@@ -15,10 +15,10 @@ const Produto = ({ produto, i, setProductInCart }) => {
     const { backendUserId } = useAuth();
 
     const handleFavorito = async () => {
-
+        console.log(produto);
         if(produto.favorito){
           try {
-            const data = await desregistrarProdutoFavoritoNoBackend(produto.idFavorito);
+            const data = await desfavoritarProdutoNoBackend(produto.idFavorito);
             if(data){
                 setProductInCart((prevProdutos) => {
                     return prevProdutos.map((prod) =>
@@ -35,7 +35,7 @@ const Produto = ({ produto, i, setProductInCart }) => {
               idUsuario: backendUserId
           };
           try {
-            const data = await registrarProdutoFavoritoNoBackend(produtoFavorito);
+            const data = await favoritarProdutoNoBackend(produtoFavorito);
             if(data){
               setProductInCart((prevProdutos) => {
                 return prevProdutos.map((prod) =>

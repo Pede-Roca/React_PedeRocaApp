@@ -77,21 +77,3 @@ export const buscarProdutosTop10NoBackend = async () => {
         console.error(error);
     }
 }
-
-export const registrarProdutoFavoritoNoBackend = async (payload) => {
-    try {
-        const { data } = await axios.post(`${import.meta.env.VITE_API_URL}produto-favorito`, payload);
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-export const desregistrarProdutoFavoritoNoBackend = async (id) => {
-    try {
-        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}produto-favorito/${id}`);
-        return data;
-    } catch (error) {
-        console.error(error);
-    }
-}

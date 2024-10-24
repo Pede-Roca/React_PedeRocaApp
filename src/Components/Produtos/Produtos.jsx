@@ -4,7 +4,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./Produtos.module.css";
 import SideBar from "../Sidebar/SideBar";
 import Produto from "./Produto/Produto";
-import { buscarProdutosNoBackend, buscarCategoriasNoBackend } from '../../services';
+import { buscarProdutosNoBackend, buscarCategoriasNoBackend, buscarProdutosFavoritosPorUsuarioNoBackend } from '../../services';
+
 
 const Produtos = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -13,7 +14,19 @@ const Produtos = () => {
   const [categorias, setCategorias] = useState([]);
 
   const searchProductsInBackend = async () => {
+    const produtosFavoritos = await buscarProdutosFavoritosPorUsuarioNoBackend();
     const produtos = await buscarProdutosNoBackend();
+
+    produtos.forEach(produto => {
+      const produtoFavorito = produtosFavoritos.find(produtoFavorito => produtoFavorito.idProduto === produto.id);
+      if (produtoFavorito) {
+        produto.favorito = true;
+        produto.idFavorito = produtoFavorito.id;
+      } else {
+        produto.favorito = false;
+        produto.idFavorito = null;
+      }
+    })
     console.log(produtos);
     setProdutos(produtos);
   }
