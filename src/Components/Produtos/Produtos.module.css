@@ -184,7 +184,7 @@
     .posicaoFavorito button {
       border: none;
       border-radius: 50%;
-      background: white;
+      background: none;
     }
     #tamanhoFavorito {
       font-size: 1.5rem;
