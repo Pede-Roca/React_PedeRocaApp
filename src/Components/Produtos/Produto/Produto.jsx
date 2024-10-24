@@ -15,39 +15,38 @@ const Produto = ({ produto, i, setProductInCart }) => {
     const { backendUserId } = useAuth();
 
     const handleFavorito = async () => {
-        console.log(produto);
-        if(produto.favorito){
-          try {
-            const data = await desfavoritarProdutoNoBackend(produto.idFavorito);
-            if(data){
-                setProductInCart((prevProdutos) => {
-                    return prevProdutos.map((prod) =>
-                        prod.id === produto.id ? { ...produto, favorito: false, idFavorito: null }  : prod
-                    );
-                });
+        if (produto.favorito) {
+            try {
+                const data = await desfavoritarProdutoNoBackend(produto.idFavorito);
+                if (data) {
+                    setProductInCart((prevProdutos) => {
+                        return prevProdutos.map((prod) =>
+                            prod.id === produto.id ? { ...produto, favorito: false, idFavorito: null } : prod
+                        );
+                    });
+                }
+            } catch (error) {
+                console.error("Erro ao desregistrar o produto favorito:", error);
             }
-          } catch (error) {
-            console.error("Erro ao desregistrar o produto favorito:", error);
-          }
         } else {
-          const produtoFavorito = {
-              idProduto: produto.id,
-              idUsuario: backendUserId
-          };
-          try {
-            const data = await favoritarProdutoNoBackend(produtoFavorito);
-            if(data){
-              setProductInCart((prevProdutos) => {
-                return prevProdutos.map((prod) =>
-                    prod.id === produto.id ? { ...produto, favorito: true, idFavorito: data.id }  : prod
-                );
-              });
+            const produtoFavorito = {
+                idProduto: produto.id,
+                idUsuario: backendUserId
+            };
+            try {
+                const data = await favoritarProdutoNoBackend(produtoFavorito);
+                if (data) {
+                    setProductInCart((prevProdutos) => {
+                        return prevProdutos.map((prod) =>
+                            prod.id === produto.id ? { ...produto, favorito: true, idFavorito: data.id } : prod
+                        );
+                    });
+                }
+            } catch (error) {
+                console.error("Erro ao registrar o produto favorito:", error);
             }
-          } catch (error) {
-            console.error("Erro ao registrar o produto favorito:", error);
-          }
         }
-      };
+    };
 
     const handleShowToast = (message, color) => {
         setToastMessage(message);
@@ -60,11 +59,11 @@ const Produto = ({ produto, i, setProductInCart }) => {
         const quantity = parseInt(e.target.quantidadeProduto.value, 10);
 
         if (quantity > 0) {
-            if(quantity > produto.estoque) {
+            if (quantity > produto.estoque) {
                 handleShowToast("Quantidade indisponível no estoque", "#dc3545");
                 return;
             }
-            
+
             try {
                 const { status, message } = await adicionarProdutoNoCarrinho(quantity, produto.id);
 
@@ -96,15 +95,15 @@ const Produto = ({ produto, i, setProductInCart }) => {
 
             {/* Favorito */}
             {user &&
-            <div className={styles.posicaoFavorito}>
-                <button id={styles.boxFavoritoF1} aria-label="Favoritar produto" onClick={() => handleFavorito()}>
-                    {produto.favorito ? (
-                    <i className="bi bi-heart-fill" id={styles.tamanhoFavorito}></i>
-                    ):(
-                      <i className="bi bi-heart" id={styles.tamanhoFavorito}></i>
-                    )}
-                </button>
-            </div>
+                <div className={styles.posicaoFavorito}>
+                    <button id={styles.boxFavoritoF1} aria-label="Favoritar produto" onClick={() => handleFavorito()}>
+                        {produto.favorito ? (
+                            <i className="bi bi-heart-fill" id={styles.tamanhoFavorito}></i>
+                        ) : (
+                            <i className="bi bi-heart" id={styles.tamanhoFavorito}></i>
+                        )}
+                    </button>
+                </div>
             }
 
             {/* Imagem */}

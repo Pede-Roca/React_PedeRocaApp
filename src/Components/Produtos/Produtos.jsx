@@ -13,28 +13,35 @@ const Produtos = () => {
   const [categorias, setCategorias] = useState([]);
 
   const searchProductsInBackend = async () => {
-    const produtosFavoritos = await buscarProdutosFavoritosPorUsuarioNoBackend();
     const produtos = await buscarProdutosNoBackend();
+    let user = JSON.parse(sessionStorage.getItem('user'));
 
-    if(produtosFavoritos.length === 0) {
+    if (user) {
+      console.log('Usuário logado');
+      const produtosFavoritos = await buscarProdutosFavoritosPorUsuarioNoBackend();
+
+      if (produtosFavoritos.length === 0) {
+        produtos.forEach(produto => {
+          produto.favorito = false;
+          produto.idFavorito = null;
+        });
+        setProdutos(produtos);
+        return;
+      }
+
       produtos.forEach(produto => {
-        produto.favorito = false;
-        produto.idFavorito = null;
-      });
+        const produtoFavorito = produtosFavoritos.find(produtoFavorito => produtoFavorito.idProduto === produto.id);
+        if (produtoFavorito) {
+          produto.favorito = true;
+          produto.idFavorito = produtoFavorito.id;
+        } else {
+          produto.favorito = false;
+          produto.idFavorito = null;
+        }
+      })
       setProdutos(produtos);
-      return;
     }
 
-    produtos.forEach(produto => {
-      const produtoFavorito = produtosFavoritos.find(produtoFavorito => produtoFavorito.idProduto === produto.id);
-      if (produtoFavorito) {
-        produto.favorito = true;
-        produto.idFavorito = produtoFavorito.id;
-      } else {
-        produto.favorito = false;
-        produto.idFavorito = null;
-      }
-    })
     setProdutos(produtos);
   }
 
@@ -46,13 +53,13 @@ const Produtos = () => {
   const handleSearch = produtos.filter((produto) => {
     const produtoNome = produto.nome.toLowerCase();
     const categoriaNome = categorias.find(categoria => categoria.id === produto.idCategoria)?.nome.toLowerCase();
-  
+
     return (
       produtoNome.includes(lowerCaseBusca) ||
       (categoriaNome && categoriaNome.includes(lowerCaseBusca))
     );
   });
-  
+
 
   useEffect(() => {
     searchCategoriesInBackend();

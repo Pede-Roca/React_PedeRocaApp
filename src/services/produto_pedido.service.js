@@ -25,10 +25,7 @@ export const atualizarQuantidadeProdutoPedidoNoBackend = async (idProdutoPedido,
             adicionar
         });
 
-        return {
-            status: true,
-            message: data.message
-        };
+        return { status: true, message: data.message };
     } catch (error) {
         console.error(error);
     }
