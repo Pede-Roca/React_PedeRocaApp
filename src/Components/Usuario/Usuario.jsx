@@ -5,6 +5,7 @@ import { UserHome } from "./UserHome";
 import { UserEndereco } from "./UserEndereco";
 import { UserDadosPessoais } from "./UserDadosPessoais";
 import { UserSuporte } from "./UserSuporte";
+import { UserCompras } from './UserCompras';
 
 const Usuario = () => {
     const { logout } = useAuth();
@@ -27,6 +28,8 @@ const Usuario = () => {
                 return <UserDadosPessoais onBack={() => handleNavigation("home")} />;
             case "suporte":
                 return <UserSuporte onBack={() => handleNavigation("home")} />;
+            case "minhasCompras":
+                return <UserCompras onBack={() => handleNavigation("home")} />;
             default:
                 return <UserHome onLogout={logout} onNavigate={handleNavigation} onAdmin={handleAdminNavigation} />;
         }

@@ -41,6 +41,7 @@ export const UserHome = ({ onNavigate, onAdmin, onLogout }) => {
             )}
             <div className={styles.containerBTN}>
                 <button className={styles.btnDados} onClick={() => onNavigate("endereco")}>Endereço de Entrega</button>
+                <button className={styles.btnDados} onClick={() => onNavigate("minhasCompras")}>Minhas Compras</button>
                 <button className={styles.btnDados} onClick={() => onNavigate("dadosPessoais")}>Dados Pessoais</button>
                 <button className={styles.btnDados} onClick={() => onNavigate("suporte")}>Suporte ao Usuário</button>
                 <button className={styles.btnSair} onClick={onLogout}>Sair</button>
