@@ -16,6 +16,15 @@ const Produtos = () => {
     const produtosFavoritos = await buscarProdutosFavoritosPorUsuarioNoBackend();
     const produtos = await buscarProdutosNoBackend();
 
+    if(produtosFavoritos.length === 0) {
+      produtos.forEach(produto => {
+        produto.favorito = false;
+        produto.idFavorito = null;
+      });
+      setProdutos(produtos);
+      return;
+    }
+
     produtos.forEach(produto => {
       const produtoFavorito = produtosFavoritos.find(produtoFavorito => produtoFavorito.idProduto === produto.id);
       if (produtoFavorito) {
@@ -26,13 +35,11 @@ const Produtos = () => {
         produto.idFavorito = null;
       }
     })
-    console.log(produtos);
     setProdutos(produtos);
   }
 
   const searchCategoriesInBackend = async () => {
     const categorias = await buscarCategoriasNoBackend();
-    console.log(categorias);
     setCategorias(categorias);
   }
 
