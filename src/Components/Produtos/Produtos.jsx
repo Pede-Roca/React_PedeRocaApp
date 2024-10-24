@@ -6,7 +6,6 @@ import SideBar from "../Sidebar/SideBar";
 import Produto from "./Produto/Produto";
 import { buscarProdutosNoBackend, buscarCategoriasNoBackend, buscarProdutosFavoritosPorUsuarioNoBackend } from '../../services';
 
-
 const Produtos = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const lowerCaseBusca = searchTerm.toLowerCase();
