@@ -9,8 +9,6 @@ const Produto = ({ produto, i }) => {
     const [toastColor, setToastColor] = useState("green");
     const [quantity, setQuantity] = useState(1);
 
-    console.log(produto);
-
     const handleShowToast = (message, color) => {
         setToastMessage(message);
         setToastColor(color);
@@ -22,11 +20,11 @@ const Produto = ({ produto, i }) => {
         const quantity = parseInt(e.target.quantidadeProduto.value, 10);
 
         if (quantity > 0) {
-            if(quantity > produto.estoque) {
+            if (quantity > produto.estoque) {
                 handleShowToast("Quantidade indisponível no estoque", "#dc3545");
                 return;
             }
-            
+
             try {
                 const { status, message } = await adicionarProdutoNoCarrinho(quantity, produto.id);
 

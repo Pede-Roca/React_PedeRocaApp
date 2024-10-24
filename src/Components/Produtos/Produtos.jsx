@@ -24,19 +24,20 @@ const Produtos = () => {
     setCategorias(categorias);
   };
 
-  const handleSearch = produtos.filter((produto) => {
-    const produtoNome = produto.nome.toLowerCase();
-    const categoriaProduto = categorias.find(categoria => categoria.id === produto.idCategoria)?.nome.toLowerCase();
+  const handleSearch = () => {
+    return produtos.filter((produto) => {
+      const produtoNome = produto.nome.toLowerCase();
+      const categoriaProduto = produto.idCategoria;
 
-    // Verifica se o produto corresponde ao termo de pesquisa
-    const matchesSearchTerm = produtoNome.includes(lowerCaseBusca);
+      const matchesSearchTerm = produtoNome.includes(lowerCaseBusca);
 
-    // Verifica se o produto corresponde à categoria selecionada
-    const matchesCategory = selectedCategories.includes("Todas as Categorias") || 
-                            (categoriaProduto && selectedCategories.includes(categoriaProduto));
+      const matchesCategory =
+        selectedCategories.includes("Todas as Categorias") ||
+        selectedCategories.includes(categoriaProduto);
 
-    return matchesSearchTerm && matchesCategory;
-  });
+      return matchesSearchTerm && matchesCategory;
+    });
+  };
 
   useEffect(() => {
     searchCategoriesInBackend();
@@ -59,10 +60,10 @@ const Produtos = () => {
             aria-label="Search"
             id={styles.filtroPesquisa}
           />
-          <CustomDropdown 
-            categorias={categorias} 
-            selectedCategories={selectedCategories} 
-            setSelectedCategories={setSelectedCategories} 
+          <CustomDropdown
+            categorias={categorias}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
           />
         </form>
         <SideBar />
@@ -72,11 +73,10 @@ const Produtos = () => {
         className="px-2 py-2 d-flex flex-wrap gap-3 justify-content-center align-content-center"
         id="CartaoProduto"
       >
-        {handleSearch.map(
-          (produto, i) =>
-            produto.status && (
-              <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} />
-            )
+        {handleSearch().map((produto, i) =>
+          produto.status && (
+            <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} />
+          )
         )}
       </section>
       <br />
