@@ -5,9 +5,11 @@ import styles from "./Produtos.module.css";
 import SideBar from "../Sidebar/SideBar";
 import Produto from "./Produto/Produto";
 import { buscarProdutosNoBackend, buscarCategoriasNoBackend, buscarProdutosFavoritosPorUsuarioNoBackend } from '../../services';
+import CustomDropdown from "./Produto/CustomDropdown";
 
 const Produtos = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState(["Todas as Categorias"]);
   const lowerCaseBusca = searchTerm.toLowerCase();
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
@@ -17,7 +19,6 @@ const Produtos = () => {
     let user = JSON.parse(sessionStorage.getItem('user'));
 
     if (user) {
-      console.log('Usuário logado');
       const produtosFavoritos = await buscarProdutosFavoritosPorUsuarioNoBackend();
 
       if (produtosFavoritos.length === 0) {
@@ -38,28 +39,31 @@ const Produtos = () => {
           produto.favorito = false;
           produto.idFavorito = null;
         }
-      })
-      setProdutos(produtos);
+      });
     }
 
     setProdutos(produtos);
-  }
+  };
 
   const searchCategoriesInBackend = async () => {
     const categorias = await buscarCategoriasNoBackend();
     setCategorias(categorias);
-  }
+  };
 
-  const handleSearch = produtos.filter((produto) => {
-    const produtoNome = produto.nome.toLowerCase();
-    const categoriaNome = categorias.find(categoria => categoria.id === produto.idCategoria)?.nome.toLowerCase();
+  const handleSearch = () => {
+    return produtos.filter((produto) => {
+      const produtoNome = produto.nome.toLowerCase();
+      const categoriaProduto = produto.idCategoria;
 
-    return (
-      produtoNome.includes(lowerCaseBusca) ||
-      (categoriaNome && categoriaNome.includes(lowerCaseBusca))
-    );
-  });
+      const matchesSearchTerm = produtoNome.includes(lowerCaseBusca);
 
+      const matchesCategory =
+        selectedCategories.includes("Todas as Categorias") ||
+        selectedCategories.includes(categoriaProduto);
+
+      return matchesSearchTerm && matchesCategory;
+    });
+  };
 
   useEffect(() => {
     searchCategoriesInBackend();
@@ -78,25 +82,27 @@ const Produtos = () => {
             onChange={(event) => setSearchTerm(event.target.value)}
             value={searchTerm}
             className="form-control flex-grow-1"
-            placeholder="O que você procura? Busque por Produto/Categoria"
+            placeholder="O que você procura? Busque por Produto"
             aria-label="Search"
             id={styles.filtroPesquisa}
           />
-          <button className={styles.bgFiltro} type="submit">
-            <i className="bi bi-search" id={styles.corPesquisa}></i>
-          </button>
+          <CustomDropdown
+            categorias={categorias}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+          />
         </form>
         <SideBar />
       </span>
+
       <section
         className="px-2 py-2 d-flex flex-wrap gap-3 justify-content-center align-content-center"
         id="CartaoProduto"
       >
-        {handleSearch.map(
-          (produto, i) =>
-            produto.status && (
-              <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} />
-            )
+        {handleSearch().map((produto, i) =>
+          produto.status && (
+            <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} />
+          )
         )}
       </section>
       <br />

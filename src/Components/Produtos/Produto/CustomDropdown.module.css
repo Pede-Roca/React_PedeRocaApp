@@ -1,0 +1,10 @@
+.bgFiltro {
+    background: #7C8C03;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 0px 5px 5px 0px;
+  }
+  
+  .bgFiltro:hover {
+    background: rgba(124, 140, 3, 0.5);
+  }

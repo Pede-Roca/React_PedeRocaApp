@@ -4,7 +4,7 @@ import styles from "../Produtos.module.css";
 import { adicionarProdutoNoCarrinho } from "../../../services";
 import { useAuthValue } from "../../../context/AuthContext";
 import { useAuth } from "../../Usuario/useAuth";
-import { favoritarProdutoNoBackend, desfavoritarProdutoNoBackend } from "../../../services"
+import { favoritarProdutoNoBackend, desfavoritarProdutoNoBackend } from "../../../services";
 
 const Produto = ({ produto, i, setProductInCart }) => {
     const [showToast, setShowToast] = useState(false);
@@ -86,14 +86,12 @@ const Produto = ({ produto, i, setProductInCart }) => {
 
     return (
         <div className={styles.geralCard}>
-            {/* Preço */}
             <div className={styles.posicaoPreco}>
                 <span id="precoProduto">
                     R$ {formatPrice(produto.preco)}
                 </span>
             </div>
 
-            {/* Favorito */}
             {user &&
                 <div className={styles.posicaoFavorito}>
                     <button id={styles.boxFavoritoF1} aria-label="Favoritar produto" onClick={() => handleFavorito()}>
@@ -106,7 +104,6 @@ const Produto = ({ produto, i, setProductInCart }) => {
                 </div>
             }
 
-            {/* Imagem */}
             <div className={styles.imagemVenda}>
                 <img
                     src={produto.uidFoto}
@@ -117,7 +114,6 @@ const Produto = ({ produto, i, setProductInCart }) => {
 
             <hr />
 
-            {/* Nome e Descrição */}
             <div className={styles.nomeProduto} >
                 <h5>{produto.nome}</h5>
                 <p>
@@ -129,7 +125,6 @@ const Produto = ({ produto, i, setProductInCart }) => {
 
             <hr />
 
-            {/* Formulário de Quantidade */}
             <div className={styles.qtdTotalCompraCarrinho}>
                 <form
                     className="input-group"
@@ -151,28 +146,20 @@ const Produto = ({ produto, i, setProductInCart }) => {
                     <button
                         type="submit"
                         className={`inputBorda ${styles.btn_addcarrinho}`}
-                        aria-label="Adicionar ao carrinho"
+                        aria-label="Adicionar ao Carrinho"
                     >
-                        <i className="bi bi-cart-plus"></i> Adicionar
+                        Adicionar ao Carrinho
                     </button>
                 </form>
             </div>
 
-            {/* Toast para exibir mensagem de sucesso/erro */}
             <Toast
                 onClose={() => setShowToast(false)}
                 show={showToast}
                 delay={3000}
                 autohide
-                style={{
-                    position: "fixed",
-                    top: "20px",
-                    right: "20px",
-                    zIndex: 1050,
-                    backgroundColor: toastColor,
-                    color: "white",
-                    fontSize: "1rem",
-                }}
+                className={styles.toast}
+                style={{ backgroundColor: toastColor }}
             >
                 <Toast.Body>{toastMessage}</Toast.Body>
             </Toast>
