@@ -77,7 +77,12 @@ export const Produtos = () => {
                     </div>
                 </>
             ) : (
-                <p className={styles.emptyCart}>O carrinho está vazio.</p> // Mensagem quando não há produtos
+                <>
+                    <div className={styles.CarrinhoVazioContainer}>
+                        <i className={`bi bi-cart-x ${styles.TamanhoIcone}`}></i>
+                        <h5 className={styles.CarrinhoVazio}>Seu carrinho está vazio</h5>
+                    </div>
+                </>
             )}
         </div>
     );

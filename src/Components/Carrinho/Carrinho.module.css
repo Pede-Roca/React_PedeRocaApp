@@ -306,3 +306,24 @@
   text-align: center;
   height: 85px;
 }
+.CarrinhoVazioContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  border: 1px solid #7C8C03;
+  border-radius: 10px; 
+  flex-wrap: wrap; 
+}
+
+.TamanhoIcone{
+  font-size: 150px;
+  color: #7C8C03;
+}
+
+@media screen and (max-width: 767px){
+  .TamanhoIcone{
+    font-size: 180px;
+    color: #7C8C03;
+  }
+}
