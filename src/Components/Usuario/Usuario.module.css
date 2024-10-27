@@ -26,7 +26,10 @@
 }
 
 .btnTrocarFoto:hover {
-  filter: brightness(0.8);
+  background: #f2f2f2;
+  color: #7C8C03;
+  box-shadow: inset 0 0 0 0.1px #7C8C03;
+  font-weight: bold;
 }
 
 
@@ -59,7 +62,10 @@
 
 .btnSair:hover,
 .btnDados:hover {
-  filter: brightness(0.8);
+  background: #f2f2f2;
+  color: #7C8C03;
+  box-shadow: inset 0 0 0 1px #7C8C03;
+  font-weight: bold;
 }
 
 .btnDados {
