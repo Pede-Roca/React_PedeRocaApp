@@ -28,7 +28,12 @@ export const UserHome = ({ onNavigate, onAdmin, onLogout }) => {
             {userData && (
                 <div key={userData.id} className={styles.userData}>
                     <div className={styles.fotoContainer}>
-                        <img className={styles.foto} src={tempPhoto || userData.foto} alt="foto do usuário" />
+                        {userData.foto == "" && (
+                            <img className={styles.foto} src="https://placehold.co/800x800?text=Sem+Imagem" alt="foto do usuário" />
+                        )}
+                        {tempPhoto != null || userData.foto != "" && (
+                            <img className={styles.foto} src={tempPhoto || userData.foto} alt="foto do usuário" />
+                        )}
                         <button className={styles.btnTrocarFoto} onClick={handleChangePhoto}>
                             <i className="bi bi-pencil"></i>
                         </button>
