@@ -100,7 +100,7 @@ const Login = () => {
                 className={styles.toggleButton}
                 aria-label="Mostrar/Esconder senha"
               >
-                {showPassword ? "🙈" : "👁️"}
+                {showPassword ? <i class="bi bi-eye-slash"></i> : <i class="bi bi-eye"></i>}
               </button>
               <label htmlFor="floatingPassword">Senha</label>
             </div>

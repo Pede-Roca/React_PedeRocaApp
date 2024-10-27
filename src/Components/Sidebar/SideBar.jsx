@@ -21,7 +21,6 @@ const SideBar = () => {
     <>
       <button
         type="button"
-        className="btn btn-primary"
         id={styles.Button}
         onClick={handleShow}
       >
