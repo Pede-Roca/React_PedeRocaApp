@@ -71,6 +71,11 @@
     font-weight: bold;
 }
 
+.qtdEstoque{
+  color: #7C8C03;
+  font-weight: bold;
+}
+
 @media (max-width: 767px) {
     .sideMobile {
       display: none;
@@ -271,11 +276,6 @@
     }
     .tamanhoCarrinho::after {
       content: " Carrinho";
-    }
-
-    .qtdEstoque{
-      color: #7C8C03;
-      font-weight: bold;
     }
 }
 
