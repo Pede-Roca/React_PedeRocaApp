@@ -55,4 +55,10 @@
     margin: 0 auto;
 }
 
+.btnClean:hover, .btnPrompt:hover{
+    background: #F2F2F2;
+    color: #7C8C03;
+    border: #7C8C03 1px solid;
+}
+
 @keyframes s3 {to{transform: rotate(1turn)}}

@@ -3,12 +3,6 @@
   overflow-y: auto; 
 }
 
-@media screen and (max-width: 767px) {
-  .MobileOcult {
-    display: none;
-  }
-}
-
 .userTable {
   margin-top: 20px;
 }
@@ -75,6 +69,10 @@
   align-items: center;
 }
 
+.header h2, .header button {
+  margin: 20px 20px;
+}
+
 .cadastrarButton {
   background-color: #7C8C03;
   color: white;
@@ -136,3 +134,37 @@
   color: white;
 }
 
+@media screen and (max-width: 767px) {
+  .TamanhoFormPesquisa {
+    display: block;
+    width: 320px;
+    box-sizing: border-box;
+  }
+
+  #filtroPesquisa {
+    border-radius: 10px;
+    border: 1px solid #7C8C03;
+    width: 320px;
+    box-sizing: border-box;
+  }
+
+  .MobileOcult {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .TamanhoFormPesquisa {
+    display: inline-block;
+    width: 400px;
+    box-sizing: border-box;
+  }
+
+  #filtroPesquisa {
+    display: inline-block;
+    border-radius: 10px;
+    border: 1px solid #7C8C03;
+    min-width: 500px;
+    box-sizing: border-box;
+  }
+}
