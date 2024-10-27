@@ -141,9 +141,6 @@ const Produtos = () => {
             aria-label="Search"
             id={styles.filtroPesquisa}
           />
-          <button className={styles.bgFiltro} type="submit">
-            <i className="bi bi-search" id={styles.corPesquisa}></i>
-          </button>
         </form>
       </span>
    

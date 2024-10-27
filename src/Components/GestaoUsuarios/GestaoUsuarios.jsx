@@ -106,7 +106,7 @@ const GestaoUsuarios = () => {
   }
 
   return (
-    <div className={styles.adminPageContainer}>
+    <div>
       <div className={styles.header}>
         <h2>Gestão de usuários</h2>
         <button className={styles.cadastrarButton}>Cadastrar</button>
@@ -130,9 +130,6 @@ const GestaoUsuarios = () => {
               aria-label="Search"
               id={styles.filtroPesquisa}
             />
-            <button className={styles.bgFiltro} type="submit">
-              <i className="bi bi-search" id={styles.corPesquisa}></i>
-            </button>
           </div>
 
           <select
