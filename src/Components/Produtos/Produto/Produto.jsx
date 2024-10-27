@@ -91,6 +91,8 @@ const Produto = ({ produto, i, setProductInCart }) => {
                     R$ {formatPrice(produto.preco)}
                 </span>
             </div>
+            
+            
 
             {user &&
                 <div className={styles.posicaoFavorito}>
@@ -126,9 +128,10 @@ const Produto = ({ produto, i, setProductInCart }) => {
             <div className={styles.nomeProduto} >
                 <h5>{produto.nome}</h5>
                 <p>
+                    <span className="d-none">Categoria: {produto.idCategoria}</span>
                     {produto.descricao}
                     <br />
-                    <span className="d-none">Categoria: {produto.idCategoria}</span>
+                    <span className={styles.qtdEstoque}>Máximo: {produto.estoque}</span>             
                 </p>
             </div>
 

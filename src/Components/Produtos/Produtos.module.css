@@ -272,5 +272,10 @@
     .tamanhoCarrinho::after {
       content: " Carrinho";
     }
+
+    .qtdEstoque{
+      color: #7C8C03;
+      font-weight: bold;
+    }
 }
 
