@@ -16,7 +16,7 @@
   }
   
   #filtroPesquisa {
-      border-radius: 10px 0px 0px 10px;
+      border-radius: 0px 10px 10px 0px;
       border: 1px solid #7C8C03;
       min-width: 300px;
   }
@@ -56,6 +56,12 @@
 
 .lastProductSpace {
   height: 500px;
+}
+
+.CategoriasSelect{
+    border-radius: 10px 0px 0px 10px;
+    background: #7C8C03;
+    color: #f2f2f2;
 }
 
 @media (max-width: 767px) {
@@ -214,6 +220,7 @@
       padding: 0px 5px;
       height: 110px;
     }
+
     .quantidadeProduto {
       width: 50%;
       border-radius: 5px 0px 0px 5px;
@@ -226,6 +233,7 @@
       color: #f2f2f2;
       background: #7C8C03;
       border-radius: 0px 5px 5px 0px;
+      border: 1px solid #7C8C03;
   }
   
       .valorTotalProduto {

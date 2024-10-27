@@ -77,6 +77,11 @@ const Produtos = () => {
         id={styles.filtroPesquisa1}
       >
         <form className="d-flex" id={styles.TamanhoFormPesquisa}>
+        <CustomDropdown
+            categorias={categorias}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+          />
           <input
             type="text"
             onChange={(event) => setSearchTerm(event.target.value)}
@@ -85,11 +90,6 @@ const Produtos = () => {
             placeholder="O que você procura? Busque por Produto"
             aria-label="Search"
             id={styles.filtroPesquisa}
-          />
-          <CustomDropdown
-            categorias={categorias}
-            selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
           />
         </form>
         <SideBar />

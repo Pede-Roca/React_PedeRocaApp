@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toast } from "react-bootstrap";
+import { Toast, Placeholder, Card } from "react-bootstrap";
 import styles from "../Produtos.module.css";
 import { adicionarProdutoNoCarrinho } from "../../../services";
 import { useAuthValue } from "../../../context/AuthContext";
@@ -105,11 +105,20 @@ const Produto = ({ produto, i, setProductInCart }) => {
             }
 
             <div className={styles.imagemVenda}>
-                <img
-                    src={produto.uidFoto}
-                    alt={`Imagem de ${produto.nome}`}
-                    className={styles.tamanhoImgVenda}
-                />
+                {produto.uidFoto == "" && (
+                    <img
+                        src="https://placehold.co/800x800?text=Imagem+Indisponível"
+                        alt={`Imagem de ${produto.nome}`}
+                        className={styles.tamanhoImgVenda}
+                    />
+                )}
+                {produto.uidFoto !== "" && (
+                    <img
+                        src={produto.uidFoto}
+                        alt={`Imagem de ${produto.nome}`}
+                        className={styles.tamanhoImgVenda}
+                    />
+                )}
             </div>
 
             <hr />
@@ -148,7 +157,7 @@ const Produto = ({ produto, i, setProductInCart }) => {
                         className={`inputBorda ${styles.btn_addcarrinho}`}
                         aria-label="Adicionar ao Carrinho"
                     >
-                        Adicionar ao Carrinho
+                        <i class="bi bi-plus-circle"></i> Carrinho
                     </button>
                 </form>
             </div>

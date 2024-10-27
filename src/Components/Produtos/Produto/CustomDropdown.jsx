@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown,  Button, ButtonGroup  } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from "./CustomDropdown.module.css";
 
@@ -33,7 +33,6 @@ const CustomDropdown = ({ categorias, selectedCategories, setSelectedCategories 
     <Dropdown>
       <Dropdown.Toggle variant="success" className={styles.bgFiltro} id="dropdown-basic">
       </Dropdown.Toggle>
-
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => handleSelect("Todas as Categorias")}>
           <input
