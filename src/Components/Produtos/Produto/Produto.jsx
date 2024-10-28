@@ -160,7 +160,7 @@ const Produto = ({ produto, i, setProductInCart }) => {
                         className={`inputBorda ${styles.btn_addcarrinho}`}
                         aria-label="Adicionar ao Carrinho"
                     >
-                        <i class="bi bi-plus-circle"></i> Carrinho
+                        <i className="bi bi-plus-circle"></i> Carrinho
                     </button>
                 </form>
             </div>

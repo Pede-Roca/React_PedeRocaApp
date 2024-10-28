@@ -191,3 +191,95 @@
   text-align: center;
   margin: 2px 0px;
 }
+
+.btnBack {
+  background: white;
+  font-size: 1.6rem;
+  padding: 5px 10px;
+  margin: 15px 20px;
+  border-radius: 50%;
+  border: none;
+  color: #A83C01;
+  border: #A83C01 1px solid;
+  margin: 20px auto;
+  display: block;
+}
+
+.TituloHist{
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  background: #7C8C03;
+  padding: 5px;
+}
+
+.carrinhoItem{
+  border: 1px solid #7C8C03;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.containerHist{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #7C8C03
+}
+
+.containerHist > p > strong {
+  margin: 10px 10px;
+  background: #7C8C03;
+  border-radius: 10px;
+  color: white;
+  padding: 5px 10px;
+}
+
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cabecalhoTabela{
+  border-bottom: 1px solid #7C8C03;
+  color: #7C8C03;
+  font-weight: bold;
+  text-align: left;
+}
+
+.conteudoTabela{
+  border-bottom: 1px solid #7C8C03;
+  padding: 10px;
+}
+
+.btnRecompra{
+  background: #7C8C03;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.TotalValor{
+  border: 1px solid #A83C01;
+  color: #A83C01;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin: 10px 5px;
+}
+
+.btnRecompra:hover{
+  background: #f2f2f2;
+  color: #7C8C03;
+  box-shadow: inset 0 0 0 1px #7C8C03;
+}
+
+.ocultarColuna{
+  display: none;
+}

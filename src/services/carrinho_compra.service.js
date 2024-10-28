@@ -37,6 +37,11 @@ export const buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend = async (idUsuario) 
     return erro ? null : data.id;
 };
 
+// Busca o Historico de compra pelo ID
+export const buscarHistoricoDeCompraPorId = async (idUsuario) => {
+    const { data, erro } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/buscar-historico-por-id-usuario/${idUsuario}`);
+    return erro ? [] : data;
+};
 
 // Adiciona um produto ao carrinho de compra
 export const adicionarProdutoNoCarrinho = async (quantidade, idProduto) => {
