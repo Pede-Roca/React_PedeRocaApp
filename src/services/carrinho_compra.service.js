@@ -32,10 +32,7 @@ export const criarCarrinhoDeCompraNoBackend = async (idUsuario) => {
 };
 
 // Busca o carrinho de compra pelo ID do usuário no backend
-export const buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend = async (idUsuario) => {
-    const { data, erro } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/buscar-por-id-usuario/${idUsuario}`);
-    return erro ? null : data.id;
-};
+
 
 // Adiciona um produto ao carrinho de compra
 export const adicionarProdutoNoCarrinho = async (quantidade, idProduto) => {
