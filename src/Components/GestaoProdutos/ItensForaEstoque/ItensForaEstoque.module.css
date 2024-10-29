@@ -1,0 +1,54 @@
+.scrollContainer {
+    max-height: 60dvh;
+    overflow-y: auto; 
+  }
+
+  .barraTitulo {
+    background-color: #F29F05;
+    color: white;
+    padding: 3px;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .userTable {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .tableHeader {
+    background-color: #F29F05;
+    color: white;
+    z-index: 10;
+    position: sticky; 
+    top: 0; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header h2, .header button {
+    margin: 0px 20px;
+  }
+
+  #ativo {
+    color: #7C8C03; 
+    font-size: 1.6rem;
+  }
+  
+  #inativo {
+    color: #A60303;
+    font-size: 1.6rem;
+  }
+
+  .statusToggle {
+    border: none;
+    background: none;
+  }

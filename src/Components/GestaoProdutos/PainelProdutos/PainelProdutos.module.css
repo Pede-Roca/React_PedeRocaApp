@@ -2,3 +2,12 @@
     margin-bottom: 10px;
 }
 
+.OutOfStock{
+    font-size: 0.8rem;
+    background: #A60303;
+    color: white;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 5px;
+}
+
