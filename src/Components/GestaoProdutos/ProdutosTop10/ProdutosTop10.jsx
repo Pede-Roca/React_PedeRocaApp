@@ -21,7 +21,7 @@ const ProdutosTop10 = () => {
   }, []);
 
   return (
-    <div className={styles.adminPageContainer}>
+    <div>
       <div className={styles.header}>
         <h2>Produtos mais vendidos</h2>
       </div>
