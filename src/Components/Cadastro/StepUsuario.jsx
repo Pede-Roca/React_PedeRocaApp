@@ -1,4 +1,5 @@
 import styles from "./Cadastro.module.css";
+import { useState } from "react";
 
 const StepUsuario = ({
   fullName,
@@ -11,6 +12,7 @@ const StepUsuario = ({
   setDob,
   fieldError,
 }) => {
+  const [alerta, setAlerta] = useState(false);
   const handlePhoneChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 10) {
@@ -35,6 +37,18 @@ const StepUsuario = ({
     setCpf(value);
   };
 
+  const verifyAge = (dob) => {
+    const [day, month, year] = dob.split("/").map(Number);
+    const birthDate = new Date(year, month - 1, day);
+    const today = new Date();
+    const age = today.getFullYear() - birthDate.getFullYear();
+    const isUnderage = age < 18 || (age === 18 && today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate()));
+
+    if (isUnderage) {
+      setAlerta(true);
+    }
+  };
+
   const handleDobChange = (e) => {
     let value = e.target.value.replace(/\D/g, "");
     if (value.length > 4) {
@@ -43,6 +57,10 @@ const StepUsuario = ({
       value = value.replace(/(\d{2})(\d{0,2})/, "$1/$2");
     }
     setDob(value);
+
+    if (value.length === 10) {
+      verifyAge(value);
+    }
   };
 
   return (
@@ -94,6 +112,7 @@ const StepUsuario = ({
           placeholder="DD/MM/AAAA"
           maxLength="10"
         />
+        {alerta && <span className={styles.aletaMen}>ALERTA: A venda de bebida alcoólica é proibido a menores de idade</span>}
         {fieldError && (!fullName || !phone || !cpf || !dob) && (
           <span className={styles.erro}>Preencha todos os campos.</span>
         )}
