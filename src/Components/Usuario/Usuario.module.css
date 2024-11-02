@@ -71,7 +71,6 @@
   font-weight: bold;
 } 
 
-.btnSair:hover,
 .btnDados:hover,
 .btnAdicionar:hover,
 .btnAlterar:hover {
@@ -89,7 +88,8 @@
   background-color: #A83C01;
 }
 
-.btnExcluir:hover {
+.btnExcluir:hover,
+.btnSair:hover {
   background: #f2f2f2;
   color: #A83C01;
   box-shadow: inset 0 0 0 1px #A83C01;
