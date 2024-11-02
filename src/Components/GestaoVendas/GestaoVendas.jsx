@@ -16,13 +16,13 @@ const GestaoVendas = () => {
       <Tab eventKey="Pedidos" title="Pedidos">
         <h1>Colocar componente de lista de Pedidos</h1>
       </Tab>
-      <Tab eventKey="Aberto" title="Vendas - Aberto">
+      <Tab eventKey="Aberto" title="Aberto">
         <h1>Colocar componente de lista de Acompanhamento de Vendas</h1>
       </Tab>
-      <Tab eventKey="Entrega" title="Vendas - Entrega">
+      <Tab eventKey="Entrega" title="Entregas">
         <h1>A definir</h1>
       </Tab>
-      <Tab eventKey="Finalizadas" title="Vendas - Finalizadas">
+      <Tab eventKey="Finalizadas" title="Finalizadas">
          <h1>A definir</h1>
       </Tab>
     </Tabs>

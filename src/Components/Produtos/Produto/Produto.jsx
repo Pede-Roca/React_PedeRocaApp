@@ -138,31 +138,47 @@ const Produto = ({ produto, i, setProductInCart }) => {
             <hr />
 
             <div className={styles.qtdTotalCompraCarrinho}>
-                <form
-                    className="input-group"
-                    role="group"
-                    aria-label="Grupo de entrada de quantidade"
-                    onSubmit={handleSubmit}
+            <form
+                className="input-group"
+                role="group"
+                aria-label="Grupo de entrada de quantidade"
+                onSubmit={handleSubmit}
+            >
+                <button
+                    type="button"
+                    className={`d-md-none ${styles.btnMenos}`}
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    aria-label="Diminuir quantidade"
                 >
-                    <input
-                        className={`inputBorda ${styles.quantidadeProduto}`}
-                        type="number"
-                        min="1"
-                        name="quantidadeProduto"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                        placeholder="Qtd"
-                        required
-                        aria-label="Quantidade de produto"
-                    />
-                    <button
-                        type="submit"
-                        className={`inputBorda ${styles.btn_addcarrinho}`}
-                        aria-label="Adicionar ao Carrinho"
-                    >
-                        <i className="bi bi-plus-circle"></i> Carrinho
-                    </button>
-                </form>
+                    <i className="bi bi-dash-circle"></i>
+                </button>
+                <input
+                    className={`inputBorda ${styles.quantidadeProduto}`}
+                    type="number"
+                    min="1"
+                    name="quantidadeProduto"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number(e.target.value))}
+                    placeholder="Qtd"
+                    required
+                    aria-label="Quantidade de produto"
+                />
+                <button
+                    type="button"
+                    className={`d-md-none ${styles.btnMais}`}
+                    onClick={() => setQuantity(quantity + 1)}
+                    aria-label="Aumentar quantidade"
+                >
+                    <i className="bi bi-plus-circle"></i>
+                </button>
+                <button
+                    type="submit"
+                    className={`inputBorda ${styles.btn_addcarrinho}`}
+                    aria-label="Adicionar ao Carrinho"
+                >
+                    <i className="bi bi-cart2"></i> Carrinho
+                </button>
+            </form>
             </div>
 
             <Toast

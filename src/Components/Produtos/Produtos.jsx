@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./Produtos.module.css";
 import SideBar from "../Sidebar/SideBar";
+import NavBarMobile from "../Sidebar/NavBarMobile";
 import Produto from "./Produto/Produto";
 import { buscarProdutosNoBackend, buscarCategoriasNoBackend, buscarProdutosFavoritosPorUsuarioNoBackend } from '../../services';
 import CustomDropdown from "./Produto/CustomDropdown";
@@ -13,6 +14,8 @@ const Produtos = () => {
   const lowerCaseBusca = searchTerm.toLowerCase();
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [showSideBar, setShowSideBar] = useState(window.innerWidth >= 768);
+  const [showNavBarMobile, setShowNavBarMobile] = useState(window.innerWidth < 768); 
 
   const searchProductsInBackend = async () => {
     const produtos = await buscarProdutosNoBackend();
@@ -68,6 +71,16 @@ const Produtos = () => {
   useEffect(() => {
     searchCategoriesInBackend();
     searchProductsInBackend();
+
+    const handleResize = () => {
+      setShowSideBar(window.innerWidth >= 768);
+      setShowNavBarMobile(window.innerWidth < 768); 
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Limpa o evento ao desmontar o componente
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -77,7 +90,7 @@ const Produtos = () => {
         id={styles.filtroPesquisa1}
       >
         <form className="d-flex" id={styles.TamanhoFormPesquisa}>
-        <CustomDropdown
+          <CustomDropdown
             categorias={categorias}
             selectedCategories={selectedCategories}
             setSelectedCategories={setSelectedCategories}
@@ -92,7 +105,7 @@ const Produtos = () => {
             id={styles.filtroPesquisa}
           />
         </form>
-        <SideBar />
+        {showSideBar && <SideBar />}
       </span>
 
       <section
@@ -107,6 +120,7 @@ const Produtos = () => {
       </section>
       <br />
       <br />
+      {showNavBarMobile && <NavBarMobile />}
     </>
   );
 };
