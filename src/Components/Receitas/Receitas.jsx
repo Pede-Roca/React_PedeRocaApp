@@ -52,6 +52,7 @@ const Receitas = () => {
 
   return (
     <>
+      <h1 className={styles.title}>Receitas</h1>
       <p className={styles.textoIntro}>
         Nossa equipe disponibiliza uma ferramenta de I.A. (Inteligencia
         Artigicial) para encontrar as melhores receitas com os produtos do site!

@@ -55,6 +55,7 @@ const Carrinho = ({ close }) => {
 
   return (
     <>
+      <h1 className={styles.title}>Carrinho</h1>
       <div className={styles.containerEtapa}>
         <div className={styles.etapa}>
           <span className={`${styles.circle} ${step === 1 ? styles.active : ""}`}></span>

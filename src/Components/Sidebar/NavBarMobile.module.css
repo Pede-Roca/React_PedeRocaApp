@@ -63,7 +63,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 88dvh; /* Altura desejada */
+    height: 88dvh; 
     background-color: #f2f2f2;
     z-index: 2000; 
     overflow: auto;
@@ -79,12 +79,12 @@
 .closeButton {
     background: none;
     border: none;
-    font-size: 24px; /* Tamanho do botão de fechar */
+    font-size: 24px; 
     cursor: pointer;
 }
 
 .overlayBody {
-    margin-top: 16px; /* Espaçamento entre o cabeçalho e o conteúdo */
+    margin-top: 16px;
 }
 
 

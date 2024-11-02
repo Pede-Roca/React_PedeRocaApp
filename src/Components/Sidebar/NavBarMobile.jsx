@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap"; // Remover Offcanvas
 import { useAuthValue } from "../../context/AuthContext";
 import styles from "./NavBarMobile.module.css";
 import Login from "../Login/Login";
@@ -17,7 +16,7 @@ const NavBarMobile = () => {
   
     const changeToLogin = () => {
         setMenuNav(1);
-        handleShowOverlay(); // Show the overlay when changing to Login
+        handleShowOverlay(); 
     };
 
     const renderContent = () => {
@@ -44,7 +43,7 @@ const NavBarMobile = () => {
                         className={menuNav === 0 ? styles.btnNavUserActive : styles.btnNavCart}
                         onClick={() => { setMenuNav(0); handleShowOverlay(); }}
                     >
-                        <i className="bi bi-cart4"></i>
+                        <i class="bi bi-basket"></i>
                     </button>
                     <p>Produtos</p>
                 </div>
