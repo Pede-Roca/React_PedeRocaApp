@@ -105,10 +105,34 @@ const GestaoUsuarios = () => {
     }
   }
 
+  const exportToCSV = () => {
+    const csvData = [
+      ["Status", "Nome", "Email", "Nível de Acesso"],
+      ...filteredUsuarios.map(usuario => [
+        usuario.status ? "Ativo" : "Inativo",
+        usuario.nome,
+        usuario.email,
+        formatNameAccessLevel(usuario.nivelAcesso)
+      ])
+    ];
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "usuarios.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <div className={styles.header}>
         <h2>Gestão de usuários</h2>
+        <button className={styles.exportButton} onClick={exportToCSV}>
+          <i class="bi bi-filetype-csv"></i>
+        </button>
         <button className={styles.cadastrarButton}>Cadastrar</button>
       </div>
 

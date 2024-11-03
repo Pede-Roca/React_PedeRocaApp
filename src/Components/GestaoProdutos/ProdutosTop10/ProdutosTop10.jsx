@@ -20,10 +20,33 @@ const ProdutosTop10 = () => {
     fetchProdutos();
   }, []);
 
+  const exportToCSV = () => {
+    const csvData = [
+      ["Nome", "Quantidade vendida", "Valor total"],
+      ...produtos.map((produto) => [
+        produto.nomeProduto,
+        produto.quantidadeVendida,
+        produto.valorTotal?.toFixed(2)
+      ])
+    ];
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "produtos_top10.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <div className={styles.header}>
         <h2>Produtos mais vendidos</h2>
+        <button className={styles.exportButton} onClick={exportToCSV}>
+        <i class="bi bi-filetype-csv"></i>
+        </button>
       </div>
       <div className={styles.barraTitulo}>Top 10</div>
       {produtos.length > 0 ? (

@@ -16,7 +16,7 @@ const Produtos = () => {
   const [unidadesMedidasBackend, setUnidadesMedidasBackend] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Adicionar estado de pesquisa
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const fetchProdutos = async () => {
     try {
@@ -116,10 +116,36 @@ const Produtos = () => {
     (categorias[produto.idCategoria] && categorias[produto.idCategoria].toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
+  const exportToCSV = () => {
+    const csvData = [
+      ["id","Status", "Nome", "Categoria", "Estoque", "Preço"],
+      ...filteredProdutos.map(produto => [
+        produto.id,
+        produto.status ? "Ativo" : "Inativo",
+        produto.nome,
+        categorias[produto.idCategoria] || 'Carregando...',
+        produto.estoque,
+        produto.preco.toFixed(2)
+      ])
+    ];
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "produtos.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <div className={styles.header}>
         <h2>Gestão de produtos</h2>
+        <button className={styles.exportButton} onClick={exportToCSV}>
+          <i class="bi bi-filetype-csv"></i>
+        </button>
         <button className={styles.cadastrarButton} onClick={handleCreate}>
           Cadastrar
         </button>

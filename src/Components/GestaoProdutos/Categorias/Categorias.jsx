@@ -54,10 +54,30 @@ const GestaoCategorias = () => {
     fetchCategorias();
   }, []);
 
+  const exportToCSV = () => {
+    const csvData = [
+      ["ID", "Nome"],
+      ...categorias.map(categoria => [
+        categoria.id,
+        categoria.nome
+      ])
+    ];
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "categorias.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <>
       <div className={styles.header}>
         <h2>Gestão de Categorias</h2>
+        <button className={styles.exportButton} onClick={exportToCSV}><i class="bi bi-filetype-csv"></i></button>
         <button className={styles.cadastrarButton} onClick={handleCreate}>Cadastrar</button>
       </div>
       <div className={styles.barraTitulo}>Lista de Categorias</div>
