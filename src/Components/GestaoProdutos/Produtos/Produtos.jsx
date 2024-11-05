@@ -8,7 +8,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const Produtos = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const [toastColor, setToastColor] = useState("green");
+  const [toastColor, setToastColor] = useState("#7C8C03");
 
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState({});
@@ -156,7 +156,7 @@ const Produtos = () => {
       <div className={styles.header}>
         <h2>Gestão de produtos</h2>
         <button className={styles.exportButton} onClick={exportToCSV}>
-          <i class="bi bi-filetype-csv"></i>
+          <i className="bi bi-filetype-csv"></i>
         </button>
         <button className={styles.cadastrarButton} onClick={handleCreate}>
           Cadastrar

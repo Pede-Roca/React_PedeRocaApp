@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import styles from './ItensForaEstoque.module.css'
-import { buscarProdutosSemEstoqueNoBackend } from '../../../services/produto.service'
-import { Table,  Button } from "react-bootstrap";
+import { buscarProdutosSemEstoqueNoBackend, alterarStatusProduto } from '../../../services/produto.service'
+import { Table,  Button, Toast } from "react-bootstrap";
 
 const ItensForaEstoque = () => {
     const [produtos, setProdutos] = useState([])
+    const [showToast, setShowToast] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     const produtosForaStock = async () => {
         const data = await buscarProdutosSemEstoqueNoBackend()
@@ -12,18 +14,36 @@ const ItensForaEstoque = () => {
         setProdutos(data)
     }
 
-    const handleToggleStatus = (id) => {
-        setProdutos((prevProdutos) =>
-          prevProdutos.map((produto) =>
-            produto.id === id ? { ...produto, status: !produto.status } : produto
-          )
-        );
+    const handleToggleStatus = async (id) => {
+        const produto = produtos.find((produto) => produto.id === id);
+        const novoStatus = !produto.status;
+      
+        try {
+          const response = await alterarStatusProduto(id, novoStatus);
+          if (response) {
+            setProdutos((prevProdutos) =>
+              prevProdutos.map((p) =>
+                p.id === id ? { ...p, status: novoStatus } : p
+              )
+            );
+            handleShowToast("Status do produto atualizado!", "#7C8C03");
+          }
+        } catch (error) {
+          console.error("Erro ao alterar o status do produto:", error);
+          handleShowToast("Erro ao alterar o status do produto.", "#A60303");
+        }
+      };
+    
+    const handleShowToast = (message, color) => {
+        setToastMessage(message);
+        setToastColor(color);
+        setShowToast(true);
       };
 
     useEffect(() => {
         produtosForaStock()
     }, [])
-
+      
     const exportToCSV = () => {
         const csvData = [
             ["Status", "Nome", "Quantidade"],
@@ -85,6 +105,26 @@ const ItensForaEstoque = () => {
                     </tbody>
                 </Table>
             </div>
+
+                  {/* Toast para exibir mensagem de sucesso/erro */}
+            <Toast
+                onClose={() => setShowToast(false)}
+                show={showToast}
+                delay={3000}
+                autohide
+                style={{
+                position: "fixed",
+                top: "20px",
+                right: "20px",
+                zIndex: 1050,
+                backgroundColor: "#7C8C03",
+                color: "white",
+                fontSize: "1rem",
+                boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                }}
+            >
+                <Toast.Body>{toastMessage}</Toast.Body>
+            </Toast>
         </>
     )
 }
