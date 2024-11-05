@@ -9,7 +9,7 @@ import { favoritarProdutoNoBackend, desfavoritarProdutoNoBackend } from "../../.
 const Produto = ({ produto, i, setProductInCart }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
-    const [toastColor, setToastColor] = useState("green");
+    const [toastColor, setToastColor] = useState("#7C8C03");
     const [quantity, setQuantity] = useState(1);
     const { user } = useAuthValue();
     const { backendUserId } = useAuth();
@@ -186,8 +186,16 @@ const Produto = ({ produto, i, setProductInCart }) => {
                 show={showToast}
                 delay={3000}
                 autohide
-                className={styles.toast}
-                style={{ backgroundColor: toastColor }}
+                style={{
+                position: "fixed",
+                top: "20px",
+                right: "20px",
+                zIndex: 1050,
+                backgroundColor: "#7C8C03",
+                color: "white",
+                fontSize: "1rem",
+                boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                }}
             >
                 <Toast.Body>{toastMessage}</Toast.Body>
             </Toast>
