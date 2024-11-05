@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Button, Badge, Stack, Dropdown, DropdownButton } from "react-bootstrap";
+import { Table, Button, Toast } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css';
 import UserInfoModal from "./UserInfoModal";
@@ -20,6 +20,9 @@ const GestaoUsuarios = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filtroTipoUsuario, setFiltroTipoUsuario] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastColor, setToastColor] = useState("toastColor");
 
   const fetchUsuarios = async () => {
     try {
@@ -74,9 +77,14 @@ const GestaoUsuarios = () => {
           user.id === id ? { ...user, status: novoStatus } : user
         )
       );
+      setToastMessage(`Status do usuário atualizado!`);
+      setToastColor("#7C8C03");
     } catch (error) {
       console.error("Erro ao alterar o status do usuário:", error);
+      setToastMessage("Erro ao atualizar o status do usuário.");
+      setToastColor("#A60303");
     }
+    setShowToast(true);
   };
 
   const handleCloseModal = () => {
@@ -230,6 +238,24 @@ const GestaoUsuarios = () => {
         </Table>
       </div>
       
+      <Toast
+        onClose={() => setShowToast(false)}
+        show={showToast}
+        delay={3000}
+        autohide
+        style={{
+          position: "fixed",
+          top: "20px",
+          right: "20px",
+          zIndex: 1050,
+          backgroundColor: "#7C8C03",
+          color: "white",
+          fontSize: "1rem",
+          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+        }}
+      >
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
 
       {selectedUser && (
         <UserInfoModal

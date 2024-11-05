@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Toast } from "react-bootstrap";
-import { buscarProdutosNoBackend, buscarCategoriasNoBackend, atualizarProdutoNoBackend, buscarUnidadesMedidaNoBackend } from '../../../services';
+import { buscarProdutosNoBackend, buscarCategoriasNoBackend, atualizarProdutoNoBackend, buscarUnidadesMedidaNoBackend, alterarStatusProduto } from '../../../services';
 import ProdutoInfoModal from './ProdutoInfoModal';
 import styles from './Produtos.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -73,12 +73,24 @@ const Produtos = () => {
     setShowModal(true);
   };
 
-  const handleToggleStatus = (id) => {
-    setProdutos((prevProdutos) =>
-      prevProdutos.map((produto) =>
-        produto.id === id ? { ...produto, status: !produto.status } : produto
-      )
-    );
+  const handleToggleStatus = async (id) => {
+    const produto = produtos.find((produto) => produto.id === id);
+    const novoStatus = !produto.status;
+  
+    try {
+      const response = await alterarStatusProduto(id, novoStatus);
+      if (response) {
+        setProdutos((prevProdutos) =>
+          prevProdutos.map((p) =>
+            p.id === id ? { ...p, status: novoStatus } : p
+          )
+        );
+        handleShowToast("Status do produto atualizado!", "#7C8C03");
+      }
+    } catch (error) {
+      console.error("Erro ao alterar o status do produto:", error);
+      handleShowToast("Erro ao alterar o status do produto.", "#A60303");
+    }
   };
 
   const handleCloseModal = (produtoReturn) => {
@@ -252,9 +264,10 @@ const Produtos = () => {
           top: "20px",
           right: "20px",
           zIndex: 1050,
-          backgroundColor: toastColor,
+          backgroundColor: "#7C8C03",
           color: "white",
           fontSize: "1rem",
+          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
         }}
       >
         <Toast.Body>{toastMessage}</Toast.Body>
