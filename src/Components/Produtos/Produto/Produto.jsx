@@ -6,7 +6,7 @@ import { useAuthValue } from "../../../context/AuthContext";
 import { useAuth } from "../../Usuario/useAuth";
 import { favoritarProdutoNoBackend, desfavoritarProdutoNoBackend } from "../../../services";
 
-const Produto = ({ produto, i, setProductInCart }) => {
+const Produto = ({ produto, i, setProductInCart, updateProductList }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
     const [toastColor, setToastColor] = useState("green");
@@ -69,6 +69,7 @@ const Produto = ({ produto, i, setProductInCart }) => {
 
                 if (status) {
                     handleShowToast(message, "#28a745");
+                    updateProductList();
                 } else {
                     handleShowToast("Erro ao adicionar produto ao carrinho", "#dc3545");
                 }

@@ -8,7 +8,6 @@ const ItensForaEstoque = () => {
 
     const produtosForaStock = async () => {
         const data = await buscarProdutosSemEstoqueNoBackend()
-        console.log(data)
         setProdutos(data)
     }
 

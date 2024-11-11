@@ -27,7 +27,6 @@ export const Produtos = () => {
     useEffect(() => {
         const fetchCarrinho = async () => {
             const produtos = await buscarItensDoCarrinhoPorUsuarioNoBackend();
-            console.log(produtos);
             setProdutos(produtos);
         };
         fetchCarrinho();

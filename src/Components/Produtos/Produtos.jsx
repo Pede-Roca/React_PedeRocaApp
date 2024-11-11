@@ -101,7 +101,7 @@ const Produtos = () => {
       >
         {handleSearch().map((produto, i) =>
           produto.status && (
-            <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} />
+            <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} updateProductList={searchProductsInBackend} />
           )
         )}
       </section>
