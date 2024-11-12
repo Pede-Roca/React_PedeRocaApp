@@ -8,3 +8,4 @@ export * from './produto.service';
 export * from './unidade_medida.service';
 export * from './usuario.services';
 export * from './validacoes.service';
+export * from './planoAssinatura.service';
