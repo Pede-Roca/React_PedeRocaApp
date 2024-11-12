@@ -11,6 +11,10 @@
     align-items: center;
 }
 
+.clube{
+    cursor: pointer;
+}
+
 
 @media screen and (max-width: 767px) {
     .DesktopBanner {
