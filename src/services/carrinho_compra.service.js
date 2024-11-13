@@ -97,6 +97,10 @@ export const removerProdutoDoCarrinhoNoBackend = async (idCarrinhoCompra, idProd
 export const finalizarCompraNoBackend = async (tipoEntrega, tipoPagamento, idEndereco) => {
     try {
         const idCarrinhoCompra = await capturaIdDoCarrinho();
+
+        console.log(tipoEntrega, tipoPagamento, idEndereco, idCarrinhoCompra)
+        console.log(`${import.meta.env.VITE_API_URL}carrinho-compra/finalizar-compra`)
+
         const { data } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/finalizar-compra`, {
             tipoEntrega,
             tipoPagamento,

@@ -45,7 +45,7 @@ const ProdutosTop10 = () => {
       <div className={styles.header}>
         <h2>Produtos mais vendidos</h2>
         <button className={styles.exportButton} onClick={exportToCSV}>
-        <i class="bi bi-filetype-csv"></i>
+        <i className="bi bi-filetype-csv"></i>
         </button>
       </div>
       <div className={styles.barraTitulo}>Top 10</div>

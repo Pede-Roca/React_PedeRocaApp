@@ -43,7 +43,7 @@ const NavBarMobile = () => {
                         className={menuNav === 0 ? styles.btnNavUserActive : styles.btnNavCart}
                         onClick={() => { setMenuNav(0); handleShowOverlay(); }}
                     >
-                        <i class="bi bi-basket"></i>
+                        <i className="bi bi-basket"></i>
                     </button>
                     <p>Produtos</p>
                 </div>
