@@ -311,6 +311,11 @@
   margin: 10px 0px;
 }
 
+.btnRecompra:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
 .TotalValor{
   border: 1px solid #A83C01;
   color: #A83C01;

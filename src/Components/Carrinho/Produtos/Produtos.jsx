@@ -15,8 +15,7 @@ export const Produtos = () => {
     };
 
     const removerProduto = async (idProdutoPedido) => {
-        const idCarrinhoCompra = sessionStorage.getItem("idCarrinho");
-        const { status } = await removerProdutoDoCarrinhoNoBackend(idCarrinhoCompra, idProdutoPedido);
+        const { status } = await removerProdutoDoCarrinhoNoBackend(idProdutoPedido);
         
         if (status) {
             const produtosAtualizados = await buscarItensDoCarrinhoPorUsuarioNoBackend();
