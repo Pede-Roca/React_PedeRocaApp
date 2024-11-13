@@ -7,10 +7,10 @@ const FooterDesktop = () => {
   return (
     <>
         <footer id={styles.footer}  className='d-none d-md-block fixed-bottom'>
-        <p>
-            <i className="bi bi-c-circle"></i> Todos os direitos reservados aos alunos Hugo, Gabriel, Ana Lívia, Paulo, Samanta e Samara
-            - Fatec Matão
-        </p>
+          <p>
+              <i className="bi bi-c-circle"></i> Todos os direitos reservados aos alunos Hugo, Gabriel, Ana Lívia, Paulo, Samanta e Samara
+              - Fatec Matão
+          </p>
         </footer>
     </>
   )

@@ -43,6 +43,10 @@
     max-width: 24%;
   }
 
+  .etapa > p {
+    min-width: 100px;
+  }
+
   .linhaProgresso{
     width: 90%;
     height: 10px;
@@ -321,9 +325,32 @@
   color: #7C8C03;
 }
 
+
 @media screen and (max-width: 767px){
   .TamanhoIcone{
     font-size: 180px;
     color: #7C8C03;
   }
+
+  .CirculoE{
+    display: none;
+  }
+}
+
+
+@media screen and (min-width: 768px){
+  .title{
+    display: none;
+  }
+  
+  .CirculoE{
+    display: none;
+  }
+}
+
+.title{
+  border-bottom: 3px solid #7C8C03;
+  text-align: center;
+  margin-bottom: 10px;
+  text-transform: uppercase;
 }

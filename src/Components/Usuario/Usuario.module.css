@@ -60,20 +60,58 @@
   font-weight: bold;
 }
 
-.btnSair:hover,
-.btnDados:hover {
+.btnAlterar, .btnExcluir{
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 10px;
+  cursor: pointer;
+  width: 49%;
+  font-weight: bold;
+} 
+
+.btnDados:hover,
+.btnAdicionar:hover,
+.btnAlterar:hover {
   background: #f2f2f2;
   color: #7C8C03;
   box-shadow: inset 0 0 0 1px #7C8C03;
   font-weight: bold;
 }
 
-.btnDados {
+.btnDados, .btnAdicionar, .btnAlterar {
   background-color: #7C8C03;
 }
 
-.btnSair {
+.btnSair, .btnExcluir {
   background-color: #A83C01;
+}
+
+.btnExcluir:hover,
+.btnSair:hover {
+  background: #f2f2f2;
+  color: #A83C01;
+  box-shadow: inset 0 0 0 1px #A83C01;
+  font-weight: bold;
+}
+
+.btnAdicionar{
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 48%;
+  font-weight: bold;
+  margin-left: 10px;
+  padding: 10px 20px;
+}
+
+.selectEndereco{
+  border-radius: 10px;
+  padding: 10px;
+  width: 48%;
+  padding: 10px 20px;
 }
 
 .containerBTN {
@@ -96,6 +134,15 @@
   color: #7C8C03;
   width: 100%;
   font-weight: bold;
+}
+
+.labelEndereco{
+  font-size: 1.2rem;
+  color: #7C8C03;
+  width: 100%;
+  font-weight: bold;
+  border-bottom: 1px solid #7C8C03;
+  margin-bottom: 10px;
 }
 
 .input {
@@ -282,4 +329,8 @@
 
 .ocultarColuna{
   display: none;
+}
+
+.tituloEndereco{
+  margin-bottom: 20px;
 }

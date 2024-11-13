@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Toast } from "react-bootstrap";
-import { buscarProdutosNoBackend, buscarCategoriasNoBackend, atualizarProdutoNoBackend, buscarUnidadesMedidaNoBackend } from '../../../services';
+import { buscarProdutosNoBackend, buscarCategoriasNoBackend, atualizarProdutoNoBackend, buscarUnidadesMedidaNoBackend, alterarStatusProduto } from '../../../services';
 import ProdutoInfoModal from './ProdutoInfoModal';
 import styles from './Produtos.module.css';
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -8,7 +8,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const Produtos = () => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-  const [toastColor, setToastColor] = useState("green");
+  const [toastColor, setToastColor] = useState("#7C8C03");
 
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState({});
@@ -16,7 +16,7 @@ const Produtos = () => {
   const [unidadesMedidasBackend, setUnidadesMedidasBackend] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduto, setSelectedProduto] = useState(null);
-  const [searchTerm, setSearchTerm] = useState(""); // Adicionar estado de pesquisa
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const fetchProdutos = async () => {
     try {
@@ -73,12 +73,24 @@ const Produtos = () => {
     setShowModal(true);
   };
 
-  const handleToggleStatus = (id) => {
-    setProdutos((prevProdutos) =>
-      prevProdutos.map((produto) =>
-        produto.id === id ? { ...produto, status: !produto.status } : produto
-      )
-    );
+  const handleToggleStatus = async (id) => {
+    const produto = produtos.find((produto) => produto.id === id);
+    const novoStatus = !produto.status;
+  
+    try {
+      const response = await alterarStatusProduto(id, novoStatus);
+      if (response) {
+        setProdutos((prevProdutos) =>
+          prevProdutos.map((p) =>
+            p.id === id ? { ...p, status: novoStatus } : p
+          )
+        );
+        handleShowToast("Status do produto atualizado!", "#7C8C03");
+      }
+    } catch (error) {
+      console.error("Erro ao alterar o status do produto:", error);
+      handleShowToast("Erro ao alterar o status do produto.", "#A60303");
+    }
   };
 
   const handleCloseModal = (produtoReturn) => {
@@ -116,10 +128,36 @@ const Produtos = () => {
     (categorias[produto.idCategoria] && categorias[produto.idCategoria].toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
+  const exportToCSV = () => {
+    const csvData = [
+      ["id","Status", "Nome", "Categoria", "Estoque", "Preço"],
+      ...filteredProdutos.map(produto => [
+        produto.id,
+        produto.status ? "Ativo" : "Inativo",
+        produto.nome,
+        categorias[produto.idCategoria] || 'Carregando...',
+        produto.estoque,
+        produto.preco.toFixed(2)
+      ])
+    ];
+
+    const csvContent = "data:text/csv;charset=utf-8," + csvData.map(e => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "produtos.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div>
       <div className={styles.header}>
         <h2>Gestão de produtos</h2>
+        <button className={styles.exportButton} onClick={exportToCSV}>
+          <i className="bi bi-filetype-csv"></i>
+        </button>
         <button className={styles.cadastrarButton} onClick={handleCreate}>
           Cadastrar
         </button>
@@ -226,9 +264,10 @@ const Produtos = () => {
           top: "20px",
           right: "20px",
           zIndex: 1050,
-          backgroundColor: toastColor,
+          backgroundColor: "#7C8C03",
           color: "white",
           fontSize: "1rem",
+          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
         }}
       >
         <Toast.Body>{toastMessage}</Toast.Body>

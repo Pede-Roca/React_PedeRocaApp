@@ -61,4 +61,17 @@
     border: #7C8C03 1px solid;
 }
 
+@media screen and (min-width: 768px){
+    .title{
+      display: none;
+    }
+  }
+  
+  .title{
+    border-bottom: 3px solid #7C8C03;
+    text-align: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
 @keyframes s3 {to{transform: rotate(1turn)}}

@@ -51,6 +51,21 @@ export const atualizarFotoProdutoNoBackend = async (id, uidFotoProduto) => {
     }
 }
 
+export const alterarStatusProduto = async (id, status) => {
+    try {
+        const { data: responseData } = await axios.put(
+            `${import.meta.env.VITE_API_URL}produto/alterar-status-produto/${id}`,
+            { status },
+            { headers: { "Content-Type": "application/json" } }
+        );
+
+        return responseData;
+    } catch (error) {
+        console.error("Erro ao alterar o status do produto:", error);
+        return null;
+    }
+};
+
 export const buscarProdutosSemEstoqueNoBackend = async () => {
     try {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}produto/sem-estoque`);

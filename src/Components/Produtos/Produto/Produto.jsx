@@ -9,7 +9,7 @@ import { favoritarProdutoNoBackend, desfavoritarProdutoNoBackend } from "../../.
 const Produto = ({ produto, i, setProductInCart, updateProductList }) => {
     const [showToast, setShowToast] = useState(false);
     const [toastMessage, setToastMessage] = useState("");
-    const [toastColor, setToastColor] = useState("green");
+    const [toastColor, setToastColor] = useState("#7C8C03");
     const [quantity, setQuantity] = useState(1);
     const { user } = useAuthValue();
     const { backendUserId } = useAuth();
@@ -139,31 +139,47 @@ const Produto = ({ produto, i, setProductInCart, updateProductList }) => {
             <hr />
 
             <div className={styles.qtdTotalCompraCarrinho}>
-                <form
-                    className="input-group"
-                    role="group"
-                    aria-label="Grupo de entrada de quantidade"
-                    onSubmit={handleSubmit}
+            <form
+                className="input-group"
+                role="group"
+                aria-label="Grupo de entrada de quantidade"
+                onSubmit={handleSubmit}
+            >
+                <button
+                    type="button"
+                    className={`d-md-none ${styles.btnMenos}`}
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    aria-label="Diminuir quantidade"
                 >
-                    <input
-                        className={`inputBorda ${styles.quantidadeProduto}`}
-                        type="number"
-                        min="1"
-                        name="quantidadeProduto"
-                        value={quantity}
-                        onChange={(e) => setQuantity(e.target.value)}
-                        placeholder="Qtd"
-                        required
-                        aria-label="Quantidade de produto"
-                    />
-                    <button
-                        type="submit"
-                        className={`inputBorda ${styles.btn_addcarrinho}`}
-                        aria-label="Adicionar ao Carrinho"
-                    >
-                        <i className="bi bi-plus-circle"></i> Carrinho
-                    </button>
-                </form>
+                    <i className="bi bi-dash-circle"></i>
+                </button>
+                <input
+                    className={`inputBorda ${styles.quantidadeProduto}`}
+                    type="number"
+                    min="1"
+                    name="quantidadeProduto"
+                    value={quantity}
+                    onChange={(e) => setQuantity(Number(e.target.value))}
+                    placeholder="Qtd"
+                    required
+                    aria-label="Quantidade de produto"
+                />
+                <button
+                    type="button"
+                    className={`d-md-none ${styles.btnMais}`}
+                    onClick={() => setQuantity(quantity + 1)}
+                    aria-label="Aumentar quantidade"
+                >
+                    <i className="bi bi-plus-circle"></i>
+                </button>
+                <button
+                    type="submit"
+                    className={`inputBorda ${styles.btn_addcarrinho}`}
+                    aria-label="Adicionar ao Carrinho"
+                >
+                    <i className="bi bi-cart2"></i> Carrinho
+                </button>
+            </form>
             </div>
 
             <Toast
@@ -171,8 +187,16 @@ const Produto = ({ produto, i, setProductInCart, updateProductList }) => {
                 show={showToast}
                 delay={3000}
                 autohide
-                className={styles.toast}
-                style={{ backgroundColor: toastColor }}
+                style={{
+                position: "fixed",
+                top: "20px",
+                right: "20px",
+                zIndex: 1050,
+                backgroundColor: "#7C8C03",
+                color: "white",
+                fontSize: "1rem",
+                boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                }}
             >
                 <Toast.Body>{toastMessage}</Toast.Body>
             </Toast>

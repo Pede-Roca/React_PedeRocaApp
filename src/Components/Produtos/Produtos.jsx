@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from "./Produtos.module.css";
 import SideBar from "../Sidebar/SideBar";
+import NavBarMobile from "../Sidebar/NavBarMobile";
 import Produto from "./Produto/Produto";
 import { buscarProdutosNoBackend, buscarCategoriasNoBackend, buscarProdutosFavoritosPorUsuarioNoBackend } from '../../services';
 import CustomDropdown from "./Produto/CustomDropdown";
@@ -13,6 +14,8 @@ const Produtos = () => {
   const lowerCaseBusca = searchTerm.toLowerCase();
   const [produtos, setProdutos] = useState([]);
   const [categorias, setCategorias] = useState([]);
+  const [showSideBar, setShowSideBar] = useState(window.innerWidth >= 768);
+  const [showNavBarMobile, setShowNavBarMobile] = useState(window.innerWidth < 768);
 
   const searchProductsInBackend = async () => {
     const produtos = await buscarProdutosNoBackend();
@@ -20,29 +23,16 @@ const Produtos = () => {
 
     if (user) {
       const produtosFavoritos = await buscarProdutosFavoritosPorUsuarioNoBackend();
-
-      if (produtosFavoritos.length === 0) {
-        produtos.forEach(produto => {
-          produto.favorito = false;
-          produto.idFavorito = null;
-        });
-        setProdutos(produtos);
-        return;
-      }
-
+      
       produtos.forEach(produto => {
         const produtoFavorito = produtosFavoritos.find(produtoFavorito => produtoFavorito.idProduto === produto.id);
-        if (produtoFavorito) {
-          produto.favorito = true;
-          produto.idFavorito = produtoFavorito.id;
-        } else {
-          produto.favorito = false;
-          produto.idFavorito = null;
-        }
+        produto.favorito = !!produtoFavorito;
+        produto.idFavorito = produtoFavorito ? produtoFavorito.id : null;
       });
     }
 
-    setProdutos(produtos);
+    const produtosOrdenados = produtos.sort((a, b) => b.favorito - a.favorito);
+    setProdutos(produtosOrdenados);
   };
 
   const searchCategoriesInBackend = async () => {
@@ -50,7 +40,7 @@ const Produtos = () => {
     setCategorias(categorias);
   };
 
-  const handleSearch = () => {
+  const filteredProducts = useMemo(() => {
     return produtos.filter((produto) => {
       const produtoNome = produto.nome.toLowerCase();
       const categoriaProduto = produto.idCategoria;
@@ -63,11 +53,19 @@ const Produtos = () => {
 
       return matchesSearchTerm && matchesCategory;
     });
-  };
+  }, [produtos, lowerCaseBusca, selectedCategories]);
 
   useEffect(() => {
     searchCategoriesInBackend();
     searchProductsInBackend();
+
+    const handleResize = () => {
+      setShowSideBar(window.innerWidth >= 768);
+      setShowNavBarMobile(window.innerWidth < 768); 
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -77,7 +75,7 @@ const Produtos = () => {
         id={styles.filtroPesquisa1}
       >
         <form className="d-flex" id={styles.TamanhoFormPesquisa}>
-        <CustomDropdown
+          <CustomDropdown
             categorias={categorias}
             selectedCategories={selectedCategories}
             setSelectedCategories={setSelectedCategories}
@@ -92,14 +90,14 @@ const Produtos = () => {
             id={styles.filtroPesquisa}
           />
         </form>
-        <SideBar />
+        {showSideBar && <SideBar />}
       </span>
 
       <section
         className="px-2 py-2 d-flex flex-wrap gap-3 justify-content-center align-content-center"
         id="CartaoProduto"
       >
-        {handleSearch().map((produto, i) =>
+        {filteredProducts.map((produto, i) =>
           produto.status && (
             <Produto key={i} produto={produto} i={i} setProductInCart={setProdutos} updateProductList={searchProductsInBackend} />
           )
@@ -107,6 +105,7 @@ const Produtos = () => {
       </section>
       <br />
       <br />
+      {showNavBarMobile && <NavBarMobile />}
     </>
   );
 };
