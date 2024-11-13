@@ -210,12 +210,20 @@ const GestaoUsuarios = () => {
                 <td>{user.nome}</td>
                 <td className={styles.MobileOcult}>{user.email}</td>
                 <td className={styles.MobileOcult}>
-                  {user.nivelAcesso === "adm"
-                    ? "Administrador"
-                    : user.nivelAcesso === "comum"
-                      ? "Comum"
-                      : "Produtor"}
+                  <select
+                    value={user.nivelAcesso}
+                    onChange={(e) => handleChangeAccessLevel(user.id, e.target.value)}
+                    className={styles.accessLevelSelect}
+                  >
+                    <option value="comum">Comum</option>
+                    <option value="adm">Administrador</option>
+                    <option value="produtor">Produtor</option>
+                    <option value="assinante">Assinante</option>
+                    <option value="entregador">Entregador</option>
+                  </select>
                 </td>
+
+
                 <td>
                   <Button
                     variant="light"
@@ -237,7 +245,7 @@ const GestaoUsuarios = () => {
           </tbody>
         </Table>
       </div>
-      
+
       <Toast
         onClose={() => setShowToast(false)}
         show={showToast}
