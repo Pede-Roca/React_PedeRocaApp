@@ -56,10 +56,6 @@ export const Finalizacao = ({ frete, pagamento, produtos }) => {
 
     return (
         <div>
-            {/*
-            
-            
-            */}
             <h5 className={styles.tituloCarrinho}>Finalização</h5>
             <h5 className={styles.sumario}>Sumário</h5>
             <div className={styles.contFinalizacao}>

@@ -4,7 +4,7 @@ import { Produtos } from "./Produtos/Produtos";
 import { Endereco } from "./Endereco/Endereco";
 import { Pagamento } from "./Pagamento/Pagamento";
 import { Finalizacao } from "./Finalizacao/Finalizacao";
-import { buscarItensDoCarrinhoPorUsuarioNoBackend, finalizarCompraNoBackend } from "../../services";
+import { buscarItensDoCarrinhoPorUsuarioNoBackend, finalizarCompraNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend } from "../../services";
 
 const Carrinho = ({ close }) => {
   const [step, setStep] = useState(1);
@@ -12,10 +12,7 @@ const Carrinho = ({ close }) => {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const [avisoPagamento, setAvisoPagamento] = useState(false);
   const [produtos, setProdutos] = useState([]);
-
-  const setarProdutosNoSessionStorage = (produtos) => {
-    sessionStorage.setItem("produtos", JSON.stringify(produtos));
-  };
+  const [endereco, setEndereco] = useState({});
 
   useEffect(() => {
     const fetchCarrinho = async () => {
@@ -23,6 +20,14 @@ const Carrinho = ({ close }) => {
       setProdutos(produtos);
     };
     fetchCarrinho();
+  }, []);
+
+  useEffect(() => {
+    const fetchEndereco = async () => {
+      const endereco = await buscarEnderecoPorIdDoUsuarioNoBackend();
+      setEndereco(endereco);
+    };
+    fetchEndereco();
   }, []);
 
   useEffect(() => {
@@ -40,18 +45,29 @@ const Carrinho = ({ close }) => {
 
   const handleNext = async () => {
     try {
-      if(step === 4) {
-        const { status, message } = await finalizarCompraNoBackend();
+      if (step === 4) {
+        let tipoEndereco, tipoPagamento;
+
+        if (selectedOption === "Economica") tipoEndereco = 1;
+        if (selectedOption === "Rapida") tipoEndereco = 2;
+        if (selectedOption === "Agendada") tipoEndereco = 3;
+
+        if (selectedPayment === "Cartão") tipoPagamento = 1;
+        if (selectedPayment === "Pix") tipoPagamento = 2;
+        if (selectedPayment === "Boleto") tipoPagamento = 3;
+
+        const { status, message } = await finalizarCompraNoBackend(tipoEndereco, tipoPagamento, endereco.id);
+
         if(status) return alert(message);
       }
-        
+
       setStep(step < 4 ? step + 1 : step);
     } catch (error) {
       console.log(error);
     }
   };
 
-  
+
 
   return (
     <>

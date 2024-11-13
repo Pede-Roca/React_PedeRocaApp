@@ -38,8 +38,9 @@ export const buscarCarrinhoDeCompraPeloIdDoUsuarioNoBackend = async (idUsuario) 
 };
 
 // Busca o Historico de compra pelo ID
-export const buscarHistoricoDeCompraPorId = async (idUsuario) => {
-    const { data, erro } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/buscar-historico-por-id-usuario/${idUsuario}`);
+export const buscarHistoricoDeCompraPorId = async () => {
+    const backendId = await capturarIdDoUsuarioESetarNoLocalStorage();
+    const { data, erro } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/buscar-historico-por-id-usuario/${backendId}`);
     return erro ? [] : data;
 };
 
@@ -93,13 +94,48 @@ export const removerProdutoDoCarrinhoNoBackend = async (idCarrinhoCompra, idProd
         : { status: true, message: data.message };
 };
 
-export const finalizarCompraNoBackend = async () => {
+export const finalizarCompraNoBackend = async (tipoEntrega, tipoPagamento, idEndereco) => {
     try {
         const idCarrinhoCompra = await capturaIdDoCarrinho();
-        const { data } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/finalizar-compra/${idCarrinhoCompra}`)
+
+        console.log(tipoEntrega, tipoPagamento, idEndereco, idCarrinhoCompra)
+        console.log(`${import.meta.env.VITE_API_URL}carrinho-compra/finalizar-compra`)
+
+        const { data } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/finalizar-compra`, {
+            tipoEntrega,
+            tipoPagamento,
+            idEndereco,
+            idCarrinhoCompra
+        })
         console.log(data);
-        return { status: true, message: data.message };
+        // return { status: true, message: data.message };
+
+        return { status: true, message: "Compra finalizada com sucesso" };
     } catch (error) {
         return { status: false, message: "Erro ao finalizar a compra" };
     }
 };
+
+// Logica para recompra
+export const recomprarProdutosNoFront = async (carrinho) => {
+    try {
+        const idCarrinhoCompra = await capturaIdDoCarrinho();
+        const idUsuario = await capturarIdDoUsuarioESetarNoLocalStorage();
+        if (!idCarrinhoCompra || !idUsuario) throw new Error("Erro ao obter o informações importantes");
+
+        const { data: itens_carrinho } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario`, {
+            params: {
+                idUsuario,
+                idCarrinhoCompra
+            }
+        });
+
+        console.log('itens_carrinho', itens_carrinho);
+
+
+        return { status: true, message: "tudo ok" };
+    } catch (error) {
+        console.error(error);
+        return { status: false, message: "Erro ao adicionar produtos no carrinho" };
+    }
+}

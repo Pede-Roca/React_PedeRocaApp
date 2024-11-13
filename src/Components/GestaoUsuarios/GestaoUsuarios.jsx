@@ -157,7 +157,7 @@ const GestaoUsuarios = () => {
       <div className={styles.header}>
         <h2>Gestão de usuários</h2>
         <button className={styles.exportButton} onClick={exportToCSV}>
-          <i class="bi bi-filetype-csv"></i>
+          <i className="bi bi-filetype-csv"></i>
         </button>
         <button className={styles.cadastrarButton}>Cadastrar</button>
       </div>

@@ -10,7 +10,6 @@ const ItensForaEstoque = () => {
 
     const produtosForaStock = async () => {
         const data = await buscarProdutosSemEstoqueNoBackend()
-        console.log(data)
         setProdutos(data)
     }
 
@@ -69,7 +68,7 @@ const ItensForaEstoque = () => {
             <div className={styles.header}>
                 <h2>Gestão de Estoque</h2>
                 <button className={styles.exportButton} onClick={exportToCSV}>
-                    <i class="bi bi-filetype-csv"></i>
+                    <i className="bi bi-filetype-csv"></i>
                 </button>
             </div>
             <div className={styles.barraTitulo}>Produtos fora de estoque</div>

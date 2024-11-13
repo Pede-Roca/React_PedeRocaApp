@@ -77,7 +77,7 @@ const GestaoCategorias = () => {
     <>
       <div className={styles.header}>
         <h2>Gestão de Categorias</h2>
-        <button className={styles.exportButton} onClick={exportToCSV}><i class="bi bi-filetype-csv"></i></button>
+        <button className={styles.exportButton} onClick={exportToCSV}><i className="bi bi-filetype-csv"></i></button>
         <button className={styles.cadastrarButton} onClick={handleCreate}>Cadastrar</button>
       </div>
       <div className={styles.barraTitulo}>Lista de Categorias</div>

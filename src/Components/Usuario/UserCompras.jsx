@@ -1,20 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./Usuario.module.css";
-import { buscarHistoricoDeCompraPorId } from '../../services';
-import { useAuth } from './useAuth';
+import { buscarHistoricoDeCompraPorId, recomprarProdutosNoFront } from '../../services';
 
 export const UserCompras = ({ onBack }) => {
   const [Carrinhos, setCarrinhos] = useState([]);
-  const { backendUserId } = useAuth();
+
+  const handleRecompra = async (carrinho) => {
+    console.log("Recompra", carrinho);
+    const response = await recomprarProdutosNoFront(carrinho);
+    console.log("response", response);
+  }
 
   useEffect(() => {
     const fetchCarrinhos = async () => {
-      const histCarrinho = await buscarHistoricoDeCompraPorId(backendUserId);
+      const histCarrinho = await buscarHistoricoDeCompraPorId();
       const ultimosCarrinhos = histCarrinho.slice(-4);
       setCarrinhos(ultimosCarrinhos);
     };
     fetchCarrinhos();
-  }, [backendUserId]);
+  }, []);
 
   return (
     <>
@@ -61,6 +65,7 @@ export const UserCompras = ({ onBack }) => {
                     <button
                       className={styles.btnRecompra}
                       disabled={!allItemsInStock}
+                      onClick={() => handleRecompra(carrinho)}
                     >
                       Adicionar ao Carrinho
                     </button>
