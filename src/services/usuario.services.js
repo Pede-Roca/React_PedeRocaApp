@@ -61,14 +61,16 @@ export const buscarTodosUsuariosNoBackend = async () => {
     }
 }
 
+
 export const atualizarNivelUsuarioNoBackend = async (userId, novoNivel) => {
     try {
         const { data } = await axios.put(`${import.meta.env.VITE_API_URL}usuario/atualizar-nivel-acesso/${userId}`, {
-            nivelAcesso : novoNivel
+           nivelAcesso : novoNivel
         });
-
         return data;
     } catch (error) {
         console.error(error);
     }
 }
+
+
