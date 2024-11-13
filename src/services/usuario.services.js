@@ -60,5 +60,3 @@ export const buscarTodosUsuariosNoBackend = async () => {
         console.error(error);
     }
 }
-
-
