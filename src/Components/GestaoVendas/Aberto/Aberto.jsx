@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import styles from './Aberto.module.css';
+import { Table, Form, InputGroup } from 'react-bootstrap';
 
 const Aberto = ({ aberto }) => {
   const [nomeUsuario, setNomeUsuario] = useState('');
@@ -14,16 +16,18 @@ const Aberto = ({ aberto }) => {
 
   return (
     <>
-      <h1>Pedidos em aberto</h1>
-      <input
-        type="text"
-        placeholder="Buscar pelo nome do usuário"
-        value={nomeUsuario}
-        onChange={(e) => setNomeUsuario(e.target.value)}
-      />
-      <table>
+      <h2>Pedidos em aberto</h2>
+      <InputGroup className="mb-3">
+        <Form.Control
+          type="text"
+          placeholder="Buscar pelo nome do usuário"
+          value={nomeUsuario}
+          onChange={(e) => setNomeUsuario(e.target.value)}
+        />
+      </InputGroup>
+      <Table bordered hover className={styles.userTable}>
         <thead>
-          <tr>
+          <tr className={styles.tableHeader}>
             <th>Nome do Usuário</th>
             <th>Itens do Carrinho</th>
             <th>Status do Pedido</th>
@@ -54,7 +58,7 @@ const Aberto = ({ aberto }) => {
             </tr>
           )}
         </tbody>
-      </table>
+      </Table>
     </>
   );
 };
