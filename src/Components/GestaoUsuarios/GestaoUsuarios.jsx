@@ -3,7 +3,7 @@ import { Table, Button, Toast } from "react-bootstrap";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import styles from './GestaoUsuarios.module.css';
 import UserInfoModal from "./UserInfoModal";
-import { buscarTodosUsuariosNoBackend, atualizarUsuarioNoBackend, alterarStatusUsuarioNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend, atualizarEnderecoNoBackend } from '../../services';
+import { buscarTodosUsuariosNoBackend, atualizarUsuarioNoBackend, alterarStatusUsuarioNoBackend, buscarEnderecoPorIdDoUsuarioNoBackend, atualizarEnderecoNoBackend, atualizarNivelUsuarioNoBackend } from '../../services';
 
 const niveisAcesso = {
   todos: "Todos",
@@ -94,6 +94,24 @@ const GestaoUsuarios = () => {
 
   const handleFilterChange = (tipo) => {
     setFiltroTipoUsuario(tipo.toLowerCase());
+  };
+
+  const handleChangeAccessLevel = async (userId, newAccessLevel) => {
+    try {
+      await atualizarUsuarioNoBackend(userId, { nivelAcesso: newAccessLevel });
+      setUsuarios((prevUsuarios) =>
+        prevUsuarios.map((user) =>
+          user.id === userId ? { ...user, nivelAcesso: newAccessLevel } : user
+        )
+      );
+      setToastMessage("Nível de acesso atualizado com sucesso!");
+      setToastColor("#7C8C03");
+    } catch (error) {
+      console.error("Erro ao atualizar o nível de acesso:", error);
+      setToastMessage("Erro ao atualizar o nível de acesso.");
+      setToastColor("#A60303");
+    }
+    setShowToast(true);
   };
 
   const formatNameAccessLevel = (level) => {
@@ -210,12 +228,20 @@ const GestaoUsuarios = () => {
                 <td>{user.nome}</td>
                 <td className={styles.MobileOcult}>{user.email}</td>
                 <td className={styles.MobileOcult}>
-                  {user.nivelAcesso === "adm"
-                    ? "Administrador"
-                    : user.nivelAcesso === "comum"
-                      ? "Comum"
-                      : "Produtor"}
+                  <select
+                    value={user.nivelAcesso}
+                    onChange={(e) => handleChangeAccessLevel(user.id, e.target.value)}
+                    className={styles.accessLevelSelect}
+                  >
+                    <option value="comum">Comum</option>
+                    <option value="adm">Administrador</option>
+                    <option value="produtor">Produtor</option>
+                    <option value="assinante">Assinante</option>
+                    <option value="entregador">Entregador</option>
+                  </select>
                 </td>
+
+
                 <td>
                   <Button
                     variant="light"
@@ -237,7 +263,7 @@ const GestaoUsuarios = () => {
           </tbody>
         </Table>
       </div>
-      
+
       <Toast
         onClose={() => setShowToast(false)}
         show={showToast}

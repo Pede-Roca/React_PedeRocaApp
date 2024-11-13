@@ -8,7 +8,7 @@ import Receitas from "../Receitas/Receitas";
 
 const NavBarMobile = () => {
     const { user } = useAuthValue();
-    const [menuNav, setMenuNav] = useState(1);
+    const [menuNav, setMenuNav] = useState(0);
     const [showOverlay, setShowOverlay] = useState(false);
   
     const handleCloseOverlay = () => setShowOverlay(false);
