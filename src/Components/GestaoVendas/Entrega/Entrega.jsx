@@ -17,6 +17,7 @@ const Entregas = ({ entregas }) => {
   return (
     <>
       <h2>Entregas</h2>
+      <div className={styles.barraTitulo}>Pedidos em processo de entrega</div>
       <InputGroup className="mb-3">
         <Form.Control
           type="text"
@@ -28,8 +29,8 @@ const Entregas = ({ entregas }) => {
       <Table bordered hover className={styles.entregasTable}>
         <thead>
           <tr className={styles.tableHeader}>
-            <th>Nome do Usuário</th>
             <th>Data do Pedido</th>
+            <th>Nome do Usuário</th>
             <th>Status</th>
             <th>Tipo de Entrega</th>
             <th>Endereço</th>
@@ -39,15 +40,16 @@ const Entregas = ({ entregas }) => {
           {entregasFiltradas.length > 0 ? (
             entregasFiltradas.map((entrega, index) => (
               <tr key={index}>
-                <td>{entrega.usuario?.nome || 'Usuário não especificado'}</td>
                 <td>{new Date(entrega.data).toLocaleDateString() || 'Data não informada'}</td>
-                <td>{entrega.status ? 'Entregue' : 'Pendente'}</td>
+                <td>{entrega.usuario?.nome || 'Usuário não especificado'}</td>
+                
+                <td>{entrega.status ? 'Enviado' : 'Entregue'}</td>
                 <td>{entrega.tipoEntrega === 1 ? 'Entrega Rápida' : entrega.tipoEntrega === 2 ? 'Entrega Padrão' : 'Entrega Especial'}</td>
                 <td>
                   {entrega.endereco ? (
                     <>
-                      <div>{entrega.endereco.cep}</div>
-                      <div>{entrega.endereco.cidade}, {entrega.endereco.estado}</div>
+                      <div>{entrega.endereco.cidade}</div>
+                      <div>{entrega.endereco.estado}</div>
                     </>
                   ) : 'Endereço não especificado'}
                 </td>

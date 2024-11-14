@@ -16,7 +16,8 @@ const Pedidos = ({ todosPedidos }) => {
 
   return (
     <>
-      <h1>Todos os Pedidos</h1>
+      <h1>Gerenciamento de pedidos</h1>
+      <div className={styles.barraTitulo}>Todos os pedidos</div>
       <InputGroup className="mb-3">
         <Form.Control
           type="text"

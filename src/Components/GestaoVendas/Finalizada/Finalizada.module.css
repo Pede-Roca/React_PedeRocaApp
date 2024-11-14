@@ -10,3 +10,14 @@
     top: 0; 
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
+
+  .barraTitulo {
+    background-color: #F29F05;
+    color: white;
+    padding: 3px;
+    text-align: center;
+    font-weight: bold;
+    margin: 10px 0px;
+    font-weight: bold;
+    font-size: 1.2rem;
+  }

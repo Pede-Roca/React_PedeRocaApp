@@ -17,6 +17,7 @@ const Aberto = ({ aberto }) => {
   return (
     <>
       <h2>Pedidos em aberto</h2>
+      <div className={styles.barraTitulo}>Carrinhos ativos</div>
       <InputGroup className="mb-3">
         <Form.Control
           type="text"
@@ -42,7 +43,7 @@ const Aberto = ({ aberto }) => {
                   {compra.itensCarrinho.length > 0 ? (
                     <ul>
                       {compra.itensCarrinho.map((item, itemIndex) => (
-                        <li key={itemIndex}>{item.nome || 'Item sem nome'}</li>
+                        <li key={itemIndex}>{item.nomeProduto || 'Item sem nome'}</li>
                       ))}
                     </ul>
                   ) : (

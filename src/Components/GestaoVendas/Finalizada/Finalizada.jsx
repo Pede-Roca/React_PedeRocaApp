@@ -16,7 +16,8 @@ const Finalizada = ({ finalizadas }) => {
 
   return (
     <>
-      <h2>Entregas Finalizadas</h2>
+      <h2>Histórico de pedidos</h2>
+      <div className={styles.barraTitulo}>Pedidos Finalizados</div>
       <InputGroup className="mb-3">
         <Form.Control
           type="text"
