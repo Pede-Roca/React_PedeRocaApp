@@ -1,23 +1,91 @@
 .userTable {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 
-  .tableHeader {
-    background-color: #F29F05;
-    color: white;
-    z-index: 10;
-    position: sticky; 
-    top: 0; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.tableHeader {
+  background-color: #F29F05;
+  color: white;
+  z-index: 10;
+  position: sticky; 
+  top: 0; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.barraTitulo {
+  background-color: #F29F05;
+  color: white;
+  padding: 3px;
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.containerProdutos{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  text-align:justify;
+}
+
+.ProdutosDoCarrinho{
+  border-bottom:1px dotted #7C8C03;
+}
+
+.nomeProduto{
+  width: 80%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.quantidade{
+  width: 20%;
+  padding: 0px;
+  margin: 0px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h2, .header button {
+  margin: 20px 20px;
+}
+
+.exportButton{
+  background-color: #7C8C03;
+  color: white;
+  padding: 5px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.scrollContainer {
+  max-height: 68dvh;
+  overflow-y: auto; 
+}
+
+@media screen and (max-width: 767px) {
+  .TamanhoFormPesquisa {
+    display: block;
+    width: 320px;
+    box-sizing: border-box;
   }
 
-  .barraTitulo {
-    background-color: #F29F05;
-    color: white;
-    padding: 3px;
-    text-align: center;
-    font-weight: bold;
-    margin: 10px 0px;
-    font-weight: bold;
-    font-size: 1.2rem;
+  #filtroPesquisa {
+    border-radius: 10px;
+    border: 1px solid #7C8C03;
+    width: 320px;
+    box-sizing: border-box;
   }
+
+  .MobileOcult {
+    display: none;
+  }
+  
+}

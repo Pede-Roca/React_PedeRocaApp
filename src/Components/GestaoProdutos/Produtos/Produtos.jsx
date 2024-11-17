@@ -156,7 +156,7 @@ const Produtos = () => {
       <div className={styles.header}>
         <h2>Gestão de produtos</h2>
         <button className={styles.exportButton} onClick={exportToCSV}>
-          <i className="bi bi-filetype-csv"></i>
+          <i className="bi bi-filetype-csv"></i> CSV
         </button>
         <button className={styles.cadastrarButton} onClick={handleCreate}>
           Cadastrar

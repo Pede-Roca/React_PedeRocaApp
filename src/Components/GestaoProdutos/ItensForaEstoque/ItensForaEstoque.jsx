@@ -68,7 +68,7 @@ const ItensForaEstoque = () => {
             <div className={styles.header}>
                 <h2>Gestão de Estoque</h2>
                 <button className={styles.exportButton} onClick={exportToCSV}>
-                    <i className="bi bi-filetype-csv"></i>
+                    <i className="bi bi-filetype-csv"></i> CSV
                 </button>
             </div>
             <div className={styles.barraTitulo}>Produtos fora de estoque</div>
