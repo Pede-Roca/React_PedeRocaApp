@@ -11,3 +11,7 @@
     border-radius: 5px;
 }
 
+.scrollContainer {
+    max-height: 68dvh;
+    overflow-y: auto; 
+  }

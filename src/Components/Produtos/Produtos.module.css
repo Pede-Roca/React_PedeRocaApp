@@ -11,7 +11,6 @@
     border: none;
     border-radius: 5px;
     background: #f2f2f2;
-    max-width: 95%;
     box-shadow: 0px 0px 5px 5px;
   }
   
@@ -51,7 +50,6 @@
 
 .CartaoProduto{
     margin: 0 auto;
-    width: 80%;
 }
 
 .lastProductSpace {
@@ -76,13 +74,33 @@
   font-weight: bold;
 }
 
+#filtroPesquisa1 form {
+  display: flex;
+  padding: 5px;
+}
+
+#filtroPesquisa1 input {
+  border: 0.5px solid #7C8C03;
+  border-radius: 0px 10px 10px 0px;
+}
+
+#filtroPesquisa1 select {
+  border: 0.5px solid #7C8C03;
+  border-radius: 10px 0px 0px 10px;
+  background-color: #7C8C03;
+  color: #f2f2f2;
+  font-weight: bold;
+}
+
 @media (max-width: 767px) {
     .sideMobile {
       display: none;
     }
     .geralCard {
       width: 100%;
+      margin-top: 10px;
     }
+
     .imagemVenda {
       display: flex;
       justify-content: center;
@@ -211,7 +229,7 @@
 
   @media (min-width: 768px) {
     .geralCard {
-      width: 18rem;
+      width: 21rem;
     }
 
     #TamanhoFormPesquisa{
@@ -226,7 +244,7 @@
     }
     .posicaoFavorito {
       position: absolute;
-      margin-left: 230px;
+      margin-left: 255px;
       margin-top: 2px;
       color: #A83C01;
     }
@@ -243,7 +261,7 @@
       position: absolute;
       background: #A83C01;
       color: #F2F2F2;
-      margin-right: 223px;
+      margin-left: 25px;
       padding: 5px 15px;
       border-radius: 10px 0px 10px 0px;
     }
@@ -308,5 +326,26 @@
     .tamanhoCarrinho::after {
       content: " Carrinho";
     }
+    
+    #filtroPesquisa1 input {
+      width: 85%;
+    }
+    
+    #filtroPesquisa1 select {
+      max-width: 15%;
+      min-width: 140px;
+    }
+
+    .imagemVenda{
+      margin-left: 25px
+    }
+
+    .backgroundSales{
+      justify-content: center;
+      gap: 30px;
+    }
 }
+
+
+
 

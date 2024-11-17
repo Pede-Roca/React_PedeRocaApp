@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Pedidos.module.css';
-import { Table, Form, InputGroup, Button, Modal } from 'react-bootstrap';
+import { Table, Form, InputGroup, Button, Modal, Placeholder } from 'react-bootstrap';
 
 const Pedidos = ({ todosPedidos }) => {
   const [nomeUsuario, setNomeUsuario] = useState('');
   const [pedidosFiltrados, setPedidosFiltrados] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); // Novo estado para carregamento
   const [showModal, setShowModal] = useState(false);
   const [pedidoSelecionado, setPedidoSelecionado] = useState(null);
 
@@ -15,6 +16,12 @@ const Pedidos = ({ todosPedidos }) => {
       )
     );
   }, [nomeUsuario, todosPedidos]);
+
+  useEffect(() => {
+    // Simular carregamento inicial
+    const timer = setTimeout(() => setIsLoading(false), 2000); // Simula 2 segundos de carregamento
+    return () => clearTimeout(timer);
+  }, []);
 
   const exportToCSV = () => {
     const csvData = [
@@ -60,6 +67,7 @@ const Pedidos = ({ todosPedidos }) => {
           placeholder="Buscar pelo nome do usuário"
           value={nomeUsuario}
           onChange={(e) => setNomeUsuario(e.target.value)}
+          disabled={isLoading} // Desabilitar campo durante carregamento
         />
       </InputGroup>
       <div className={styles.scrollContainer}>
@@ -72,7 +80,25 @@ const Pedidos = ({ todosPedidos }) => {
             </tr>
           </thead>
           <tbody>
-            {pedidosFiltrados.length > 0 ? (
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <tr key={index}>
+                  <td>
+                    <Placeholder animation="glow">
+                      <Placeholder xs={6} />
+                    </Placeholder>
+                  </td>
+                  <td>
+                    <Placeholder animation="glow">
+                      <Placeholder xs={4} />
+                    </Placeholder>
+                  </td>
+                  <td>
+                    <Placeholder.Button variant="light" xs={4} />
+                  </td>
+                </tr>
+              ))
+            ) : pedidosFiltrados.length > 0 ? (
               pedidosFiltrados.map((pedido, index) => (
                 <tr key={index}>
                   <td>{pedido.nomeUsuario || 'Usuário não especificado'}</td>
@@ -98,7 +124,7 @@ const Pedidos = ({ todosPedidos }) => {
       </div>
 
       {pedidoSelecionado && (
-          <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal show={showModal} onHide={handleCloseModal} size="lg">
           <Modal.Header closeButton>
             <Modal.Title><h3>Detalhes do Pedido</h3></Modal.Title>
           </Modal.Header>
@@ -109,24 +135,24 @@ const Pedidos = ({ todosPedidos }) => {
             </section>
             <section>
               <div>
-              <span className={styles.estatusCarrinho}>
-                {pedidoSelecionado.status === "aberto" ? "Carrinho Atual" : "Itens Comprados:"}
-              </span>
-              <ul>
-                {pedidoSelecionado.itensComprados.length > 0 ? (
-                  pedidoSelecionado.itensComprados.map((item, idx) => (
-                    <li key={idx} className={styles.linhasPedidos}>
-                      <span className={styles.produtoColuna}>
-                        {item.nomeProduto.length > 10 ? `${item.nomeProduto.slice(0, 10)}...` : item.nomeProduto}
-                      </span>
-                      <p className={styles.qtdColuna}>{item.quantidade}x</p>
-                      <p className={styles.qtdColuna}><span>R$ </span>{item.preco}</p>
-                    </li>
-                  ))
-                ) : (
-                  <p>Carrinho de compras criado, porém ainda não há itens.</p>
-                )}
-              </ul>
+                <span className={styles.estatusCarrinho}>
+                  {pedidoSelecionado.status === "aberto" ? "Carrinho Atual" : "Itens Comprados:"}
+                </span>
+                <ul>
+                  {pedidoSelecionado.itensComprados.length > 0 ? (
+                    pedidoSelecionado.itensComprados.map((item, idx) => (
+                      <li key={idx} className={styles.linhasPedidos}>
+                        <span className={styles.produtoColuna}>
+                          {item.nomeProduto.length > 10 ? `${item.nomeProduto.slice(0, 10)}...` : item.nomeProduto}
+                        </span>
+                        <p className={styles.qtdColuna}>{item.quantidade}x</p>
+                        <p className={styles.qtdColuna}><span>R$ </span>{item.preco}</p>
+                      </li>
+                    ))
+                  ) : (
+                    <p>Carrinho de compras criado, porém ainda não há itens.</p>
+                  )}
+                </ul>
               </div>
               <div className={styles.containerPreco}>
                 <p><span>Valor Total:</span> R$ {pedidoSelecionado.itensComprados

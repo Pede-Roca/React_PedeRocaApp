@@ -28,8 +28,12 @@
 }
 
 @media screen and (min-width: 768px) {
+    .TamanhoConteudo{
+        width: 90%;
+        margin: 0 auto;
+    }
     .DesktopBanner {
-        margin: 8px 5% 0px 5%;
+        margin-top: 10px;
         border-radius: 10px;
     }
     .mobileNavbar{

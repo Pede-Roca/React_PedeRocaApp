@@ -75,11 +75,21 @@ const Produtos = () => {
         id={styles.filtroPesquisa1}
       >
         <form className="d-flex" id={styles.TamanhoFormPesquisa}>
-          <CustomDropdown
-            categorias={categorias}
-            selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
-          />
+          <select
+            className="form-select"
+            onChange={(e) => setSelectedCategories([e.target.value])}
+            value={selectedCategories[0]}
+            aria-label="Categorias"
+            id={styles.selectCategoria}
+          >
+            <option value="Todas as Categorias">Categorias</option>
+            {categorias.map((categoria, index) => (
+              <option key={index} value={categoria.id}>
+                {categoria.nome}
+              </option>
+            ))}
+          </select>
+
           <input
             type="text"
             onChange={(event) => setSearchTerm(event.target.value)}
@@ -93,8 +103,9 @@ const Produtos = () => {
         {showSideBar && <SideBar />}
       </span>
 
+
       <section
-        className="px-2 py-2 d-flex flex-wrap gap-3 justify-content-center align-content-center"
+        className={`py-2 d-flex flex-wrap align-content-center ${styles.backgroundSales}`}
         id="CartaoProduto"
       >
         {filteredProducts.map((produto, i) =>

@@ -74,23 +74,19 @@ const Carrinho = ({ close }) => {
       <h1 className={styles.title}>Carrinho</h1>
       <div className={styles.containerEtapa}>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step === 1 ? styles.active : ""}`}></span>
-          <p>Produtos</p>
+          <span className={`${styles.etapas} ${step === 1 ? styles.active : ""}`}>Produtos</span>
         </div>
         <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step === 2 ? styles.active : ""}`}></span>
-          <p>Entrega</p>
+          <span className={`${styles.etapas} ${step === 2 ? styles.active : ""}`}>Entrega</span>
         </div>
         <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step === 3 ? styles.active : ""}`}></span>
-          <p>Pagamento</p>
+          <span className={`${styles.etapas} ${step === 3 ? styles.active : ""}`}>Pagamento</span>
         </div>
         <span className={styles.CirculoE}></span>
         <div className={styles.etapa}>
-          <span className={`${styles.circle} ${step === 4 ? styles.active : ""}`}></span>
-          <p>Finalização</p>
+          <span className={`${styles.etapas} ${step === 4 ? styles.active : ""}`}>Finalização</span>
         </div>
       </div>
       {step === 1 && <Produtos />}

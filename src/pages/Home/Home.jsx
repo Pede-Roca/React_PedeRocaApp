@@ -18,16 +18,17 @@ const Home = () => {
       <div className={styles.CaixaLogo}>
         <img src={logo} alt="Logo Pede Roça" className={styles.logo} />
       </div>
-      <span onClick={handleShowModal} className={styles.clube}>
-        <img
-          src={banner}
-          alt="Banner"
-          className={styles.DesktopBanner}
-        />
-        <Carrocel />
-      </span>
-      
-      <Produtos />
+      <div className={styles.TamanhoConteudo}>
+        <span onClick={handleShowModal} className={styles.clube}>
+          <img
+            src={banner}
+            alt="Banner"
+            className={styles.DesktopBanner}
+          />
+          <Carrocel />
+        </span>
+        <Produtos />
+      </div>
       <FooterDesktop />
 
       <PlanoAssinatura show={showModal} handleClose={handleCloseModal} />

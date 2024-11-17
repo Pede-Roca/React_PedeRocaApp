@@ -93,8 +93,6 @@ const Produto = ({ produto, i, setProductInCart, updateProductList }) => {
                 </span>
             </div>
             
-            
-
             {user &&
                 <div className={styles.posicaoFavorito}>
                     <button id={styles.boxFavoritoF1} aria-label="Favoritar produto" onClick={() => handleFavorito()}>
