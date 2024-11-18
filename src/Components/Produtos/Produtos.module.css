@@ -229,7 +229,7 @@
 
   @media (min-width: 768px) {
     .geralCard {
-      width: 21rem;
+      width: 18rem;
     }
 
     #TamanhoFormPesquisa{
@@ -244,7 +244,7 @@
     }
     .posicaoFavorito {
       position: absolute;
-      margin-left: 255px;
+      margin-left: 230px;
       margin-top: 2px;
       color: #A83C01;
     }
@@ -261,7 +261,7 @@
       position: absolute;
       background: #A83C01;
       color: #F2F2F2;
-      margin-left: 25px;
+      margin-left: 0px;
       padding: 5px 15px;
       border-radius: 10px 0px 10px 0px;
     }
@@ -337,15 +337,14 @@
     }
 
     .imagemVenda{
-      margin-left: 25px
+      margin-left: 0px;
     }
 
     .backgroundSales{
       justify-content: center;
-      gap: 30px;
+      gap: 10px;
     }
 }
-
 
 
 
