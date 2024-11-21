@@ -90,3 +90,121 @@ Para adicionar um novo componente:
 - [Documentação do Firebase](https://firebase.google.com/docs)
 
 ---
+## Descrição dos Principais Componentes
+
+### Home.jsx
+
+- **Descrição**: Componente principal da página inicial, responsável por renderizar o conteúdo principal da interface.
+- **Relação e Dependência**: 
+  - **Pais**: `App.jsx`
+  - **Filhos**: `Carrocel`, `Produtos`, `FooterDesktop`, `PlanoAssinatura`
+- **Responsabilidades**:
+  - Renderizar o logotipo e o banner.
+  - Gerenciar a exibição do modal de plano de assinatura.
+  - Integrar componentes de produtos e carrossel.
+
+### AdminPage.jsx
+
+- **Descrição**: Componente principal da página de administração, responsável por gerenciar e exibir as funcionalidades administrativas.
+- **Relação e Dependência**:
+  - **Pais**: `App.jsx`
+  - **Filhos**: Componentes específicos de administração (não detalhados aqui).
+- **Responsabilidades**:
+  - Renderizar a interface de administração.
+  - Gerenciar a navegação e as ações administrativas.
+
+### Carrocel
+
+- **Descrição**: Componente de carrossel para exibir imagens ou produtos em rotação.
+- **Relação e Dependência**:
+  - **Pais**: `Home.jsx`
+  - **Filhos**: Nenhum
+- **Responsabilidades**:
+  - Exibir itens em um carrossel interativo.
+
+### Produtos
+
+- **Descrição**: Componente para listar e exibir produtos.
+- **Relação e Dependência**:
+  - **Pais**: `Home.jsx`
+  - **Filhos**: Nenhum
+- **Responsabilidades**:
+  - Renderizar a lista de produtos disponíveis.
+
+### FooterDesktop
+
+- **Descrição**: Componente de rodapé para a versão desktop.
+- **Relação e Dependência**:
+  - **Pais**: `Home.jsx`
+  - **Filhos**: Nenhum
+- **Responsabilidades**:
+  - Exibir informações de rodapé na versão desktop.
+
+### PlanoAssinatura
+
+- **Descrição**: Componente de modal para gerenciar planos de assinatura.
+- **Relação e Dependência**:
+  - **Pais**: `Home.jsx`
+  - **Filhos**: Nenhum
+- **Responsabilidades**:
+  - Exibir e gerenciar a assinatura de planos.
+
+---
+
+## Diagramas de Componentes
+
+Para ilustrar a hierarquia e interação entre os componentes, utilize ferramentas como Figma ou Lucidchart para criar diagramas visuais. Aqui está um exemplo de como a hierarquia de componentes pode ser representada:
+
+App.jsx
+│
+├── Home.jsx
+│   ├── Carrocel
+│   ├── Produtos
+│   ├── FooterDesktop
+│   └── PlanoAssinatura
+│
+└── AdminPage.jsx
+
+---
+
+## Explicação do Gerenciamento de Estado
+
+### Estado Global
+
+#### Context API
+
+- **Descrição**: Utilizado para gerenciar o estado global da aplicação, como autenticação e dados do usuário.
+- **Dados Mantidos**:
+  - Autenticação do usuário.
+  - Informações do usuário.
+- **Exemplo de Uso**:
+  - O estado de autenticação é gerenciado no `AuthProvider` e acessado em componentes filhos através do contexto.
+
+### Estado Local
+
+#### Hooks de Estado
+
+- **useState**:
+  - Utilizado para gerenciar estados locais em componentes individuais.
+  - Exemplo: `const [showModal, setShowModal] = useState(false);` no componente `Home.jsx` para controlar a exibição do modal.
+- **useEffect**:
+  - Utilizado para efeitos colaterais, como chamadas de API ou manipulação do DOM.
+  - Exemplo: `useEffect(() => { ... }, [auth]);` no componente `App.jsx` para monitorar mudanças na autenticação.
+
+---
+
+## Uso de Contextos e Hooks Customizados
+
+### Contextos
+
+- **AuthContext**:
+  - **Descrição**: Gerencia o estado de autenticação do usuário.
+  - **Uso**: Fornece o estado de autenticação e funções relacionadas para componentes filhos.
+
+### Hooks Customizados
+
+- **userAuthentication**:
+  - **Descrição**: Hook personalizado para lidar com a lógica de autenticação.
+  - **Uso**: Simplifica a lógica de autenticação e pode ser reutilizado em diferentes componentes.
+
+---
