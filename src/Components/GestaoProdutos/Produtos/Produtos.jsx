@@ -22,6 +22,7 @@ const Produtos = () => {
     try {
       const data = await buscarProdutosNoBackend();
       setProdutos(data);
+      console.log(data);
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
     }
