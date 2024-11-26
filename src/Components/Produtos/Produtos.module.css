@@ -135,7 +135,19 @@
       padding: 2px 5px;
       border-radius: 5px;
     }
-  
+
+    .posicaoPrecoPromocional {
+      position: absolute;
+      color: #F2F2F2;
+      background: #F29F05;
+      font-size: 1.2rem;
+      left: 0;
+      margin-left: 15px;
+      padding: 2px 5px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 4px 2px #F29F05;
+    }
+
     .nomeProduto {
       padding: 5px 0px;
     }
@@ -264,6 +276,17 @@
       margin-left: 0px;
       padding: 5px 15px;
       border-radius: 10px 0px 10px 0px;
+    }
+
+    .posicaoPrecoPromocional {
+      position: absolute;
+      color: #F2F2F2;
+      background: #F29F05;
+      margin-left: 0px;
+      padding: 5px 15px;
+      border-radius: 10px 0px 10px 0px;
+      font-weight: bold;
+      box-shadow: 0px 0px 4px 2px #F29F05;
     }
     .nomeProduto {
       padding: 5px 0px;
