@@ -72,3 +72,12 @@ export const atualizarNivelUsuarioNoBackend = async (userId, novoNivel) => {
         console.error(error);
     }
 }
+
+export const atualizarDadosPerfilUsuarioNoBackend = async (userId, payload) => {
+    try {
+        const { data } = await axios.put(`${import.meta.env.VITE_API_URL}usuario/alterar-dados-perfil/${userId}`, payload);
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
