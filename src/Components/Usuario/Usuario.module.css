@@ -13,15 +13,15 @@
 }
 
 .btnTrocarFoto {
-  position: absolute; 
-  bottom: 4px; 
-  right: 10px; 
-  background-color: #7C8C03; 
-  border: none; 
-  cursor: pointer; 
-  color: #F2F2F2; 
-  font-size: 1.2rem; 
-  border: 2px solid #7C8C03; 
+  position: absolute;
+  bottom: 4px;
+  right: 10px;
+  background-color: #7C8C03;
+  border: none;
+  cursor: pointer;
+  color: #F2F2F2;
+  font-size: 1.2rem;
+  border: 2px solid #7C8C03;
   border-radius: 50%;
 }
 
@@ -60,7 +60,9 @@
   font-weight: bold;
 }
 
-.btnAlterar, .btnExcluir{
+
+.btnAlterar,
+.btnExcluir {
   color: white;
   border: none;
   padding: 10px 20px;
@@ -69,7 +71,7 @@
   cursor: pointer;
   width: 49%;
   font-weight: bold;
-} 
+}
 
 .btnDados:hover,
 .btnAdicionar:hover,
@@ -80,11 +82,14 @@
   font-weight: bold;
 }
 
-.btnDados, .btnAdicionar, .btnAlterar {
+.btnDados,
+.btnAdicionar,
+.btnAlterar {
   background-color: #7C8C03;
 }
 
-.btnSair, .btnExcluir {
+.btnSair,
+.btnExcluir {
   background-color: #A83C01;
 }
 
@@ -96,7 +101,7 @@
   font-weight: bold;
 }
 
-.btnAdicionar{
+.btnAdicionar {
   color: white;
   border: none;
   border-radius: 5px;
@@ -107,7 +112,7 @@
   padding: 10px 20px;
 }
 
-.selectEndereco{
+.selectEndereco {
   border-radius: 10px;
   padding: 10px;
   width: 48%;
@@ -136,7 +141,7 @@
   font-weight: bold;
 }
 
-.labelEndereco{
+.labelEndereco {
   font-size: 1.2rem;
   color: #7C8C03;
   width: 100%;
@@ -151,6 +156,11 @@
   margin-bottom: 10px;
   border-radius: 5px;
   border: 1px solid #7C8C03;
+}
+
+.input:disabled {
+  background: #f2f2f2;
+  cursor: not-allowed;
 }
 
 .input2 {
@@ -252,7 +262,7 @@
   display: block;
 }
 
-.TituloHist{
+.TituloHist {
   color: white;
   font-weight: bold;
   text-align: center;
@@ -260,7 +270,7 @@
   padding: 5px;
 }
 
-.carrinhoItem{
+.carrinhoItem {
   border: 1px solid #7C8C03;
   border-radius: 10px;
   padding: 10px;
@@ -268,14 +278,14 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.containerHist{
+.containerHist {
   display: flex;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #7C8C03
 }
 
-.containerHist > p > strong {
+.containerHist>p>strong {
   margin: 10px 10px;
   background: #7C8C03;
   border-radius: 10px;
@@ -283,24 +293,24 @@
   padding: 5px 10px;
 }
 
-.table{
+.table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.cabecalhoTabela{
+.cabecalhoTabela {
   border-bottom: 1px solid #7C8C03;
   color: #7C8C03;
   font-weight: bold;
   text-align: left;
 }
 
-.conteudoTabela{
+.conteudoTabela {
   border-bottom: 1px solid #7C8C03;
   padding: 10px;
 }
 
-.btnRecompra{
+.btnRecompra {
   background: #7C8C03;
   color: white;
   border: none;
@@ -311,7 +321,7 @@
   margin: 10px 0px;
 }
 
-.TotalValor{
+.TotalValor {
   border: 1px solid #A83C01;
   color: #A83C01;
   padding: 5px 10px;
@@ -321,16 +331,16 @@
   margin: 10px 5px;
 }
 
-.btnRecompra:hover{
+.btnRecompra:hover {
   background: #f2f2f2;
   color: #7C8C03;
   box-shadow: inset 0 0 0 1px #7C8C03;
 }
 
-.ocultarColuna{
+.ocultarColuna {
   display: none;
 }
 
-.tituloEndereco{
+.tituloEndereco {
   margin-bottom: 20px;
 }
