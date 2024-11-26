@@ -208,3 +208,114 @@ App.jsx
   - **Uso**: Simplifica a lógica de autenticação e pode ser reutilizado em diferentes componentes.
 
 ---
+# Mapeamento dos Fluxos de Navegação do Site
+
+---
+
+## Fluxos de Navegação
+
+### 1. Autenticação
+
+#### Fluxo de Login
+
+1. **Tela de Login**:
+   - **Objetivo**: Permitir que o usuário faça login na aplicação.
+   - **Principais Elementos**: Campos de e-mail e senha, botão de login, link para recuperação de senha.
+   - **Ações Disponíveis**: 
+     - Inserir e-mail e senha.
+     - Clicar no botão de login para autenticar.
+     - Clicar no link de recuperação de senha para redirecionar à tela de recuperação.
+
+**Fluxograma:**
+
+### 2. Fluxo Principal
+
+#### Home
+
+1. **Tela Inicial (Home)**:
+   - **Objetivo**: Exibir o conteúdo principal e opções de navegação.
+   - **Principais Elementos**: Banner, carrossel de produtos, lista de categorias, rodapé.
+   - **Ações Disponíveis**: 
+     - Navegar pelas categorias.
+     - Visualizar detalhes dos produtos.
+     - Acessar o carrinho de compras.
+
+**Fluxograma:**
+
+#### Busca
+
+1. **Tela de Busca**:
+   - **Objetivo**: Permitir que o usuário busque produtos específicos.
+   - **Principais Elementos**: Campo de busca, lista de resultados.
+   - **Ações Disponíveis**: 
+     - Inserir termos de busca.
+     - Visualizar e selecionar produtos dos resultados.
+
+**Fluxograma:**
+
+#### Categorias
+
+1. **Tela de Categorias**:
+   - **Objetivo**: Exibir produtos por categoria.
+   - **Principais Elementos**: Lista de categorias, lista de produtos.
+   - **Ações Disponíveis**: 
+     - Selecionar uma categoria.
+     - Visualizar produtos da categoria selecionada.
+
+**Fluxograma:**
+
+#### Detalhes do Produto
+
+1. **Tela de Detalhes do Produto**:
+   - **Objetivo**: Exibir informações detalhadas sobre um produto.
+   - **Principais Elementos**: Imagem do produto, descrição, preço, botão de adicionar ao carrinho.
+   - **Ações Disponíveis**: 
+     - Adicionar o produto ao carrinho.
+     - Voltar para a lista de produtos.
+
+**Fluxograma:**
+
+### 3. Funções do Usuário
+
+#### Perfil
+
+1. **Tela de Perfil**:
+   - **Objetivo**: Permitir que o usuário visualize e edite suas informações pessoais.
+   - **Principais Elementos**: Campos de informações pessoais, botão de editar.
+   - **Ações Disponíveis**: 
+     - Editar informações pessoais.
+     - Salvar alterações.
+
+**Fluxograma:**
+
+#### Favoritos
+
+1. **Tela de Favoritos**:
+   - **Objetivo**: Exibir produtos favoritos do usuário.
+   - **Principais Elementos**: Lista de produtos favoritos.
+   - **Ações Disponíveis**: 
+     - Visualizar detalhes dos produtos favoritos.
+     - Remover produtos dos favoritos.
+
+**Fluxograma:**
+
+#### Carrinho de Compras
+
+1. **Tela de Carrinho de Compras**:
+   - **Objetivo**: Exibir produtos adicionados ao carrinho e permitir a finalização da compra.
+   - **Principais Elementos**: Lista de produtos no carrinho, botão de finalizar compra.
+   - **Ações Disponíveis**: 
+     - Remover produtos do carrinho.
+     - Finalizar compra.
+
+**Fluxograma:**
+
+#### Histórico de Pedidos
+
+1. **Tela de Histórico de Pedidos**:
+   - **Objetivo**: Exibir o histórico de compras do usuário.
+   - **Principais Elementos**: Lista de pedidos anteriores.
+   - **Ações Disponíveis**: 
+     - Visualizar detalhes dos pedidos.
+
+**Fluxograma:**
