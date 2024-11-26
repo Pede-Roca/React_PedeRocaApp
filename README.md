@@ -227,6 +227,19 @@ App.jsx
      - Clicar no link de recuperação de senha para redirecionar à tela de recuperação.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 16 51 39_0f699560](https://github.com/user-attachments/assets/72a4366d-5d20-46df-a042-c1a216870b74)
+
+#### Fluxo de Cadastro
+
+1. **Tela de Cadastro**:
+    - **Objetivo**: Permitir que novos usuários se registrem na aplicação.
+    - **Principais Elementos**: Campos de nome, e-mail, senha, confirmação de senha, botão de cadastro
+    - **Ações Disponíveis**:
+      - Preencher os campos de cadastro.
+      - Clicar no botão de cadastro para criar uma nova conta.
+
+**Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 16 54 17_4c645c6d](https://github.com/user-attachments/assets/5c4a8191-153d-474a-86cf-ef7646396eb4)
 
 ### 2. Fluxo Principal
 
@@ -241,6 +254,7 @@ App.jsx
      - Acessar o carrinho de compras.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 16 58 02_7a083031](https://github.com/user-attachments/assets/47b69c8f-157a-429f-8296-ad7cccd309c5)
 
 #### Busca
 
@@ -252,6 +266,7 @@ App.jsx
      - Visualizar e selecionar produtos dos resultados.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 10 38_da44587e](https://github.com/user-attachments/assets/5f82334b-bcc2-48a0-87af-f7471d224a36)
 
 #### Categorias
 
@@ -263,6 +278,7 @@ App.jsx
      - Visualizar produtos da categoria selecionada.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 12 02_818f4e25](https://github.com/user-attachments/assets/8a73f5cb-e623-44cf-a283-0558b440109b)
 
 #### Detalhes do Produto
 
@@ -274,6 +290,7 @@ App.jsx
      - Voltar para a lista de produtos.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 13 37_8f32d31b](https://github.com/user-attachments/assets/1f761f62-5288-4413-a4c6-fee8e878bce9)
 
 ### 3. Funções do Usuário
 
@@ -287,6 +304,7 @@ App.jsx
      - Salvar alterações.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 15 00_62031389](https://github.com/user-attachments/assets/49d9da1d-5ec6-49e3-bcf4-659aea1a2829)
 
 #### Favoritos
 
@@ -298,6 +316,7 @@ App.jsx
      - Remover produtos dos favoritos.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 21 25_6f8d7174](https://github.com/user-attachments/assets/407c7a88-262c-4cda-b051-762cc6692544)
 
 #### Carrinho de Compras
 
@@ -309,6 +328,7 @@ App.jsx
      - Finalizar compra.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 23 16_57c22299](https://github.com/user-attachments/assets/3b56d46a-e02b-42cc-b58b-26238c31087d)
 
 #### Histórico de Pedidos
 
@@ -319,3 +339,4 @@ App.jsx
      - Visualizar detalhes dos pedidos.
 
 **Fluxograma:**
+![Imagem do WhatsApp de 2024-11-26 à(s) 17 24 11_d9c3124b](https://github.com/user-attachments/assets/7954b4f5-5132-4871-b789-5a2a2418f7ca)
