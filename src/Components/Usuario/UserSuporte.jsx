@@ -1,5 +1,7 @@
 import React from "react";
+import Accordion from "react-bootstrap/Accordion";
 import styles from "./Usuario.module.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const UserSuporte = ({ onBack }) => {
     return (
@@ -57,7 +59,59 @@ export const UserSuporte = ({ onBack }) => {
                 height="250"
                 loading="lazy"
             ></iframe>
-            
+
+            <h4 className={styles.titulo}>Perguntas Frequentes (FAQ)</h4>
+            <Accordion defaultActiveKey="0">
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header>Quais métodos de pagamento são aceitos?</Accordion.Header>
+                    <Accordion.Body>
+                        Aceitamos cartões de crédito, débito e boleto bancário. 
+                        Também trabalhamos com métodos de pagamento digitais como Pix e carteiras digitais.
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                    <Accordion.Header>Tipos de Entrega</Accordion.Header>
+                    <Accordion.Body>
+                        Oferecemos entregas rápidas para a região de Matão e transportadoras para outras localidades. 
+                        O prazo de entrega será informado no momento da compra.
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                    <Accordion.Header>Formas de Contato</Accordion.Header>
+                    <Accordion.Body>
+                    Você pode nos contatar pelo número (17) 9987-7654 WhatsApp, e-mail ou redes sociais.
+                    Estamos disponíveis de segunda a sábado, das 8h às 18h
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3">
+                    <Accordion.Header>Vocês oferecem descontos ou promoções?</Accordion.Header>
+                    <Accordion.Body>
+                    Sim, temos promoções semanais e descontos
+                    exclusivos para assinantes da nossa newsletter.
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="4">
+                    <Accordion.Header>Posso alterar ou cancelar meu pedido?</Accordion.Header>
+                    <Accordion.Body>
+                    Sim, alterações ou cancelamentos
+                    podem ser feitos até 1 hora após a compra.
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="5">
+                    <Accordion.Header> Como acompanho meu pedido?</Accordion.Header>
+                    <Accordion.Body>
+                    Após a confirmação, você poderá acompanhar pelo site PeDeRoça.
+                    </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="5">
+                    <Accordion.Header> Vocês têm valor mínimo para entrega?
+                    </Accordion.Header>
+                    <Accordion.Body>
+                    Sim, o valor mínimo para entrega local é de R$ 50,00.
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
+
             <button onClick={onBack} className={styles.btnBack}>
                 <i className="bi bi-arrow-return-left"></i>
             </button>
