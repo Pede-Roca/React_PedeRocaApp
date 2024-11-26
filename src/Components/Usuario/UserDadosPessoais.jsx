@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./Usuario.module.css";
-import InputMask from 'react-input-mask';
 import { useFetchUserData } from "./useFetchUserData";
 import { useAuth } from "./useAuth";
 import { atualizarDadosPerfilUsuarioNoBackend } from '../../services';
@@ -17,14 +16,21 @@ export const UserDadosPessoais = ({ onBack }) => {
         telefone: "",
     });
 
-    const telefoneRef = useRef(null);
-
     const removerMascaraTelefone = (telefone) => {
         return telefone.replace(/\D/g, '');
     };
 
+    const aplicarMascaraTelefone = (telefone) => {
+        if (!telefone) return "";
+        const apenasNumeros = telefone.replace(/\D/g, '');
+        return apenasNumeros
+            .replace(/^(\d{2})(\d)/, '($1) $2') 
+            .replace(/(\d{5})(\d)/, '$1-$2') 
+            .slice(0, 15);
+    };
+
     const removerMascaraCPF = (cpf = "") => {
-        return cpf.replace(/\D/g, ''); // Remove todos os caracteres que não são dígitos
+        return cpf.replace(/\D/g, '');
     };
 
     const [isEditable, setIsEditable] = useState(false);
@@ -56,8 +62,8 @@ export const UserDadosPessoais = ({ onBack }) => {
         const payload = {
             ...formDataWithoutId,
             cpf: removerMascaraCPF(formData.cpf),
-            telefone: removerMascaraTelefone(formDataWithoutId.telefone),
-        }
+            telefone: removerMascaraTelefone(formData.telefone),
+        };
 
         const data = await atualizarDadosPerfilUsuarioNoBackend(id, payload);
 
@@ -90,11 +96,18 @@ export const UserDadosPessoais = ({ onBack }) => {
                     />
 
                     <label htmlFor="telefone" className={styles.label}>Telefone</label>
-                    <InputMask
-                        ref={telefoneRef}
-                        mask="(99) 99999-9999"
-                        value={formData.telefone}
-                        onChange={(e) => handleChange({ target: { name: 'telefone', value: e.target.value } })}
+                    <input
+                        type="text"
+                        name="telefone"
+                        value={aplicarMascaraTelefone(formData.telefone)}
+                        onChange={(e) =>
+                            handleChange({
+                                target: {
+                                    name: "telefone",
+                                    value: removerMascaraTelefone(e.target.value),
+                                },
+                            })
+                        }
                         disabled={!isEditable}
                         className={styles.input}
                     />
