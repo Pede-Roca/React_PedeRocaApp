@@ -1,4 +1,4 @@
-name: 'Frontend React Build Artefatos'
+name: "Frontend React Build Artefatos"
 
 trigger:
   branches:
@@ -9,26 +9,24 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: "Release"
 
 jobs:
   - job: BuildAndTest
-    displayName: 'Publicação do artefato de React Front'
+    displayName: "Publicação do artefato de React Front"
 
     steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+          displayName: "Install Node.js"
 
-    - task: NodeTool@0
-      inputs:
-        versionSpec: '20.x'
-        displayName: 'Install Node.js'
+      - task: CmdLine@2
+        inputs:
+          script: "npm install"
+          displayName: "Instalação das Dependencias"
 
-    - task: CmdLine@2
-      inputs:
-        script: 'npm install'
-        displayName: 'Instalação das Dependencias'
-
-    - task: CmdLine@2
-      inputs:
-        script: 'npm run build'
-        displayName: 'Gerando Artefato do Build'
-
+      - task: CmdLine@2
+        inputs:
+          script: "npm run build:deploy"
+          displayName: "Gerando Artefato do Build"
