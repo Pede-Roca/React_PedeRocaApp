@@ -340,3 +340,28 @@ App.jsx
 
 **Fluxograma:**
 ![Imagem do WhatsApp de 2024-11-26 à(s) 17 24 11_d9c3124b](https://github.com/user-attachments/assets/7954b4f5-5132-4871-b789-5a2a2418f7ca)
+
+# Instruções de Configuração do Ambiente de Desenvolvimento
+
+---
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de ter os seguintes softwares instalados em sua máquina:
+
+- **Node.js**: Recomendado a versão LTS mais recente. [Baixar Node.js](https://nodejs.org/)
+- **npm**: Geralmente vem junto com o Node.js. Verifique a versão com `npm -v`.
+- **Git**: Para clonar o repositório. [Baixar Git](https://git-scm.com/)
+
+---
+
+## Clonagem do Repositório
+
+Para clonar o repositório do projeto, abra o terminal e execute o seguinte comando:
+
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+
+
+
+
