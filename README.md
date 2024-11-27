@@ -371,3 +371,91 @@ git clone https://github.com/seu-usuario/seu-repositorio.git
 ![Imagem do WhatsApp de 2024-11-27 à(s) 00 25 12_838a9bb9](https://github.com/user-attachments/assets/6781115d-f21a-43e7-86da-e6df98b5c8d4)
 
 
+# Guia de Estilo de Código
+
+---
+
+## Padrões de Código
+
+### Convenções de Nomenclatura
+
+- **Nomes de Variáveis**: Utilize `camelCase` para variáveis.
+  
+  let minhaVariavel = 10;
+
+- **Nomes de Constantes**: Utilize UPPER_CASE para constantes.
+
+  const MINHA_CONSTANTE = 100;
+
+- **Nomes de Componentes**: Utilize PascalCase para componentes React.
+  
+  function MeuComponente() {
+  return <div>Olá, mundo!</div>;
+  }
+
+### Estrutura dos Arquivos e Nomes
+
+- **Pastas**: Utilize kebab-case para nomes de pastas.
+  src/
+    components/
+    pages/
+    services/
+
+
+- **Componentes React**: Utilize PascalCase.js para nomes de arquivos de componentes React.
+  src/
+  components/
+    MeuComponente.js
+
+
+# Instruções para Contribuição
+
+---
+
+## Processo de Desenvolvimento
+
+### Branches
+
+Utilize branches para cada feature, bug fix, ou hotfix, com convenções de nomenclatura.
+
+- Exemplo para feature: `feature/nome-da-feature`
+- Exemplo para bug fix: `bugfix/descricao-do-bug`
+
+### Branch Principal
+
+Mantenha a branch `main` ou `master` sempre estável e limpa para o desenvolvimento.
+
+---
+
+## Pull Requests (PRs)
+
+### Instruções para Criar um PR
+
+- Inclua um título descritivo.
+- Adicione uma descrição detalhada das mudanças.
+
+### Checklist para Envio de PR
+
+- Código rodando localmente e sem erros de lint.
+- Adicionar screenshots ou GIFs, se aplicável, para ilustrar as mudanças visuais.
+- Todo PR deve ser revisado por pelo menos um desenvolvedor antes de ser mesclado.
+
+---
+
+## Processo de Revisão de Código
+
+### Importância das Revisões de Código
+
+As revisões de código são essenciais para manter a qualidade e consistência do código.
+
+### Instruções para Revisores
+
+- Verificar conformidade com o guia de estilo.
+- Avaliar a legibilidade e clareza do código.
+- Sugerir potenciais melhorias de performance e uso de melhores práticas.
+
+### Como Fazer Sugestões e Solicitar Mudanças
+
+Utilize comentários no PR para fazer sugestões e solicitar mudanças, se necessário.
+
+---
