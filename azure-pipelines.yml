@@ -9,7 +9,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  buildConfiguration: "Release"
+  - group: variables-frontcore
 
 jobs:
   - job: BuildAndTest
