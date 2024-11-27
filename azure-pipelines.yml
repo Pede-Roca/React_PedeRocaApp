@@ -23,7 +23,9 @@ jobs:
 
       - task: CmdLine@2
         inputs:
-          script: "npm install"
+          script: |
+            npm install -g firebase-tools
+            npm install
           displayName: "Instalação das Dependencias"
 
       - task: CmdLine@2
