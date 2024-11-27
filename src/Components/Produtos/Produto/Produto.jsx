@@ -87,14 +87,18 @@ const Produto = ({ produto, i, setProductInCart, updateProductList }) => {
 
     return (
         <div className={styles.geralCard}>
-            <div className={styles.posicaoPreco}>
-                <span id="precoProduto">
-                    R$ {formatPrice(produto.preco)}
-                </span>
+            <div
+            className={
+                produto.fatorPromocao < 1
+                ? `${styles.posicaoPrecoPromocional}`
+                : `${styles.posicaoPreco}`
+            }
+            >
+            <span id="precoProduto">
+                R$ {formatPrice(produto.preco * produto.fatorPromocao)} {produto.fatorPromocao < 1 && <> | {((1 - produto.fatorPromocao) * 100).toFixed(0)}% OFF</>}
+            </span>
             </div>
             
-            
-
             {user &&
                 <div className={styles.posicaoFavorito}>
                     <button id={styles.boxFavoritoF1} aria-label="Favoritar produto" onClick={() => handleFavorito()}>

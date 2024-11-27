@@ -158,23 +158,18 @@ const Cadastro = () => {
             <div className={styles.containerEtapa}>
                 <div className={styles.etapa}>
                     <span
-                        className={`${styles.circle} ${step === 1 ? styles.active : ""}`}
-                    ></span>
-                    <p className={styles.stepTitle}>Acesso</p>
+                        className={`${styles.etapas} ${step === 1 ? styles.active : ""}`}
+                    >Acesso</span>
                 </div>
-                <span className={styles.CirculoE}></span>
                 <div className={styles.etapa}>
                     <span
-                        className={`${styles.circle} ${step === 2 ? styles.active : ""}`}
-                    ></span>
-                    <p className={styles.stepTitle}>Usuário</p>
+                        className={`${styles.etapas} ${step === 2 ? styles.active : ""}`}
+                    >Usuário</span>
                 </div>
-                <span className={styles.CirculoE}></span>
                 <div className={styles.etapa}>
                     <span
-                        className={`${styles.circle} ${step === 3 ? styles.active : ""}`}
-                    ></span>
-                    <p className={styles.stepTitle}>Entrega</p>
+                        className={`${styles.etapas} ${step === 3 ? styles.active : ""}`}
+                    >Entrega</span>
                 </div>
             </div>
 

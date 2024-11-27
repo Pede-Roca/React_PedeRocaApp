@@ -62,10 +62,6 @@ const GestaoUsuarios = () => {
     }
   }, [selectedUser]);
 
-  const handleDelete = (id) => {
-    console.log(`Excluir usuário ${id}`);
-  };
-
   const handleToggleStatus = async (id) => {
     const user = usuarios.find((user) => user.id === id);
     const novoStatus = !user.status;
@@ -157,7 +153,7 @@ const GestaoUsuarios = () => {
       <div className={styles.header}>
         <h2>Gestão de usuários</h2>
         <button className={styles.exportButton} onClick={exportToCSV}>
-          <i className="bi bi-filetype-csv"></i>
+          <i className="bi bi-filetype-csv"></i> CSV
         </button>
         <button className={styles.cadastrarButton}>Cadastrar</button>
       </div>
@@ -249,13 +245,6 @@ const GestaoUsuarios = () => {
                     className={styles.actionButton}
                   >
                     <i className="bi bi-info-square" id={styles.editIcon}></i>
-                  </Button>
-                  <Button
-                    variant="light"
-                    onClick={() => handleDelete(user.id)}
-                    className={styles.actionButton}
-                  >
-                    <i className="bi bi-trash" id={styles.deleteIcon}></i>
                   </Button>
                 </td>
               </tr>

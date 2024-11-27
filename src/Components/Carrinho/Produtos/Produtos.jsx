@@ -38,9 +38,6 @@ export const Produtos = () => {
                     <h5 className={styles.tituloCarrinho}>Itens do Carrinho</h5>
                     {produtos.map((produto, i) => (
                         <div key={i} className={styles.containerCarrinho}>
-                            <button className={styles.lixeira} onClick={() => removerProduto(produto.idProdutoPedido)}>
-                                <i className="bi bi-trash" id={styles.lixeira}></i>
-                            </button>
                             <button
                                 className={styles.btn_changeQuantityMinus}
                                 onClick={() => atualizarQuantidadeProduto(produto.idProdutoPedido, false)}
@@ -54,7 +51,9 @@ export const Produtos = () => {
                             >
                                 <i className="bi bi-plus" id={styles.add}></i>
                             </button>
-                            <span className={styles.nomeProduto}>{produto.nomeProduto}</span>
+                            <span className={styles.nomeProduto}>
+                                {produto.nomeProduto.length > 12 ? produto.nomeProduto.slice(0, 12) + '...' : produto.nomeProduto}
+                            </span>
                             <span className={styles.precoProduto}>
                                 R$ {(produto.preco * produto.quantidade).toFixed(2)}
                             </span>

@@ -4,32 +4,24 @@
     display: flex;
   }
   
-  .circle {
-    width: 40px;
+  .etapas {
+    width: 100px;
     height: 40px;
-    border-radius: 50%;
-    border: 1px solid #A83C01;
+    border-bottom: 1px solid #A83C01;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
-    font-weight: bold;
     position: relative;
     z-index: 1;
   }
   
-  .circle.active {
+  .etapas.active {
     background-color: #A83C01;
     color: white;
-  }
-
-  .CirculoE{
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: #A83C01;
-    margin-top: 15px;
+    border-radius: 10px;
+    font-weight: bold;
   }
 
   .etapa{
@@ -76,16 +68,16 @@
   }
 
   .btn_changeQuantityPlus{
-    border-radius: 50%;
+    border-radius: 5px;
     background-color: #7C8C03;
     border: none;
   }
 
   .btn_changeQuantityMinus{
-    border-radius: 50%;
+    border-radius: 5px;
     background-color: #A83C01;
     border: none;
-    margin-left: 10px;
+    margin: 0px 0px 0px 10px;
   }
 
   .nomeProduto{
@@ -135,7 +127,7 @@
     align-items: center;
     border: 1px solid #7C8C03;
     border-radius: 10px;
-    padding: 0px 5px;
+    padding: 5px;
     margin: 5px 0px;
   }
 

@@ -4,6 +4,10 @@ import styles from './GestaoVendas.module.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { buscarComprasFinalizadasNoBackend, buscarComprasFinalizadaParaTodosOsPedidosNoBackend } from '../../services';
+import Pedidos from './Pedidos/Pedidos';
+import Aberto from './Aberto/Aberto';
+import Entrega from './Entrega/Entrega';
+import Finalizada from './Finalizada/Finalizada';
 
 const GestaoVendas = () => {
   const [todosPedidos, setTodosPedidos] = useState([]);
@@ -47,36 +51,16 @@ const GestaoVendas = () => {
         fill
       >
         <Tab eventKey="Pedidos" title="Pedidos">
-          <h1>Colocar componente de lista de Pedidos</h1>
-          <ul>
-            {todosPedidos.map((compra, index) => (
-              <li key={index}>{compra.status}</li>
-            ))}
-          </ul>
+          <Pedidos todosPedidos={todosPedidos} />
         </Tab>
         <Tab eventKey="Aberto" title="Aberto">
-          <h1>Colocar componente de lista de Acompanhamento de Vendas</h1>
-          <ul>
-            {aberto.map((compra, index) => (
-              <li key={index}>{compra.data}</li>
-            ))}
-          </ul>
+          <Aberto aberto={aberto} />
         </Tab>
         <Tab eventKey="Entrega" title="Entregas">
-          <h1>Falta entregar</h1>
-          <ul>
-            {entregas.map((compra, index) => (
-              <li key={index}>{compra.data}</li>
-            ))}
-          </ul>
+          <Entrega  entregas={entregas} />
         </Tab>
         <Tab eventKey="Finalizadas" title="Finalizadas">
-          <h1>A definir</h1>
-          <ul>
-            {finalizadas.map((compra, index) => (
-              <li key={index}>{compra.data}</li>
-            ))}
-          </ul>
+          <Finalizada finalizadas={finalizadas} />
         </Tab>
       </Tabs>
     </>

@@ -68,7 +68,7 @@ const StepAcesso = ({
                         className={styles.toggleButton}
                         aria-label="Mostrar/Esconder senha"
                     >
-                        {showPassword ? "🙈" : "👁️"}
+                        {showPassword ? <i class="bi bi-eye-slash"></i> : <i class="bi bi-eye"></i>}
                     </button>
                 </div>
             </label>
@@ -89,7 +89,7 @@ const StepAcesso = ({
                         className={styles.toggleButton}
                         aria-label="Mostrar/Esconder confirmação da senha"
                     >
-                        {showConfirmedPassword ? "🙈" : "👁️"}
+                        {showConfirmedPassword ? <i className="bi bi-eye-slash"></i> : <i className="bi bi-eye"></i>}
                     </button>
                 </div>
                 {renderPassError && (

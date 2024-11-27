@@ -16,6 +16,8 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
   const [previewImage, setPreviewImage] = useState(produto?.uidFoto || '');
   const [hasTempUrl, setHasTempUrl] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [fatorPromocao, setFatorPromocao] = useState(produto?.fatorPromocao || 0);
+  const fatorValidado = (fatorPromocao >= 0.1 && fatorPromocao <= 1) ? fatorPromocao : 1;
 
   useEffect(() => {
     if (produto) {
@@ -27,6 +29,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
       setIdUnidade(produto.idUnidade || '');
       setUidFoto(produto.uidFoto || '');
       setPreviewImage(produto.uidFoto || '');
+      setFatorPromocao(produto.fatorPromocao || 1);
     }
   }, [produto]);
 
@@ -40,6 +43,7 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
       idCategoria,
       idUnidade,
       uidFoto: uidFoto || '',
+      fatorPromocao: Number(fatorPromocao),
     };
 
     try {
@@ -144,6 +148,17 @@ const ProdutoInfoModal = ({ show, handleClose, produto, categorias, unidadesMedi
                 value={estoque}
                 onChange={(e) => setEstoque(e.target.value)}
                 className={styles.inputField}
+              />
+            </label>
+            <label className={styles.label}>Fator de Promoção:
+              <input
+                type="number"
+                value={fatorPromocao}
+                onChange={(e) => setFatorPromocao(e.target.value)}
+                className={styles.inputField}
+                step="0.01"
+                max={1}
+                min={0.1}
               />
             </label>
             <label className={styles.label}>Categoria:

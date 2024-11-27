@@ -9,6 +9,9 @@ import { userAuthentication } from './hooks/userAuthentication'
 import { useEffect, useState } from 'react'
 import { AuthProvider } from './context/AuthContext'
 import { BrowserRouter, Routes, Route, Navigate, Form } from 'react-router-dom'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   const [user, setUser] = useState(undefined)
@@ -33,6 +36,7 @@ function App() {
             <Route path='/' element={<Home/>}></Route>
             <Route path='/admin' element={<AdminPage />}></Route>
           </Routes>
+          <ToastContainer />
         </BrowserRouter>
       </AuthProvider>
     </>
