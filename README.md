@@ -359,9 +359,15 @@ Antes de começar, certifique-se de ter os seguintes softwares instalados em sua
 
 Para clonar o repositório do projeto, abra o terminal e execute o seguinte comando:
 
-```bash
+bash
 git clone https://github.com/seu-usuario/seu-repositorio.git
 
-
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 12 35_0d76b859](https://github.com/user-attachments/assets/f9d1eff6-3d9f-4d63-891d-aff1f20f1c4b)
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 14 31_edd71cb0](https://github.com/user-attachments/assets/5aa80041-96af-47ab-9f9c-78f28d0e9822)
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 18 59_b63a7316](https://github.com/user-attachments/assets/2da099c5-740d-4095-82f1-6407c49cbbd2)
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 20 10_ca7b0465](https://github.com/user-attachments/assets/108598c0-b159-4dc4-9b8e-32f0afba544b)
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 21 50_4e1872a1](https://github.com/user-attachments/assets/e5298cf8-582f-470e-9337-559c8c8ec565)
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 23 28_c7d41239](https://github.com/user-attachments/assets/19a28c90-c969-4250-a0be-960c80274328)
+![Imagem do WhatsApp de 2024-11-27 à(s) 00 25 12_838a9bb9](https://github.com/user-attachments/assets/6781115d-f21a-43e7-86da-e6df98b5c8d4)
 
 
