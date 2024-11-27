@@ -168,8 +168,6 @@ export const recomprarProdutosNoFront = async (carrinho) => {
         const idCarrinhoCompra = carrinho.idCarrinhoCompra;
         const idUsuario = await capturarIdDoUsuarioESetarNoLocalStorage();
 
-        console.log(carrinho)
-
         // Verificar se as informações essenciais estão presentes
         if (!idCarrinhoCompra || !idUsuario) {
             throw new Error("Erro ao obter as informações essenciais: idCarrinhoCompra ou idUsuario não encontrados");
