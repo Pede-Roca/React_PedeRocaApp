@@ -7,8 +7,14 @@ export const UserCompras = ({ onBack }) => {
 
   const handleRecompra = async (carrinho) => {
     console.log("Recompra", carrinho);
-    const response = await recomprarProdutosNoFront(carrinho);
-    console.log("response", response);
+    const { status, message, data } = await recomprarProdutosNoFront(carrinho);
+    
+    if(status) {
+      alert('Os produtos foram adicionados no carrinho com sucesso!')
+    } else {
+      console.log('opa teve um erro aqui')
+      console.log(data)
+    }
   }
 
   useEffect(() => {

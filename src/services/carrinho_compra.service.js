@@ -83,7 +83,9 @@ export const buscarItensDoCarrinhoPorUsuarioNoBackend = async () => {
 };
 
 // Remove um produto do carrinho de compra no backend
-export const removerProdutoDoCarrinhoNoBackend = async (idCarrinhoCompra, idProdutoPedido) => {
+export const removerProdutoDoCarrinhoNoBackend = async (idProdutoPedido) => {
+    const idCarrinhoCompra = await capturaIdDoCarrinho();
+
     const { data, erro } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/remover-produto-carrinho`, {
         idCarrinhoCompra,
         idProdutoPedido
@@ -107,7 +109,7 @@ export const finalizarCompraNoBackend = async (tipoEntrega, tipoPagamento, idEnd
             idEndereco,
             idCarrinhoCompra
         })
-        console.log(data);
+        // console.log(data);
         // return { status: true, message: data.message };
 
         return { status: true, message: "Compra finalizada com sucesso" };
@@ -116,26 +118,100 @@ export const finalizarCompraNoBackend = async (tipoEntrega, tipoPagamento, idEnd
     }
 };
 
+const criarProdutoPedidoParaRecompra = async (quantidadeProduto, idProduto) => {
+    const { data, erro } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}produto-pedido`, {
+        quantidadeProduto, idProduto
+    })
+
+    return erro ? erro : data
+}
+
+const adicionarProdutosAoCarrinhoDeCompraParaRecompra = async (lista_id_produtos_pedidos) => {
+    try {
+        const idCarrinhoCompra = await capturaIdDoCarrinho();
+        
+        // Verificar se o carrinho foi encontrado
+        if (!idCarrinhoCompra) {
+            throw new Error('Erro: Carrinho de compra não encontrado');
+        }
+
+        const resultados = [];
+
+        // Iterar sobre a lista de produtos e adicionar cada um ao carrinho
+        for (const id of lista_id_produtos_pedidos) {
+            const { data, erro } = await realizarRequisicao("post", `${import.meta.env.VITE_API_URL}carrinho-compra/adicionar-no-carrinho`, {
+                idCarrinhoCompra, 
+                idProdutosPedido: id
+            });
+
+            if (erro) {
+                // Adicionar ao array de resultados caso haja erro
+                resultados.push({ idProduto: id, sucesso: false, erro });
+            } else {
+                // Caso a requisição tenha sido bem-sucedida
+                resultados.push({ idProduto: id, sucesso: true, data });
+            }
+        }
+
+        // Retornar os resultados para análise posterior
+        return resultados;
+    } catch (error) {
+        console.error('Erro ao adicionar produtos ao carrinho:', error.message);
+        return { status: false, message: `Erro geral: ${error.message}` };
+    }
+};
+
+
 // Logica para recompra
 export const recomprarProdutosNoFront = async (carrinho) => {
     try {
-        const idCarrinhoCompra = await capturaIdDoCarrinho();
+        const idCarrinhoCompra = carrinho.idCarrinhoCompra;
         const idUsuario = await capturarIdDoUsuarioESetarNoLocalStorage();
-        if (!idCarrinhoCompra || !idUsuario) throw new Error("Erro ao obter o informações importantes");
 
-        const { data: itens_carrinho } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario`, {
+        console.log(carrinho)
+
+        // Verificar se as informações essenciais estão presentes
+        if (!idCarrinhoCompra || !idUsuario) {
+            throw new Error("Erro ao obter as informações essenciais: idCarrinhoCompra ou idUsuario não encontrados");
+        }
+
+        // Realizar a requisição para buscar os itens no carrinho
+        const { data: itens_carrinho, erro } = await realizarRequisicao("get", `${import.meta.env.VITE_API_URL}carrinho-compra/itens-carrinho-por-usuario`, {
             params: {
                 idUsuario,
                 idCarrinhoCompra
             }
         });
 
-        console.log('itens_carrinho', itens_carrinho);
+        // Verificar se ocorreu algum erro na requisição
+        if (erro) throw new Error("Erro ao buscar itens do carrinho");
 
+        let produtosSemEstoque = [];
 
-        return { status: true, message: "tudo ok" };
+        // Verificar estoque para cada item
+        if (Array.isArray(itens_carrinho)) for (const item of itens_carrinho) { if (item.estoque < item.quantidade) { produtosSemEstoque.push(item); } }
+
+        // Se houver produtos sem estoque, retornar a mensagem de erro
+        if (produtosSemEstoque.length) {
+            console.log(produtosSemEstoque)
+            return { status: false, message: "Os seguintes produtos não têm estoque suficiente para compra", data: produtosSemEstoque };
+        }
+
+        let lista_id_produtos_pedidos = []
+
+        for (const produto of itens_carrinho) {
+            const { id } = await criarProdutoPedidoParaRecompra(produto.quantidade, produto.idProduto)
+            lista_id_produtos_pedidos.push(id)
+        }
+
+        let resultados = await adicionarProdutosAoCarrinhoDeCompraParaRecompra(lista_id_produtos_pedidos);
+
+        // Se todos os produtos têm estoque suficiente
+        return resultados.every(item => item.sucesso)
+            ? { status: true, message: "Produtos adicionados ao carrinho para recompra com sucesso!" }
+            : { status: false, message: "Houve erro ao adicionar alguns produtos", data: resultados };
+
     } catch (error) {
-        console.error(error);
-        return { status: false, message: "Erro ao adicionar produtos no carrinho" };
+        return { status: false, message: `Erro geral: ${error.message}` };
     }
-}
+};
